@@ -1,0 +1,6 @@
+debug
+**/fla/RECOVER_*
+app/jspm_packages
+app/node_modules
+app/bower_components
+app/submodules

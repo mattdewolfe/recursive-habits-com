@@ -1,0 +1,12 @@
+{
+    "name": "insult-generator",
+    "version": "0.9.29",
+    "description": "Insult Generator",
+    "authors": [
+        "M.D."
+    ],
+    "dependencies": {
+        "phaser": "^2.6.0",
+        "systemjs": "https://github.com/systemjs/systemjs.git"
+    }
+}

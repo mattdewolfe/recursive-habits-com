@@ -1,0 +1,4 @@
+[submodule "app/submodules/dijon"]
+	path = app/submodules/dijon
+	url = https://bitbucket.org/relishinc/phaser-dijon-lib.git
+	branch = V2

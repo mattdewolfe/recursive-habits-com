@@ -1,0 +1,308 @@
+{
+    "audiosprite": {
+        "resources": [
+            "sprite/fx_1.m4a",
+            "sprite/fx_1.ogg"
+        ],
+        "spritemap": {
+            "animateDown": {
+                "start": 0,
+                "end": 0.5080045351473923,
+                "loop": false
+            },
+            "animateUp": {
+                "start": 3,
+                "end": 3.4556689342403626,
+                "loop": false
+            },
+            "logoIn": {
+                "start": 6,
+                "end": 6.276349206349206,
+                "loop": false
+            },
+            "logoOut": {
+                "start": 9,
+                "end": 9.26734693877551,
+                "loop": false
+            },
+            "lose": {
+                "start": 12,
+                "end": 14.313333333333333,
+                "loop": false
+            },
+            "pickupBatteryLarge": {
+                "start": 17,
+                "end": 18.64233560090703,
+                "loop": false
+            },
+            "pickupBatterySmall": {
+                "start": 21,
+                "end": 22.619319727891156,
+                "loop": false
+            },
+            "pickupBoost": {
+                "start": 25,
+                "end": 27.401337868480727,
+                "loop": false
+            },
+            "scoreTick": {
+                "start": 30,
+                "end": 30.05233560090703,
+                "loop": false
+            },
+            "toggle": {
+                "start": 33,
+                "end": 33.98,
+                "loop": false
+            },
+            "victory": {
+                "start": 36,
+                "end": 38.970680272108844,
+                "loop": false
+            }
+        }
+    },
+    "main": {
+        "adjectives": [
+            "lazy",
+            "stupid",
+            "insecure",
+            "idiotic",
+            "slimy",
+            "smutty",
+            "smelly",
+            "pompous",
+            "communist",
+            "dicknosed",
+            "pie-eating",
+            "racist",
+            "elitist",
+            "white trash",
+            "millenial",
+            "drug-loving",
+            "tone deaf",
+            "mouth breather",
+            "indignant",
+            "self-righteous",
+            "self-loathing",
+            "inglorious",
+            "over compensating",
+            "brutal",
+            "careless",
+            "tasteless",
+            "classless",
+            "homeless",
+            "helpless",
+            "loveless",
+            "retarded",
+            "mental",
+            "butter-faced"
+        ],
+        "nouns": [
+            {
+                "single": "douche",
+                "plural": "douches"
+            },
+            {
+                "single": "ass",
+                "plural": "asses"
+            },
+            {
+                "single": "turd",
+                "plural": "turds"
+            },
+            {
+                "single": "rectum",
+                "plural": "rectums"
+            },
+            {
+                "single": "butt",
+                "plural": "butts"
+            },
+            {
+                "single": "cock",
+                "plural": "cocks"
+            },
+            {
+                "single": "shit",
+                "plural": "shit"
+            },
+            {
+                "single": "crotch",
+                "plural": "crotches"
+            },
+            {
+                "single": "turd",
+                "plural": "turds"
+            },
+            {
+                "single": "horse",
+                "plural": "horses"
+            },
+            {
+                "single": "slut",
+                "plural": "sluts"
+            },
+            {
+                "single": "chum",
+                "plural": "chum"
+            },
+            {
+                "single": "dick",
+                "plural": "dicks"
+            },
+            {
+                "single": "boner",
+                "plural": "boners"
+            },
+            {
+                "single": "shart",
+                "plural": "sharts"
+            },
+            {
+                "single": "nut",
+                "plural": "nuts"
+            },
+            {
+                "single": "sphincter",
+                "plural": "sphincters"
+            },
+            {
+                "single": "trash",
+                "plural": "trash"
+            },
+            {
+                "single": "fly",
+                "plural": "flies"
+            },
+            {
+                "single": "insect",
+                "plural": "insects"
+            },
+            {
+                "single": "sewage",
+                "plural": "sewage"
+            },
+            {
+                "single": "urine",
+                "plural": "urine"
+            },
+            {
+                "single": "urinal cake",
+                "plural": "urinal cakes"
+            },
+            {
+                "single": "condom",
+                "plural": "condoms"
+            },
+            {
+                "single": "tampon",
+                "plural": "tampons"
+            },
+            {
+                "single": "feces",
+                "plural": "feces"
+            },
+            {
+                "single": "turkey",
+                "plural": "turkeys"
+            },
+            {
+                "single": "mistake",
+                "plural": "mistakes"
+            }
+        ],
+        "pronouns": [
+            "pilot",
+            "canoe",
+            "captain",
+            "pirate",
+            "knob",
+            "box",
+            "jockey",
+            "nazi",
+            "roach",
+            "waffle",
+            "goblin",
+            "blossum",
+            "biscuit",
+            "clown",
+            "socket",
+            "monster",
+            "hound",
+            "dragon",
+            "balloon",
+            "hooker",
+            "admiral",
+            "astronaut",
+            "skater",
+            "wanna-be",
+            "recepticle",
+            "plumber",
+            "therapist",
+            "orphan",
+            "president",
+            "king",
+            "queen",
+            "prince",
+            "duke",
+            "baron",
+            "baroness",
+            "princess",
+            "pleb",
+            "hipster",
+            "peasant"
+        ],
+        "adverbsHow": [
+            "angrily",
+            "anxiously",
+            "barely",
+            "brutally",
+            "briefly",
+            "constantly",
+            "crossly",
+            "elegantly",
+            "easily",
+            "fondly",
+            "foolishly",
+            "gingerly",
+            "hardly",
+            "lazily",
+            "loudly",
+            "merrily",
+            "noisily",
+            "painfully",
+            "poorly",
+            "selfishly",
+            "silently",
+            "softly",
+            "swiftly",
+            "thoroughly"
+        ],
+        "actionVerbs": [
+            "scraping",
+            "dipping",
+            "licking",
+            "fucking",
+            "banging",
+            "tasting",
+            "scratching",
+            "tasting"
+        ],
+        "actionNouns": [
+            "fucker",
+            "licker",
+            "scraper",
+            "banger",
+            "tickler",
+            "washer",
+            "diddler",
+            "sniffer",
+            "wiper",
+            "receiver",
+            "masher",
+            "smasher",
+            "pusher"
+        ]
+    }
+}
