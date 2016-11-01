@@ -9,6 +9,10 @@ export default class MenuMediator extends BaseMediator {
         return this.gameModel.generateTitle();
     }
     
+    public getRandomShipTitle(): string {
+        return this.gameModel.generateShipName();
+    }
+    
     public requestTTSAudio(readText: string): void {
         this.sendNotification(Notifications.REQUEST_TTS_AUDIO, readText);
     }

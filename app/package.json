@@ -1,8 +1,8 @@
 {
-  "name": "insult-generator",
-  "version": "0.9.29",
+  "name": "recursive-habits",
+  "version": "0.0.1",
   "private": true,
-  "description": "Howler Test",
+  "description": "RHcom",
   "devDependencies": {
     "bower": "^1.3.9",
     "browser-sync": "^2.11.1",

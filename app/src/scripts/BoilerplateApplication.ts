@@ -53,20 +53,14 @@ export default class BoilerplateApplication extends Application {
     }
 
     public adjustScaleSettings(): void {
-        if (Device.cocoon) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        if (this.game.device.desktop) {
+            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
             this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
         } else {
-            if (this.game.device.desktop) {
-                this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-                this.game.scale.pageAlignHorizontally = true;
-            } else {
-                this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-            }
-            this.game.scale.forceLandscape = true;
-            this.game.scale.refresh();
+            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
         }
+        
+        this.game.scale.refresh();
     }
 
     public adjustRendererSettings(): void {

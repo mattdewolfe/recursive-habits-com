@@ -9,11 +9,7 @@ export default class Menu extends BaseState {
     protected _isGenerating: boolean = false;
     protected _oldTitle: Phaser.Image;
     protected _newTitle: Phaser.Image;
-    protected _repeating: boolean = true;
     protected _fontSize: number;
-
-    protected _spriteData: any;
-    protected _lastSound: number = 0;
 
     // Phaser.State overrides
     public init() {
@@ -54,44 +50,45 @@ export default class Menu extends BaseState {
 
     // private methods
     private _addVisuals(): void {
-        this._spriteData = this.mediator.audioSpriteData;
-        let buttonWidth = this.game.width * 0.35 > 400 ? 400 : this.game.width * 0.3;
-        let row: number = 1;
-        let column: number = 1;
-        let repeat = new Phaser.Button(this.game, 125, 75 * row, 'up', this._playLast, this);
-        repeat.setPivot('center');
-        this.add.existing(repeat);
-        let label = new Text(repeat.x, repeat.y + 60, 'REPLAY LAST', Constants.FONT_RALEWAY, 20, Constants.STR_BLUE);
-        label.centerPivot();
-        this.add.existing(label);
-        for (let key in this._spriteData.spritemap) {
-            let button = new Phaser.Button(this.game, 200 +(300 * column), 200 * row, 'up', this._playSFX, this);
-            button.setPivot('center');
-            button.name = key;
-            this.add.existing(button);
-            column++;
-            if (column >= 4) { 
-                row++;
-                column = 0;
-            }
-            label = new Text(button.x, button.y + 60, key, Constants.FONT_RALEWAY, 20, Constants.STR_BLUE);
-            label.centerPivot();
-            this.add.existing(label);
+        let title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'AND THE SHIP WAS NAMED...', Constants.FONT_RALEWAY, this._fontSize, Constants.STR_BLUE);
+        title.centerPivot();
+
+        let button = Placeholders.button(this.game.width * 0.5, this.game.height * 0.35, this.game.width * 0.35, this.game.width * 0.1, false, 'PRESS ME', this._generateShipName, this);
+        button.centerPivot();
+        this.add.existing(button);
+    }
+
+    private _generateShipName(): void {
+        if (this._isGenerating === true) {
+            return;
         }
-    }
-    
-    private _playLast(): void {
-        this.game.audio.playAudio('fx_1', this._lastSound);
-    }
-    
-    private _playSFX(button: Phaser.Sprite): void {
-        this._lastSound = this.game.audio.playAudio('fx_1', button.name);
-    }
+        this._isGenerating = true;
+        if (this._oldTitle !== null) {
+            this.game.add.tween(this._oldTitle).to({ y: this.game.height * 1.25 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._clearOldTitle, this);;
+        }
+        let newCopy = this.mediator.getRandomShipTitle();
+        let newText = new Text(0, 0, newCopy.toUpperCase(), Constants.FONT_RALEWAY, this._fontSize, Constants.STR_NEW_TITLE, 'center', true, this.game.width);
+        newText.fontSize = this._fontSize * 0.8;
+        let gfx = this.game.add.graphics(-500, 0);
+        gfx.beginFill(Constants.NUM_ORANGE_BOX, 0.8);
+        gfx.drawRoundedRect(0, 0, newText.width * 20, newText.height + 20, 10);
+        gfx.endFill();
 
-    private _stop(): void {
-        this._repeating = false;
-    }
+        this._newTitle = this.add.image(this.game.width * 0.5,  -500, gfx.generateTexture());
+        this._newTitle.alpha = 0;
+        this._newTitle.y = this.game.height * 0.7;
+        this.game.world.remove(gfx);
 
+        this._newTitle.setPivot('center');
+        newText.setPivot('center');
+        newText.x = this._newTitle.width * 0.5;
+        newText.y = this._newTitle.height * 0.5;
+        this._newTitle.addChild(newText);
+
+        this.game.add.tween(this._newTitle).to({ alpha: 1 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._setCurrentAsOld, this);
+        this.mediator.requestTTSAudio(newCopy);
+    }   
+    
     private _generateNewName(): void {
         if (this._isGenerating === true) {
             return;

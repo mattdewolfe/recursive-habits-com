@@ -1,68 +1,5 @@
 {
-    "audiosprite": {
-        "resources": [
-            "sprite/fx_1.m4a",
-            "sprite/fx_1.ogg"
-        ],
-        "spritemap": {
-            "animateDown": {
-                "start": 0,
-                "end": 0.5080045351473923,
-                "loop": false
-            },
-            "animateUp": {
-                "start": 3,
-                "end": 3.4556689342403626,
-                "loop": false
-            },
-            "logoIn": {
-                "start": 6,
-                "end": 6.276349206349206,
-                "loop": false
-            },
-            "logoOut": {
-                "start": 9,
-                "end": 9.26734693877551,
-                "loop": false
-            },
-            "lose": {
-                "start": 12,
-                "end": 14.313333333333333,
-                "loop": false
-            },
-            "pickupBatteryLarge": {
-                "start": 17,
-                "end": 18.64233560090703,
-                "loop": false
-            },
-            "pickupBatterySmall": {
-                "start": 21,
-                "end": 22.619319727891156,
-                "loop": false
-            },
-            "pickupBoost": {
-                "start": 25,
-                "end": 27.401337868480727,
-                "loop": false
-            },
-            "scoreTick": {
-                "start": 30,
-                "end": 30.05233560090703,
-                "loop": false
-            },
-            "toggle": {
-                "start": 33,
-                "end": 33.98,
-                "loop": false
-            },
-            "victory": {
-                "start": 36,
-                "end": 38.970680272108844,
-                "loop": false
-            }
-        }
-    },
-    "main": {
+    "insults": {
         "adjectives": [
             "lazy",
             "stupid",
@@ -303,6 +240,205 @@
             "masher",
             "smasher",
             "pusher"
+        ]
+    },
+    "ships": {
+        "noun": [
+            {
+                "single": "pearl",
+                "plural": "pearls"
+            },
+            {
+                "single": "silver",
+                "plural": "silver"
+            },
+            {
+                "single": "fire",
+                "plural": "fires"
+            },
+            {
+                "single": "flame",
+                "plural": "flames"
+            },
+            {
+                "single": "sea",
+                "plural": "seas"
+            },
+            {
+                "single": "tide",
+                "plural": "tides"
+            },
+            {
+                "single": "storm",
+                "plural": "storms"
+            },
+            {
+                "single": "squall",
+                "plural": "squalls"
+            },
+            {
+                "single": "tear",
+                "plural": "tears"
+            },
+            {
+                "single": "cannon",
+                "plural": "cannons"
+            },
+            {
+                "single": "blade",
+                "plural": "blades"
+            },
+            {
+                "single": "spear",
+                "plural": "spears"
+            },
+            {
+                "single": "lion",
+                "plural": "lions"
+            },
+            {
+                "single": "gale",
+                "plural": "gales"
+            },
+            {
+                "single": "ocean",
+                "plural": "oceans"
+            },
+            {
+                "single": "god",
+                "plural": "gods"
+            },
+            {
+                "single": "earth",
+                "plural": "earth"
+            },
+            {
+                "single": "bastion",
+                "plural": "bastions"
+            },
+            {
+                "single": "slave",
+                "plural": "slaves"
+            },
+            {
+                "single": "shield",
+                "plural": "shields"
+            },
+            {
+                "single": "wall",
+                "plural": "walls"
+            }
+        ],
+        "emotion": [
+            "despair",
+            "greed",
+            "hate",
+            "envy",
+            "pride",
+            "joy",
+            "zeal",
+            "wonder",
+            "pity",
+            "innocence",
+            "fear",
+            "loathing",
+            "contempt",
+            "love",
+            "grief",
+            "adoration",
+            "spite",
+            "sorrow",
+            "guilt",
+            "sympathy"
+        ],
+        "colour": [
+            "slate",
+            "black",
+            "red",
+            "onyx",
+            "emerald",
+            "sapphire",
+            "golden",
+            "crimson",
+            "cobalt",
+            "ivory",
+            "ebony",
+            "midnight",
+            "slate",
+            "olive",
+            "salmon",
+            "rose"
+        ],
+        "event": [
+            "destruction",
+            "rebirth",
+            "creation",
+            "defeat",
+            "victory",
+            "return",
+            "descent",
+            "ascent",
+            "decree",
+            "arrival",
+            "embrace",
+            "betrayal",
+            "revenge",
+            "redemption",
+            "deception"
+        ],
+        "title": [
+            {
+                "single": "master",
+                "plural": "masters"
+            },
+            {
+                "single": "queen",
+                "plural": "queens"
+            },
+            {
+                "single": "lord",
+                "plural": "lords"
+            },
+            {
+                "single": "merchant",
+                "plural": "merchants"
+            },
+            {
+                "single": "trader",
+                "plural": "traders"
+            },
+            {
+                "single": "traitor",
+                "plural": "traitors"
+            },
+            {
+                "single": "commander",
+                "plural": "commanders"
+            },
+            {
+                "single": "admiral",
+                "plural": "admirals"
+            },
+            {
+                "single": "duke",
+                "plural": "dukes"
+            },
+            {
+                "single": "lady",
+                "plural": "ladies"
+            },
+            {
+                "single": "hunter",
+                "plural": "hunters"
+            },
+            {
+                "single": "god",
+                "plural": "gods"
+            },
+            {
+                "single": "champion",
+                "plural": "champions"
+            }
         ]
     }
 }

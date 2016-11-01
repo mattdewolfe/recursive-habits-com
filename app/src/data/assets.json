@@ -4,15 +4,6 @@
             {
                 "type": "image", 
                 "url": "up.png"
-            },
-            {
-                "type": "howlerSprite",
-                "url": "fx_1"
-            },
-            {
-                "type": "howlerSound",
-                "url": "menu_loop",
-                "extensions": "ogg,mp3,m4a"
             }
         ]
     },

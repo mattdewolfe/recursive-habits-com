@@ -20,6 +20,26 @@ export interface IWordData {
     actionNouns: string[];
 }
 
+export enum EShipType {
+    TheColourNoun,
+    TheColourEvent,
+    TitleOfNouns,
+    TitleOfEmotion,
+    NounsEmotion,
+    TheColourTitle,
+    TitlesEvent,
+    EmotionTitle,
+    Max
+}
+
+export interface IShipData {
+    noun: { single: string, plural: string }[];
+    emotion: string[];
+    colour: string[];
+    event: string[];
+    title: { single: string, plural: string }[];
+}
+
 export class GameModel extends Model {
     public static MODEL_NAME: string = "gameModel";
 
@@ -28,29 +48,84 @@ export class GameModel extends Model {
     }
 
     public get randomPronoun(): string {
-        return this.data.pronouns[Math.round(Math.random() * (this.data.pronouns.length - 1))];
+        return this.insData.pronouns[Math.round(Math.random() * (this.insData.pronouns.length - 1))];
     }
 
     public get randomAdjective(): string {
-        return this.data.adjectives[Math.round(Math.random() * (this.data.adjectives.length - 1))];
+        return this.insData.adjectives[Math.round(Math.random() * (this.insData.adjectives.length - 1))];
     }
 
     public get randomNoun(): {single: string, plural: string} {
-        return this.data.nouns[Math.round(Math.random() * (this.data.nouns.length - 1))];
+        return this.insData.nouns[Math.round(Math.random() * (this.insData.nouns.length - 1))];
     }
 
     public get randomActionVerb(): string {
-        return this.data.actionVerbs[Math.round(Math.random() * (this.data.actionVerbs.length - 1))];
+        return this.insData.actionVerbs[Math.round(Math.random() * (this.insData.actionVerbs.length - 1))];
     }
 
     public get randomAdverbHow(): string {
-        return this.data.adverbsHow[Math.round(Math.random() * (this.data.adverbsHow.length - 1))];
+        return this.insData.adverbsHow[Math.round(Math.random() * (this.insData.adverbsHow.length - 1))];
     }
 
     public get randomActionNoun(): string {
-        return this.data.actionNouns[Math.round(Math.random() * (this.data.actionNouns.length - 1))];
+        return this.insData.actionNouns[Math.round(Math.random() * (this.insData.actionNouns.length - 1))];
     }
 
+    public get randomShipNoun(): {single: string, plural: string} {
+        return this.shipData.noun[Math.round(Math.random() * (this.shipData.noun.length - 1))];
+    }
+
+    public get randomShipTitle(): {single: string, plural: string} {
+        return this.shipData.title[Math.round(Math.random() * (this.shipData.title.length - 1))];
+    }
+
+    public get randomShipColour(): string {
+        return this.shipData.colour[Math.round(Math.random() * (this.shipData.colour.length - 1))];
+    }
+
+    public get randomShipEvent(): string {
+        return this.shipData.event[Math.round(Math.random() * (this.shipData.event.length - 1))];
+    }
+
+    public get randomShipEmotion(): string {
+        return this.shipData.emotion[Math.round(Math.random() * (this.shipData.emotion.length - 1))];
+    }
+
+    public generateShipName(): string {
+        let newTitle: string;
+        let type: EShipType = <EShipType>(Math.round(Math.random() * (EShipType.Max - 1)));
+        switch (type) {
+            case EShipType.NounsEmotion:
+                newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipEmotion;
+                break;
+            case EShipType.TheColourEvent:
+                newTitle = "The " + this.randomShipColour + " " + this.randomShipEvent;
+                break;
+            case EShipType.TheColourNoun:
+                newTitle = "The " + this.randomShipColour + " " + this.randomShipNoun.single;
+                break;
+            case EShipType.TheColourTitle:
+                newTitle = "The " + this.randomShipColour + " " + this.randomShipTitle.single;
+                break;
+            case EShipType.TitleOfEmotion:
+                newTitle = this.randomShipTitle.single + " of " + this.randomShipEmotion;
+                break;
+            case EShipType.TitleOfNouns:
+                newTitle = this.randomShipTitle.single + " of " + this.randomShipNoun.plural;
+                break;
+            case EShipType.TitlesEvent:
+                newTitle = this.randomShipTitle.single + "'s " + this.randomShipEvent;
+                break;
+            case EShipType.NounsEmotion:
+                newTitle = this.randomShipNoun.plural + " " + this.randomShipEmotion;
+                break;
+            case EShipType.EmotionTitle:
+                newTitle = this.randomShipEmotion + " " + this.randomShipTitle.single;
+                break;
+        }
+        return newTitle;
+    } 
+    
     public generateTitle(): string {
         let newTitle: string = 'You...';
         let type: ETitleType = <ETitleType>(Math.round(Math.random() * (ETitleType.Max - 1)));
@@ -91,7 +166,11 @@ export class GameModel extends Model {
         return newTitle;
     }
 
-    private get data(): IWordData {
-        return <IWordData>this._data['main'];
+    private get shipData(): IShipData {
+        return <IShipData>this._data['ships'];
+    }
+
+    private get insData(): IWordData {
+        return <IWordData>this._data['insults'];
     }
 }
