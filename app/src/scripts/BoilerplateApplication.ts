@@ -43,7 +43,6 @@ export default class BoilerplateApplication extends Application {
 
     public preloadComplete(): void {
         this.responsiveVoice = window['responsiveVoice'];
-        console.log(window);
     }
 
     public ttsText(readText: string): void {
@@ -53,23 +52,17 @@ export default class BoilerplateApplication extends Application {
     }
 
     public adjustScaleSettings(): void {
-        if (this.game.device.desktop) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-            this.game.scale.pageAlignHorizontally = true;
-        } else {
-            this.game.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-        }
-        
+        this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.game.scale.refresh();
     }
 
     public adjustRendererSettings(): void {
         this.game.stage.disableVisibilityChange = true;
         this.game.forceSingleUpdate = true;
-        //this.game.camera.roundPx = false;
-        //this.game.renderer.renderSession.roundPixels = false;
-        //this.game.antialias = true;
-        //this.game.renderer.clearBeforeRender = this.game.renderType === Phaser.CANVAS;
+        this.game.camera.roundPx = false;
+        this.game.renderer.renderSession.roundPixels = false;
+        this.game.antialias = true;
+        this.game.renderer.clearBeforeRender = this.game.renderType === Phaser.CANVAS;
     }
 
     // called from the boot state as we can't initialize plugins until the game is booted

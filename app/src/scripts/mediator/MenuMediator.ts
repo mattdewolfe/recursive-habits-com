@@ -13,6 +13,10 @@ export default class MenuMediator extends BaseMediator {
         return this.gameModel.generateShipName();
     }
     
+    public getPresetShipNames(): string[] {
+        return this.gameModel.singleShipNames;
+    }
+
     public requestTTSAudio(readText: string): void {
         this.sendNotification(Notifications.REQUEST_TTS_AUDIO, readText);
     }

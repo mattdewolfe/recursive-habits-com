@@ -29,12 +29,15 @@ export enum EShipType {
     TheColourTitle,
     TitlesEvent,
     EmotionTitle,
+    NounsTitle,
+    EmotionsNoun,
     Max
 }
 
 export interface IShipData {
+    solo: string[];
     noun: { single: string, plural: string }[];
-    emotion: string[];
+    emotion: { adjective: string, noun: string }[];
     colour: string[];
     event: string[];
     title: { single: string, plural: string }[];
@@ -87,16 +90,20 @@ export class GameModel extends Model {
         return this.shipData.event[Math.round(Math.random() * (this.shipData.event.length - 1))];
     }
 
-    public get randomShipEmotion(): string {
+    public get randomShipEmotion(): { adjective: string, noun: string } {
         return this.shipData.emotion[Math.round(Math.random() * (this.shipData.emotion.length - 1))];
     }
+
+    public get singleShipNames(): string[]{
+        return this.shipData.solo;
+    }    
 
     public generateShipName(): string {
         let newTitle: string;
         let type: EShipType = <EShipType>(Math.round(Math.random() * (EShipType.Max - 1)));
         switch (type) {
             case EShipType.NounsEmotion:
-                newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipEmotion;
+                newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipEmotion.noun;
                 break;
             case EShipType.TheColourEvent:
                 newTitle = "The " + this.randomShipColour + " " + this.randomShipEvent;
@@ -108,7 +115,7 @@ export class GameModel extends Model {
                 newTitle = "The " + this.randomShipColour + " " + this.randomShipTitle.single;
                 break;
             case EShipType.TitleOfEmotion:
-                newTitle = this.randomShipTitle.single + " of " + this.randomShipEmotion;
+                newTitle = this.randomShipTitle.single + " of " + this.randomShipEmotion.noun;
                 break;
             case EShipType.TitleOfNouns:
                 newTitle = this.randomShipTitle.single + " of " + this.randomShipNoun.plural;
@@ -116,11 +123,14 @@ export class GameModel extends Model {
             case EShipType.TitlesEvent:
                 newTitle = this.randomShipTitle.single + "'s " + this.randomShipEvent;
                 break;
-            case EShipType.NounsEmotion:
-                newTitle = this.randomShipNoun.plural + " " + this.randomShipEmotion;
-                break;
             case EShipType.EmotionTitle:
-                newTitle = this.randomShipEmotion + " " + this.randomShipTitle.single;
+                newTitle = "The " + this.randomShipEmotion.adjective + " " + this.randomShipTitle.single;
+                break;
+            case EShipType.NounsTitle:
+                newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipTitle.single;
+                break;
+            case EShipType.EmotionsNoun:
+                newTitle = this.randomShipEmotion.adjective + " " + this.randomShipNoun.single;
                 break;
         }
         return newTitle;

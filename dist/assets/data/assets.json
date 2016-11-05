@@ -1,0 +1,14 @@
+{
+    "required": {
+        "assets": [
+            {
+                "type": "image", 
+                "url": "up.png"
+            }
+        ]
+    },
+    "menu": {
+        "assets": [
+        ]
+    }
+}
