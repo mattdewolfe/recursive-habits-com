@@ -1,6 +1,6 @@
 import {Model} from 'dijon/mvc';
 
-export enum ETitleType {
+export enum EInsultType {
     AdjNounPronoun = 0, // Adjective, Noun, Pronoun 
     AdjNounActionNoun, // Adjective, Noun, Verb
     AdvHowAdjPro,
@@ -9,6 +9,13 @@ export enum ETitleType {
     PronounOfNoun,
     PronounOfAdjNoun,
     Max
+}
+
+export interface INameData {
+    first: string[];
+    last: string[];
+    adjective: string[];
+    prefix: string[];
 }
 
 export interface IWordData {
@@ -23,7 +30,7 @@ export interface IWordData {
 export enum EShipType {
     TheColourNoun,
     TheColourEvent,
-    TitleOfNouns,
+    ColourShipclass,
     TitleOfEmotion,
     NounsEmotion,
     TheColourTitle,
@@ -34,7 +41,16 @@ export enum EShipType {
     Max
 }
 
+export enum ENameType {
+    Adjective,
+    FirstAdjective,
+    Standard, 
+    TitleStandard,
+    Max
+}
+
 export interface IShipData {
+    shipclass: string[];
     solo: string[];
     noun: { single: string, plural: string }[];
     emotion: { adjective: string, noun: string }[];
@@ -51,59 +67,83 @@ export class GameModel extends Model {
     }
 
     public get randomPronoun(): string {
-        return this.insData.pronouns[Math.round(Math.random() * (this.insData.pronouns.length - 1))];
+        return this.insData.pronouns[this.getRandomIndexOf(this.insData.pronouns.length)];
     }
 
     public get randomAdjective(): string {
-        return this.insData.adjectives[Math.round(Math.random() * (this.insData.adjectives.length - 1))];
+        return this.insData.adjectives[this.getRandomIndexOf(this.insData.adjectives.length)];
     }
 
     public get randomNoun(): {single: string, plural: string} {
-        return this.insData.nouns[Math.round(Math.random() * (this.insData.nouns.length - 1))];
+        return this.insData.nouns[this.getRandomIndexOf(this.insData.nouns.length)];
     }
 
     public get randomActionVerb(): string {
-        return this.insData.actionVerbs[Math.round(Math.random() * (this.insData.actionVerbs.length - 1))];
+        return this.insData.actionVerbs[this.getRandomIndexOf(this.insData.actionVerbs.length)];
     }
 
     public get randomAdverbHow(): string {
-        return this.insData.adverbsHow[Math.round(Math.random() * (this.insData.adverbsHow.length - 1))];
+        return this.insData.adverbsHow[this.getRandomIndexOf(this.insData.adverbsHow.length)];
     }
 
     public get randomActionNoun(): string {
-        return this.insData.actionNouns[Math.round(Math.random() * (this.insData.actionNouns.length - 1))];
+        return this.insData.actionNouns[this.getRandomIndexOf(this.insData.actionNouns.length)];
     }
 
     public get randomShipNoun(): {single: string, plural: string} {
-        return this.shipData.noun[Math.round(Math.random() * (this.shipData.noun.length - 1))];
+        return this.shipData.noun[this.getRandomIndexOf(this.shipData.noun.length)];
     }
 
     public get randomShipTitle(): {single: string, plural: string} {
-        return this.shipData.title[Math.round(Math.random() * (this.shipData.title.length - 1))];
+        return this.shipData.title[this.getRandomIndexOf(this.shipData.title.length)];
     }
 
     public get randomShipColour(): string {
-        return this.shipData.colour[Math.round(Math.random() * (this.shipData.colour.length - 1))];
+        return this.shipData.colour[this.getRandomIndexOf(this.shipData.colour.length)];
     }
 
     public get randomShipEvent(): string {
-        return this.shipData.event[Math.round(Math.random() * (this.shipData.event.length - 1))];
+        return this.shipData.event[this.getRandomIndexOf(this.shipData.event.length)];
     }
 
     public get randomShipEmotion(): { adjective: string, noun: string } {
-        return this.shipData.emotion[Math.round(Math.random() * (this.shipData.emotion.length - 1))];
+        return this.shipData.emotion[this.getRandomIndexOf(this.shipData.emotion.length)];
     }
+
+    public get randomShipClass(): string {
+        return this.shipData.shipclass[this.getRandomIndexOf(this.shipData.shipclass.length)];
+    }    
 
     public get singleShipNames(): string[]{
         return this.shipData.solo;
     }    
 
+    public get randomNamePrefix(): string {
+        return this.nameData.prefix[this.getRandomIndexOf(this.nameData.prefix.length)];
+    }
+
+    public get randomFirstName(): string {
+        return this.nameData.first[this.getRandomIndexOf(this.nameData.first.length)];
+    }   
+    
+    public get randomLastName(): string {
+        return this.nameData.last[this.getRandomIndexOf(this.nameData.last.length)];
+    }
+
+    public get randomNameAdjective(): string {
+        return this.nameData.adjective[this.getRandomIndexOf(this.nameData.adjective.length)];
+    }
+    
+    public getRandomIndexOf(length: number): number {
+        return this.game.rnd.between(0, length - 1);
+    }
+    
     public generateShipName(): string {
         let newTitle: string;
         let type: EShipType = <EShipType>(Math.round(Math.random() * (EShipType.Max - 1)));
         switch (type) {
             case EShipType.NounsEmotion:
-                newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipEmotion.noun;
+                newTitle = this.randomShipNoun.single + "'s " + this.randomShipEmotion.noun;
                 break;
             case EShipType.TheColourEvent:
                 newTitle = "The " + this.randomShipColour + " " + this.randomShipEvent;
@@ -112,13 +152,13 @@ export class GameModel extends Model {
                 newTitle = "The " + this.randomShipColour + " " + this.randomShipNoun.single;
                 break;
             case EShipType.TheColourTitle:
-                newTitle = "The " + this.randomShipColour + " " + this.randomShipTitle.single;
+                newTitle = this.randomShipColour + " " + this.randomShipTitle.single;
                 break;
             case EShipType.TitleOfEmotion:
                 newTitle = this.randomShipTitle.single + " of " + this.randomShipEmotion.noun;
                 break;
-            case EShipType.TitleOfNouns:
-                newTitle = this.randomShipTitle.single + " of " + this.randomShipNoun.plural;
+            case EShipType.ColourShipclass:
+                newTitle = this.randomShipColour + " " + this.randomShipClass;
                 break;
             case EShipType.TitlesEvent:
                 newTitle = this.randomShipTitle.single + "'s " + this.randomShipEvent;
@@ -136,36 +176,36 @@ export class GameModel extends Model {
         return newTitle;
     } 
     
-    public generateTitle(): string {
+    public generateInsult(): string {
         let newTitle: string = 'You...';
-        let type: ETitleType = <ETitleType>(Math.round(Math.random() * (ETitleType.Max - 1)));
+        let type: EInsultType = <EInsultType>(Math.round(Math.random() * (EInsultType.Max - 1)));
 
         switch (type) {
-            case ETitleType.AdjNounPronoun:
+            case EInsultType.AdjNounPronoun:
                 newTitle = this.randomAdjective + ' ' + this.randomNoun.single + ' ' + this.randomPronoun;
                 break;
 
-            case ETitleType.AdvHowAdjPro:
+            case EInsultType.AdvHowAdjPro:
                 newTitle = this.randomAdverbHow + ' ' + this.randomAdjective + ' ' + this.randomPronoun;
                 break;    
 
-            case ETitleType.AdjPronoun:
+            case EInsultType.AdjPronoun:
                 newTitle = this.randomAdjective + ' ' + this.randomPronoun;
                 break;
 
-            case ETitleType.PronounOfNoun:
+            case EInsultType.PronounOfNoun:
                 newTitle = this.randomPronoun + ' of ' + this.randomNoun.plural;
                 break;
 
-            case ETitleType.PronounOfAdjNoun:
+            case EInsultType.PronounOfAdjNoun:
                 newTitle = this.randomPronoun + ' of ' + this.randomAdjective + ' ' + this.randomNoun.plural;
                 break;
 
-            case ETitleType.AdvHowAdjVerb:
+            case EInsultType.AdvHowAdjVerb:
                 newTitle = this.randomAdverbHow + ' ' + this.randomAdjective + ' ' + this.randomActionNoun;
                 break;
             
-            case ETitleType.AdjNounActionNoun:
+            case EInsultType.AdjNounActionNoun:
                 newTitle = this.randomAdjective + ' ' + this.randomNoun.single + ' ' + this.randomActionNoun;
                 break;
 
@@ -176,11 +216,38 @@ export class GameModel extends Model {
         return newTitle;
     }
 
+    public generatePlayerName(): string {
+        let newName: string = "";
+        let type: ENameType = <ENameType>(Math.round(Math.random() * (ENameType.Max - 1)));
+        switch (type) {
+            case ENameType.Adjective:
+                newName = this.randomNameAdjective;
+                break;
+
+            case ENameType.FirstAdjective:
+                newName = this.randomFirstName + " " + this.randomNameAdjective;
+                break;
+
+            case ENameType.Standard:
+                newName = this.randomFirstName + " " + this.randomLastName;
+                break;
+
+            case ENameType.TitleStandard:
+                newName = this.randomNamePrefix + " " + this.randomFirstName + " " + this.randomLastName;
+                break;
+        }
+        return newName;
+    }   
+    
     private get shipData(): IShipData {
         return <IShipData>this._data['ships'];
     }
 
     private get insData(): IWordData {
         return <IWordData>this._data['insults'];
+    }
+
+    private get nameData(): INameData {
+        return <INameData>this._data['names'];
     }
 }

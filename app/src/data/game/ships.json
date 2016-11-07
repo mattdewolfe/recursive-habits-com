@@ -12,25 +12,38 @@
         "Death's Hand",
         "Widow",
         "Distant Shores",
-        "The Seas Oasis",
+        "The Seas' Oasis",
+        "Morning Star",
         "Greed", 
         "The Ocean's Ward",
         "Your Finale",
         "Temptation",
         "One Fatal Mistake",
         "Mortal Coil",
+        "Jupiter's Mark",
         "Whisp",
         "Finger of God",
         "Anguish",
         "Poseidon's Rage",
         "The 9th Circle",
         "Absolution",
-        "Death or Taxes"
+        "Death or Taxes",
+        "Death and Taxes",
+        "Taxes, then Death",
+        "Inevitability",
+        "Failing Light",
+        "No Surrender",
+        "Lucky Jack",
+        "Longsword",
+        "Oryn's Glaive",
+        "Solitary Pennent",
+        "Act of Man",
+        "Theor's Bane"
     ],
     "noun": [
         { "single": "pearl", "plural": "pearls" },
         { "single": "silver", "plural": "silver" },
-        { "single": "fire", "plural": "fires" },
+        { "single": "fire", "plural": "fire" },
         { "single": "flame", "plural": "flames" },
         { "single": "sea", "plural": "seas" },
         { "single": "tide", "plural": "tides" },
@@ -74,6 +87,24 @@
         {"adjective": "pitiful", "noun": "pity"},
         {"adjective": "agonizing", "noun": "anguish"}
     ],
+    "shipclass": [
+        "Caravel",
+        "Carrack",
+        "Cog",
+        "Galleon",
+        "Galley",
+        "Longship",
+        "Skiff",
+        "Frigate",
+        "Destroyer",
+        "Marauder",
+        "Privateer",
+        "Corvette",
+        "Cutter",
+        "Cruiser",
+        "Gaffer",
+        "Schooner"
+    ],
     "colour": [
         "slate",
         "black",
@@ -92,7 +123,8 @@
         "salmon",
         "rose",
         "solar",
-        "lunar"
+        "lunar",
+        "ash"
     ],
     "event": [
         "destruction",
@@ -114,7 +146,8 @@
         "rise",
         "conquest",
         "dawn",
-        "dusk"
+        "dusk",
+        "twilight"
     ],
     "title": [
         { "single": "master", "plural": "masters" },
@@ -135,6 +168,7 @@
         { "single": "duchess", "plural": "duchess" },
         { "single": "baron", "plural": "barons" },
         { "single": "demon", "plural": "demons" },
-        { "single": "angel", "plural": "angels"}
+        { "single": "angel", "plural": "angels"},
+        { "single": "shadow", "plural": "shadows" }
     ]
 }

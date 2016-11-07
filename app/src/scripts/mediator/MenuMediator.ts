@@ -1,12 +1,11 @@
 import BaseMediator from './BaseMediator';
 import Notifications from '../utils/Notifications';
-import {ETitleType} from '../model/gameModel';
 
 export default class MenuMediator extends BaseMediator {
     public static MEDIATOR_NAME: string = 'menuMediator';
 		
-    public getRandomTitle(): string {
-        return this.gameModel.generateTitle();
+    public getRandomInsult(): string {
+        return this.gameModel.generateInsult();
     }
     
     public getRandomShipTitle(): string {
@@ -17,6 +16,10 @@ export default class MenuMediator extends BaseMediator {
         return this.gameModel.singleShipNames;
     }
 
+    public getRandomPlayerName(): string {
+        return this.gameModel.generatePlayerName();
+    }   
+    
     public requestTTSAudio(readText: string): void {
         this.sendNotification(Notifications.REQUEST_TTS_AUDIO, readText);
     }

@@ -46,9 +46,10 @@ export default class BoilerplateApplication extends Application {
     }
 
     public ttsText(readText: string): void {
-        if (readText !== null) {
-            this.responsiveVoice.speak(readText);
+        if (readText === null || Constants.SFX_ENABLED === false) {
+            return;
         }
+        this.responsiveVoice.speak(readText);
     }
 
     public adjustScaleSettings(): void {

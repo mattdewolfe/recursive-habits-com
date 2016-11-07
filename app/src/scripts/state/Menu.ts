@@ -3,6 +3,7 @@ import Constants from '../utils/Constants';
 import {Text} from 'dijon/display';
 import {Placeholders} from 'dijon/utils';
 import MenuMediator from '../mediator/MenuMediator';
+import RHButton from '../display/RHButton';
 
 export default class Menu extends BaseState {
 
@@ -16,6 +17,10 @@ export default class Menu extends BaseState {
 
     protected _button: Phaser.Image;
     protected _button2: Phaser.Image;
+    protected _button3: Phaser.Image;
+    protected _button4: Phaser.Image;
+    protected _sfxButton: RHButton;
+
     protected _title: Phaser.Text;
     protected _bg: Phaser.Image;
 
@@ -24,7 +29,7 @@ export default class Menu extends BaseState {
         this._mediator = new MenuMediator();
         this._oldTitle = null;
         this._newTitle = null;
-        this._fontSize = ((this.game.width + this.game.height) * 0.5) * 0.065;
+        this._fontSize = ((this.game.width + this.game.height) * 0.5) * 0.045;
         this._presetNames = this.mediator.getPresetShipNames();
         this._currentPresetName = Math.floor(Math.random() * this._presetNames.length);
     }
@@ -36,6 +41,7 @@ export default class Menu extends BaseState {
     // dijon.core.State overrides
     public listBuildSequence() {
         return [
+            this._addSFXBtn,
             this._buildBorders,
             this._addVisuals
         ]
@@ -47,17 +53,28 @@ export default class Menu extends BaseState {
 
     public resize(width: number, height: number) {
         this.clearVisuals();
+        this._fontSize = ((this.game.width + this.game.height) * 0.5) * 0.045;
+        this._sfxButton.x = this.game.width - 100;
+        this._sfxButton.y = this.game.height - 90;
         this._buildBorders();
         this._addVisuals();
+        this._sfxButton.bringToTop();
     }   
     
     public clearVisuals(): void {
         this._title.destroy();
         this._button.destroy();
         this._button2.destroy();
+        this._button3.destroy();
+        this._button4.destroy();
         this._bg.destroy();
     }
 
+    private _addSFXBtn(): void {
+        this._sfxButton = new RHButton(this.game.width - 100, this.game.height - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
+        this.add.existing(this._sfxButton);
+    }   
+    
     private _buildBorders(): void {
         let gfx = this.game.add.graphics();
         gfx.beginFill(Constants.NUM_ORANGE_BORDER, 0.8);
@@ -73,19 +90,36 @@ export default class Menu extends BaseState {
 
     // private methods
     private _addVisuals(): void {
-        this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'AND THE SHIP WAS NAMED...', Constants.FONT_RALEWAY, this._fontSize, Constants.STR_BLUE);
+        let buttonWidth: number = 400;
+        if (buttonWidth > this.game.width * 0.9) { 
+            buttonWidth = this.game.width * 0.85;
+        }
+        this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'GENERATOR', Constants.FONT_RALEWAY, this._fontSize, Constants.STR_BLUE);
         this._title.centerPivot();
 
-        this._button = Placeholders.button(this.game.width * 0.75, this.game.height * 0.35, this.game.width * 0.35, this.game.width * 0.05, false, 'RANDOM NAME', this._generateShipName, this);
+        this._button = Placeholders.button(this.game.width * 0.5, this.game.height * 0.25, buttonWidth, buttonWidth * 0.15, false, 'RANDOM SHIP NAME', this._generateShipName, this);
         this._button.centerPivot();
         this.add.existing(this._button);
 
-
-        this._button2 = Placeholders.button(this.game.width * 0.25, this.game.height * 0.35, this.game.width * 0.35, this.game.width * 0.05, false, 'PRESET NAME', this._getPresetName, this);
+        this._button2 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.4, buttonWidth, buttonWidth * 0.15, false, 'PRESET SHIP NAME', this._getPresetName, this);
         this._button2.centerPivot();
         this.add.existing(this._button2);
+
+        this._button3 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.55, buttonWidth, buttonWidth * 0.15, false, 'RANDOM NAME', this._generatePlayerName, this);
+        this._button3.centerPivot();
+        this.add.existing(this._button3);
+
+        this._button4 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.7, buttonWidth, buttonWidth * 0.15, false, 'RANDOM INSULT', this._generateNewInsult, this);
+        this._button4.centerPivot();
+        this.add.existing(this._button4);
+        this._sfxButton.bringToTop();
     }
 
+    private _toggleSFX(): void {
+        Constants.SFX_ENABLED = !Constants.SFX_ENABLED;
+        this._sfxButton.toggleEnabledFrame(Constants.SFX_ENABLED)
+    }   
+    
     private _generateShipName(): void {
         if (this._isGenerating === true) {
             return;
@@ -95,6 +129,15 @@ export default class Menu extends BaseState {
         this.updateAndShowNewName(this.mediator.getRandomShipTitle());
     }   
     
+    private _generatePlayerName(): void {
+        if (this._isGenerating === true) {
+            return;
+        }
+        this._isGenerating = true;
+        this._removeOldTitle();
+        this.updateAndShowNewName(this.mediator.getRandomPlayerName());
+    }
+
     private _getPresetName(): void {
         if (this._isGenerating === true) {
             return;
@@ -108,6 +151,15 @@ export default class Menu extends BaseState {
         this._currentPresetName++;
     }
 
+    private _generateNewInsult(): void {
+         if (this._isGenerating === true) {
+            return;
+        }
+        this._isGenerating = true;
+        this._removeOldTitle();
+        this.updateAndShowNewName(this.mediator.getRandomInsult());
+    }
+
     private updateAndShowNewName(newName: string): void {
         let newText = new Text(0, 0, newName.toUpperCase(), Constants.FONT_RALEWAY, this._fontSize, Constants.STR_NEW_TITLE, 'center', true, this.game.width);
         newText.fontSize = this._fontSize * 0.8;
@@ -116,9 +168,9 @@ export default class Menu extends BaseState {
         gfx.drawRoundedRect(0, 0, newText.width * 20, newText.height + 20, 10);
         gfx.endFill();
 
-        this._newTitle = this.add.image(this.game.width * 0.5,  -500, gfx.generateTexture());
+        this._newTitle = this.add.image(this.game.width * 0.5, -500, gfx.generateTexture());
         this._newTitle.alpha = 0;
-        this._newTitle.y = this.game.height * 0.7;
+        this._newTitle.y = this.game.height * 0.8;
         this.game.world.remove(gfx);
 
         this._newTitle.setPivot('center');
@@ -137,7 +189,7 @@ export default class Menu extends BaseState {
         }
         this._isGenerating = true;
         this._removeOldTitle();
-        this.updateAndShowNewName(this.mediator.getRandomTitle());
+        this.updateAndShowNewName(this.mediator.getRandomInsult());
     }
 
     private _removeOldTitle(): void {

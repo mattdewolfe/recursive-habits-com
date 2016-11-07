@@ -339,6 +339,7 @@ $__System.register('5', [], function (exports_1, context_1) {
                 Constants.BUTTON_NORMAL = 0xe6e6e6;
                 Constants.BUTTON_HOVER = 0xff941a;
                 Constants.BUTTON_DOWN = 0x00aaff;
+                Constants.SFX_ENABLED = true;
                 return Constants;
             }();
             exports_1("default", Constants);
@@ -451,14 +452,17 @@ $__System.register('10', ['4', '6'], function (exports_1, context_1) {
                 function MenuMediator() {
                     _super.apply(this, arguments);
                 }
-                MenuMediator.prototype.getRandomTitle = function () {
-                    return this.gameModel.generateTitle();
+                MenuMediator.prototype.getRandomInsult = function () {
+                    return this.gameModel.generateInsult();
                 };
                 MenuMediator.prototype.getRandomShipTitle = function () {
                     return this.gameModel.generateShipName();
                 };
                 MenuMediator.prototype.getPresetShipNames = function () {
                     return this.gameModel.singleShipNames;
+                };
+                MenuMediator.prototype.getRandomPlayerName = function () {
+                    return this.gameModel.generatePlayerName();
                 };
                 MenuMediator.prototype.requestTTSAudio = function (readText) {
                     this.sendNotification(Notifications_1.default.REQUEST_TTS_AUDIO, readText);
@@ -485,7 +489,7 @@ $__System.register('10', ['4', '6'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, context_1) {
+$__System.register('11', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -496,7 +500,69 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
         }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var BaseState_1, Constants_1, display_1, utils_1, MenuMediator_1;
+    var application_1;
+    var RHButton;
+    return {
+        setters: [function (application_1_1) {
+            application_1 = application_1_1;
+        }],
+        execute: function () {
+            RHButton = function (_super) {
+                __extends(RHButton, _super);
+                function RHButton(x, y, callback, context, assetKey, baseFrameName, disabledFrame, forceOut) {
+                    if (disabledFrame === void 0) {
+                        disabledFrame = null;
+                    }
+                    if (forceOut === void 0) {
+                        forceOut = false;
+                    }
+                    _super.call(this, application_1.Application.getInstance().game, x, y, assetKey, callback, context, baseFrameName + '_hover', baseFrameName + '_normal', baseFrameName + '_hover', baseFrameName + '_normal');
+                    this._enabledFrame = baseFrameName;
+                    this._disabledFrame = disabledFrame !== null ? disabledFrame : baseFrameName;
+                    this.forceOut = forceOut;
+                    this.input.useHandCursor = true;
+                }
+                RHButton.prototype.toggleEnabledFrame = function (isEnabled) {
+                    if (isEnabled) {
+                        this.updateBaseFrame(this._enabledFrame);
+                    } else {
+                        this.updateBaseFrame(this._disabledFrame);
+                    }
+                };
+                RHButton.prototype.onInputDownHandler = function (sprite, pointer) {
+                    _super.prototype.onInputDownHandler.call(this, sprite, pointer);
+                };
+                RHButton.prototype.onInputOverHandler = function (sprite, pointer) {
+                    _super.prototype.onInputOverHandler.call(this, sprite, pointer);
+                };
+                RHButton.prototype.updateBaseFrame = function (base) {
+                    this.setFrames(base + '_hover', base + '_normal', base + '_hover', base + '_normal');
+                };
+                Object.defineProperty(RHButton.prototype, "dgame", {
+                    get: function () {
+                        return this.game;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                return RHButton;
+            }(Phaser.Button);
+            exports_1("default", RHButton);
+        }
+    };
+});
+$__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1, context_1) {
+    "use strict";
+
+    var __moduleName = context_1 && context_1.id;
+    var __extends = this && this.__extends || function (d, b) {
+        for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+        function __() {
+            this.constructor = d;
+        }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+    var BaseState_1, Constants_1, display_1, utils_1, MenuMediator_1, RHButton_1;
     var Menu;
     return {
         setters: [function (BaseState_1_1) {
@@ -509,6 +575,8 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
             utils_1 = utils_1_1;
         }, function (MenuMediator_1_1) {
             MenuMediator_1 = MenuMediator_1_1;
+        }, function (RHButton_1_1) {
+            RHButton_1 = RHButton_1_1;
         }],
         execute: function () {
             Menu = function (_super) {
@@ -522,7 +590,7 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                     this._mediator = new MenuMediator_1.default();
                     this._oldTitle = null;
                     this._newTitle = null;
-                    this._fontSize = (this.game.width + this.game.height) * 0.5 * 0.065;
+                    this._fontSize = (this.game.width + this.game.height) * 0.5 * 0.045;
                     this._presetNames = this.mediator.getPresetShipNames();
                     this._currentPresetName = Math.floor(Math.random() * this._presetNames.length);
                 };
@@ -531,21 +599,31 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                 };
                 // dijon.core.State overrides
                 Menu.prototype.listBuildSequence = function () {
-                    return [this._buildBorders, this._addVisuals];
+                    return [this._addSFXBtn, this._buildBorders, this._addVisuals];
                 };
                 Menu.prototype.afterBuild = function () {
                     _super.prototype.afterBuild.call(this);
                 };
                 Menu.prototype.resize = function (width, height) {
                     this.clearVisuals();
+                    this._fontSize = (this.game.width + this.game.height) * 0.5 * 0.045;
+                    this._sfxButton.x = this.game.width - 100;
+                    this._sfxButton.y = this.game.height - 90;
                     this._buildBorders();
                     this._addVisuals();
+                    this._sfxButton.bringToTop();
                 };
                 Menu.prototype.clearVisuals = function () {
                     this._title.destroy();
                     this._button.destroy();
                     this._button2.destroy();
+                    this._button3.destroy();
+                    this._button4.destroy();
                     this._bg.destroy();
+                };
+                Menu.prototype._addSFXBtn = function () {
+                    this._sfxButton = new RHButton_1.default(this.game.width - 100, this.game.height - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
+                    this.add.existing(this._sfxButton);
                 };
                 Menu.prototype._buildBorders = function () {
                     var gfx = this.game.add.graphics();
@@ -560,14 +638,29 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                 };
                 // private methods
                 Menu.prototype._addVisuals = function () {
-                    this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'AND THE SHIP WAS NAMED...', Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_BLUE);
+                    var buttonWidth = 400;
+                    if (buttonWidth > this.game.width * 0.9) {
+                        buttonWidth = this.game.width * 0.85;
+                    }
+                    this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'GENERATOR', Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_BLUE);
                     this._title.centerPivot();
-                    this._button = utils_1.Placeholders.button(this.game.width * 0.75, this.game.height * 0.35, this.game.width * 0.35, this.game.width * 0.05, false, 'RANDOM NAME', this._generateShipName, this);
+                    this._button = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.25, buttonWidth, buttonWidth * 0.15, false, 'RANDOM SHIP NAME', this._generateShipName, this);
                     this._button.centerPivot();
                     this.add.existing(this._button);
-                    this._button2 = utils_1.Placeholders.button(this.game.width * 0.25, this.game.height * 0.35, this.game.width * 0.35, this.game.width * 0.05, false, 'PRESET NAME', this._getPresetName, this);
+                    this._button2 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.4, buttonWidth, buttonWidth * 0.15, false, 'PRESET SHIP NAME', this._getPresetName, this);
                     this._button2.centerPivot();
                     this.add.existing(this._button2);
+                    this._button3 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.55, buttonWidth, buttonWidth * 0.15, false, 'RANDOM NAME', this._generatePlayerName, this);
+                    this._button3.centerPivot();
+                    this.add.existing(this._button3);
+                    this._button4 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.7, buttonWidth, buttonWidth * 0.15, false, 'RANDOM INSULT', this._generateNewInsult, this);
+                    this._button4.centerPivot();
+                    this.add.existing(this._button4);
+                    this._sfxButton.bringToTop();
+                };
+                Menu.prototype._toggleSFX = function () {
+                    Constants_1.default.SFX_ENABLED = !Constants_1.default.SFX_ENABLED;
+                    this._sfxButton.toggleEnabledFrame(Constants_1.default.SFX_ENABLED);
                 };
                 Menu.prototype._generateShipName = function () {
                     if (this._isGenerating === true) {
@@ -576,6 +669,14 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                     this._isGenerating = true;
                     this._removeOldTitle();
                     this.updateAndShowNewName(this.mediator.getRandomShipTitle());
+                };
+                Menu.prototype._generatePlayerName = function () {
+                    if (this._isGenerating === true) {
+                        return;
+                    }
+                    this._isGenerating = true;
+                    this._removeOldTitle();
+                    this.updateAndShowNewName(this.mediator.getRandomPlayerName());
                 };
                 Menu.prototype._getPresetName = function () {
                     if (this._isGenerating === true) {
@@ -589,6 +690,14 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                     this.updateAndShowNewName(this._presetNames[this._currentPresetName]);
                     this._currentPresetName++;
                 };
+                Menu.prototype._generateNewInsult = function () {
+                    if (this._isGenerating === true) {
+                        return;
+                    }
+                    this._isGenerating = true;
+                    this._removeOldTitle();
+                    this.updateAndShowNewName(this.mediator.getRandomInsult());
+                };
                 Menu.prototype.updateAndShowNewName = function (newName) {
                     var newText = new display_1.Text(0, 0, newName.toUpperCase(), Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_NEW_TITLE, 'center', true, this.game.width);
                     newText.fontSize = this._fontSize * 0.8;
@@ -598,7 +707,7 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                     gfx.endFill();
                     this._newTitle = this.add.image(this.game.width * 0.5, -500, gfx.generateTexture());
                     this._newTitle.alpha = 0;
-                    this._newTitle.y = this.game.height * 0.7;
+                    this._newTitle.y = this.game.height * 0.8;
                     this.game.world.remove(gfx);
                     this._newTitle.setPivot('center');
                     newText.setPivot('center');
@@ -614,7 +723,7 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
                     }
                     this._isGenerating = true;
                     this._removeOldTitle();
-                    this.updateAndShowNewName(this.mediator.getRandomTitle());
+                    this.updateAndShowNewName(this.mediator.getRandomInsult());
                 };
                 Menu.prototype._removeOldTitle = function () {
                     if (this._oldTitle !== null) {
@@ -642,7 +751,7 @@ $__System.register('11', ['9', '5', '12', '3', '10'], function (exports_1, conte
         }
     };
 });
-$__System.register('13', ['14'], function (exports_1, context_1) {
+$__System.register('14', ['15'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -700,7 +809,7 @@ $__System.register('13', ['14'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("15", ["e"], function (exports_1, context_1) {
+$__System.register("16", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -789,7 +898,7 @@ $__System.register("15", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('16', ['3'], function (exports_1, context_1) {
+$__System.register('17', ['3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -903,7 +1012,7 @@ $__System.register('16', ['3'], function (exports_1, context_1) {
 /**
  * Wraps Phaser.Loader
 */
-$__System.register('17', ['e', '3', '12'], function (exports_1, context_1) {
+$__System.register('18', ['e', '3', '13'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -1704,7 +1813,7 @@ $__System.register('17', ['e', '3', '12'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('18', ['e'], function (exports_1, context_1) {
+$__System.register('19', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2040,7 +2149,7 @@ $__System.register('18', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('19', ['e', 'c', '3'], function (exports_1, context_1) {
+$__System.register('1a', ['e', 'c', '3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2257,7 +2366,7 @@ $__System.register('19', ['e', 'c', '3'], function (exports_1, context_1) {
 /**
  * GameObjectFactory
  */
-$__System.register('1a', ['12'], function (exports_1, context_1) {
+$__System.register('1b', ['13'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2762,7 +2871,7 @@ $__System.register('1a', ['12'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('1b', ['e'], function (exports_1, context_1) {
+$__System.register('1c', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2813,7 +2922,7 @@ $__System.register('1b', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('1c', ['e'], function (exports_1, context_1) {
+$__System.register('1d', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2956,7 +3065,7 @@ $__System.register('1c', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('1d', ['e'], function (exports_1, context_1) {
+$__System.register('1e', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3055,7 +3164,7 @@ $__System.register('1d', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('1e', ['e'], function (exports_1, context_1) {
+$__System.register('1f', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3234,7 +3343,7 @@ $__System.register('1e', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('c', ['16', '17', '18', '19', '1a', '1b', '1c', '1d', '1e'], function (exports_1, context_1) {
+$__System.register('c', ['17', '18', '19', '1a', '1b', '1c', '1d', '1e', '1f'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3280,7 +3389,7 @@ $__System.register('c', ['16', '17', '18', '19', '1a', '1b', '1c', '1d', '1e'], 
         execute: function () {}
     };
 });
-$__System.register("1f", [], function (exports_1, context_1) {
+$__System.register("20", [], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3354,7 +3463,7 @@ $__System.register("1f", [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("20", [], function (exports_1, context_1) {
+$__System.register("21", [], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3384,7 +3493,7 @@ $__System.register("20", [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('21', [], function (exports_1, context_1) {
+$__System.register('22', [], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3404,7 +3513,7 @@ $__System.register('21', [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('22', ['e', '23', '12'], function (exports_1, context_1) {
+$__System.register('23', ['e', '24', '13'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3534,7 +3643,7 @@ $__System.register('22', ['e', '23', '12'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("23", ["e"], function (exports_1, context_1) {
+$__System.register("24", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3751,7 +3860,7 @@ $__System.register("23", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("24", ["e"], function (exports_1, context_1) {
+$__System.register("25", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3781,7 +3890,7 @@ $__System.register("24", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("25", [], function (exports_1, context_1) {
+$__System.register("26", [], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3800,7 +3909,7 @@ $__System.register("25", [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("26", ["e"], function (exports_1, context_1) {
+$__System.register("27", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4059,7 +4168,7 @@ $__System.register("26", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('27', ['e'], function (exports_1, context_1) {
+$__System.register('28', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4107,7 +4216,7 @@ $__System.register('27', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("28", ["29"], function (exports_1, context_1) {
+$__System.register("29", ["2a"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4157,7 +4266,7 @@ $__System.register("28", ["29"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("2a", ["e"], function (exports_1, context_1) {
+$__System.register("2b", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4345,7 +4454,7 @@ $__System.register("2a", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('2b', ['2a'], function (exports_1, context_1) {
+$__System.register('2c', ['2b'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4520,7 +4629,7 @@ $__System.register('2b', ['2a'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('2c', ['e'], function (exports_1, context_1) {
+$__System.register('2d', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -4875,7 +4984,7 @@ $__System.register('2c', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('2d', ['e'], function (exports_1, context_1) {
+$__System.register('2e', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5225,7 +5334,7 @@ $__System.register('2d', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("29", ["e"], function (exports_1, context_1) {
+$__System.register("2a", ["e"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5387,7 +5496,7 @@ $__System.register("29", ["e"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('2e', ['e', '3'], function (exports_1, context_1) {
+$__System.register('2f', ['e', '3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5605,7 +5714,7 @@ $__System.register('2e', ['e', '3'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('12', ['26', '27', '2a', '28', '2b', '2c', '2d', '29', '2e'], function (exports_1, context_1) {
+$__System.register('13', ['27', '28', '2b', '29', '2c', '2d', '2e', '2a', '2f'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5650,7 +5759,7 @@ $__System.register('12', ['26', '27', '2a', '28', '2b', '2c', '2d', '29', '2e'],
         execute: function () {}
     };
 });
-$__System.register('2f', ['e', '12', '3'], function (exports_1, context_1) {
+$__System.register('30', ['e', '13', '3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5840,7 +5949,7 @@ $__System.register('2f', ['e', '12', '3'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('3', ['1f', '20', '21', '22', '23', '24', '25', '2f'], function (exports_1, context_1) {
+$__System.register('3', ['20', '21', '22', '23', '24', '25', '26', '30'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5881,7 +5990,7 @@ $__System.register('3', ['1f', '20', '21', '22', '23', '24', '25', '2f'], functi
         execute: function () {}
     };
 });
-$__System.register('30', ['d', 'c', '3'], function (exports_1, context_1) {
+$__System.register('31', ['d', 'c', '3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6074,7 +6183,7 @@ $__System.register('30', ['d', 'c', '3'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("e", ["30"], function (exports_1, context_1) {
+$__System.register("e", ["31"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6087,7 +6196,7 @@ $__System.register("e", ["30"], function (exports_1, context_1) {
         execute: function () {}
     };
 });
-$__System.register('14', ['e'], function (exports_1, context_1) {
+$__System.register('15', ['e'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6147,7 +6256,7 @@ $__System.register('14', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("31", [], function (exports_1, context_1) {
+$__System.register("32", [], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6182,7 +6291,7 @@ $__System.register("31", [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('d', ['13', '15', '14', '31'], function (exports_1, context_1) {
+$__System.register('d', ['14', '16', '15', '32'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6219,27 +6328,27 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
     var mvc_1;
-    var ETitleType, EShipType, GameModel;
+    var EInsultType, EShipType, ENameType, GameModel;
     return {
         setters: [function (mvc_1_1) {
             mvc_1 = mvc_1_1;
         }],
         execute: function () {
-            (function (ETitleType) {
-                ETitleType[ETitleType["AdjNounPronoun"] = 0] = "AdjNounPronoun";
-                ETitleType[ETitleType["AdjNounActionNoun"] = 1] = "AdjNounActionNoun";
-                ETitleType[ETitleType["AdvHowAdjPro"] = 2] = "AdvHowAdjPro";
-                ETitleType[ETitleType["AdvHowAdjVerb"] = 3] = "AdvHowAdjVerb";
-                ETitleType[ETitleType["AdjPronoun"] = 4] = "AdjPronoun";
-                ETitleType[ETitleType["PronounOfNoun"] = 5] = "PronounOfNoun";
-                ETitleType[ETitleType["PronounOfAdjNoun"] = 6] = "PronounOfAdjNoun";
-                ETitleType[ETitleType["Max"] = 7] = "Max";
-            })(ETitleType || (ETitleType = {}));
-            exports_1("ETitleType", ETitleType);
+            (function (EInsultType) {
+                EInsultType[EInsultType["AdjNounPronoun"] = 0] = "AdjNounPronoun";
+                EInsultType[EInsultType["AdjNounActionNoun"] = 1] = "AdjNounActionNoun";
+                EInsultType[EInsultType["AdvHowAdjPro"] = 2] = "AdvHowAdjPro";
+                EInsultType[EInsultType["AdvHowAdjVerb"] = 3] = "AdvHowAdjVerb";
+                EInsultType[EInsultType["AdjPronoun"] = 4] = "AdjPronoun";
+                EInsultType[EInsultType["PronounOfNoun"] = 5] = "PronounOfNoun";
+                EInsultType[EInsultType["PronounOfAdjNoun"] = 6] = "PronounOfAdjNoun";
+                EInsultType[EInsultType["Max"] = 7] = "Max";
+            })(EInsultType || (EInsultType = {}));
+            exports_1("EInsultType", EInsultType);
             (function (EShipType) {
                 EShipType[EShipType["TheColourNoun"] = 0] = "TheColourNoun";
                 EShipType[EShipType["TheColourEvent"] = 1] = "TheColourEvent";
-                EShipType[EShipType["TitleOfNouns"] = 2] = "TitleOfNouns";
+                EShipType[EShipType["ColourShipclass"] = 2] = "ColourShipclass";
                 EShipType[EShipType["TitleOfEmotion"] = 3] = "TitleOfEmotion";
                 EShipType[EShipType["NounsEmotion"] = 4] = "NounsEmotion";
                 EShipType[EShipType["TheColourTitle"] = 5] = "TheColourTitle";
@@ -6250,6 +6359,14 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                 EShipType[EShipType["Max"] = 10] = "Max";
             })(EShipType || (EShipType = {}));
             exports_1("EShipType", EShipType);
+            (function (ENameType) {
+                ENameType[ENameType["Adjective"] = 0] = "Adjective";
+                ENameType[ENameType["FirstAdjective"] = 1] = "FirstAdjective";
+                ENameType[ENameType["Standard"] = 2] = "Standard";
+                ENameType[ENameType["TitleStandard"] = 3] = "TitleStandard";
+                ENameType[ENameType["Max"] = 4] = "Max";
+            })(ENameType || (ENameType = {}));
+            exports_1("ENameType", ENameType);
             GameModel = function (_super) {
                 __extends(GameModel, _super);
                 function GameModel() {
@@ -6264,77 +6381,84 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                 });
                 Object.defineProperty(GameModel.prototype, "randomPronoun", {
                     get: function () {
-                        return this.insData.pronouns[Math.round(Math.random() * (this.insData.pronouns.length - 1))];
+                        return this.insData.pronouns[this.getRandomIndexOf(this.insData.pronouns.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomAdjective", {
                     get: function () {
-                        return this.insData.adjectives[Math.round(Math.random() * (this.insData.adjectives.length - 1))];
+                        return this.insData.adjectives[this.getRandomIndexOf(this.insData.adjectives.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomNoun", {
                     get: function () {
-                        return this.insData.nouns[Math.round(Math.random() * (this.insData.nouns.length - 1))];
+                        return this.insData.nouns[this.getRandomIndexOf(this.insData.nouns.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomActionVerb", {
                     get: function () {
-                        return this.insData.actionVerbs[Math.round(Math.random() * (this.insData.actionVerbs.length - 1))];
+                        return this.insData.actionVerbs[this.getRandomIndexOf(this.insData.actionVerbs.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomAdverbHow", {
                     get: function () {
-                        return this.insData.adverbsHow[Math.round(Math.random() * (this.insData.adverbsHow.length - 1))];
+                        return this.insData.adverbsHow[this.getRandomIndexOf(this.insData.adverbsHow.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomActionNoun", {
                     get: function () {
-                        return this.insData.actionNouns[Math.round(Math.random() * (this.insData.actionNouns.length - 1))];
+                        return this.insData.actionNouns[this.getRandomIndexOf(this.insData.actionNouns.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomShipNoun", {
                     get: function () {
-                        return this.shipData.noun[Math.round(Math.random() * (this.shipData.noun.length - 1))];
+                        return this.shipData.noun[this.getRandomIndexOf(this.shipData.noun.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomShipTitle", {
                     get: function () {
-                        return this.shipData.title[Math.round(Math.random() * (this.shipData.title.length - 1))];
+                        return this.shipData.title[this.getRandomIndexOf(this.shipData.title.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomShipColour", {
                     get: function () {
-                        return this.shipData.colour[Math.round(Math.random() * (this.shipData.colour.length - 1))];
+                        return this.shipData.colour[this.getRandomIndexOf(this.shipData.colour.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomShipEvent", {
                     get: function () {
-                        return this.shipData.event[Math.round(Math.random() * (this.shipData.event.length - 1))];
+                        return this.shipData.event[this.getRandomIndexOf(this.shipData.event.length)];
                     },
                     enumerable: true,
                     configurable: true
                 });
                 Object.defineProperty(GameModel.prototype, "randomShipEmotion", {
                     get: function () {
-                        return this.shipData.emotion[Math.round(Math.random() * (this.shipData.emotion.length - 1))];
+                        return this.shipData.emotion[this.getRandomIndexOf(this.shipData.emotion.length)];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(GameModel.prototype, "randomShipClass", {
+                    get: function () {
+                        return this.shipData.shipclass[this.getRandomIndexOf(this.shipData.shipclass.length)];
                     },
                     enumerable: true,
                     configurable: true
@@ -6346,12 +6470,43 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(GameModel.prototype, "randomNamePrefix", {
+                    get: function () {
+                        return this.nameData.prefix[this.getRandomIndexOf(this.nameData.prefix.length)];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(GameModel.prototype, "randomFirstName", {
+                    get: function () {
+                        return this.nameData.first[this.getRandomIndexOf(this.nameData.first.length)];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(GameModel.prototype, "randomLastName", {
+                    get: function () {
+                        return this.nameData.last[this.getRandomIndexOf(this.nameData.last.length)];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(GameModel.prototype, "randomNameAdjective", {
+                    get: function () {
+                        return this.nameData.adjective[this.getRandomIndexOf(this.nameData.adjective.length)];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                GameModel.prototype.getRandomIndexOf = function (length) {
+                    return this.game.rnd.between(0, length - 1);
+                };
                 GameModel.prototype.generateShipName = function () {
                     var newTitle;
                     var type = Math.round(Math.random() * (EShipType.Max - 1));
                     switch (type) {
                         case EShipType.NounsEmotion:
-                            newTitle = "The " + this.randomShipNoun.single + "'s " + this.randomShipEmotion.noun;
+                            newTitle = this.randomShipNoun.single + "'s " + this.randomShipEmotion.noun;
                             break;
                         case EShipType.TheColourEvent:
                             newTitle = "The " + this.randomShipColour + " " + this.randomShipEvent;
@@ -6360,13 +6515,13 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                             newTitle = "The " + this.randomShipColour + " " + this.randomShipNoun.single;
                             break;
                         case EShipType.TheColourTitle:
-                            newTitle = "The " + this.randomShipColour + " " + this.randomShipTitle.single;
+                            newTitle = this.randomShipColour + " " + this.randomShipTitle.single;
                             break;
                         case EShipType.TitleOfEmotion:
                             newTitle = this.randomShipTitle.single + " of " + this.randomShipEmotion.noun;
                             break;
-                        case EShipType.TitleOfNouns:
-                            newTitle = this.randomShipTitle.single + " of " + this.randomShipNoun.plural;
+                        case EShipType.ColourShipclass:
+                            newTitle = this.randomShipColour + " " + this.randomShipClass;
                             break;
                         case EShipType.TitlesEvent:
                             newTitle = this.randomShipTitle.single + "'s " + this.randomShipEvent;
@@ -6383,29 +6538,29 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                     }
                     return newTitle;
                 };
-                GameModel.prototype.generateTitle = function () {
+                GameModel.prototype.generateInsult = function () {
                     var newTitle = 'You...';
-                    var type = Math.round(Math.random() * (ETitleType.Max - 1));
+                    var type = Math.round(Math.random() * (EInsultType.Max - 1));
                     switch (type) {
-                        case ETitleType.AdjNounPronoun:
+                        case EInsultType.AdjNounPronoun:
                             newTitle = this.randomAdjective + ' ' + this.randomNoun.single + ' ' + this.randomPronoun;
                             break;
-                        case ETitleType.AdvHowAdjPro:
+                        case EInsultType.AdvHowAdjPro:
                             newTitle = this.randomAdverbHow + ' ' + this.randomAdjective + ' ' + this.randomPronoun;
                             break;
-                        case ETitleType.AdjPronoun:
+                        case EInsultType.AdjPronoun:
                             newTitle = this.randomAdjective + ' ' + this.randomPronoun;
                             break;
-                        case ETitleType.PronounOfNoun:
+                        case EInsultType.PronounOfNoun:
                             newTitle = this.randomPronoun + ' of ' + this.randomNoun.plural;
                             break;
-                        case ETitleType.PronounOfAdjNoun:
+                        case EInsultType.PronounOfAdjNoun:
                             newTitle = this.randomPronoun + ' of ' + this.randomAdjective + ' ' + this.randomNoun.plural;
                             break;
-                        case ETitleType.AdvHowAdjVerb:
+                        case EInsultType.AdvHowAdjVerb:
                             newTitle = this.randomAdverbHow + ' ' + this.randomAdjective + ' ' + this.randomActionNoun;
                             break;
-                        case ETitleType.AdjNounActionNoun:
+                        case EInsultType.AdjNounActionNoun:
                             newTitle = this.randomAdjective + ' ' + this.randomNoun.single + ' ' + this.randomActionNoun;
                             break;
                         default:
@@ -6413,6 +6568,25 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                             break;
                     }
                     return newTitle;
+                };
+                GameModel.prototype.generatePlayerName = function () {
+                    var newName = "";
+                    var type = Math.round(Math.random() * (ENameType.Max - 1));
+                    switch (type) {
+                        case ENameType.Adjective:
+                            newName = this.randomNameAdjective;
+                            break;
+                        case ENameType.FirstAdjective:
+                            newName = this.randomFirstName + " " + this.randomNameAdjective;
+                            break;
+                        case ENameType.Standard:
+                            newName = this.randomFirstName + " " + this.randomLastName;
+                            break;
+                        case ENameType.TitleStandard:
+                            newName = this.randomNamePrefix + " " + this.randomFirstName + " " + this.randomLastName;
+                            break;
+                    }
+                    return newName;
                 };
                 Object.defineProperty(GameModel.prototype, "shipData", {
                     get: function () {
@@ -6428,6 +6602,13 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
                     enumerable: true,
                     configurable: true
                 });
+                Object.defineProperty(GameModel.prototype, "nameData", {
+                    get: function () {
+                        return this._data['names'];
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 GameModel.MODEL_NAME = "gameModel";
                 return GameModel;
             }(mvc_1.Model);
@@ -6435,7 +6616,7 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("32", ["e", "c", "3", "d", "2", "5", "8", "b", "11", "f"], function (exports_1, context_1) {
+$__System.register("33", ["e", "c", "3", "d", "2", "5", "8", "b", "12", "f"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6500,9 +6681,10 @@ $__System.register("32", ["e", "c", "3", "d", "2", "5", "8", "b", "11", "f"], fu
                     this.responsiveVoice = window['responsiveVoice'];
                 };
                 BoilerplateApplication.prototype.ttsText = function (readText) {
-                    if (readText !== null) {
-                        this.responsiveVoice.speak(readText);
+                    if (readText === null || Constants_1.default.SFX_ENABLED === false) {
+                        return;
                     }
+                    this.responsiveVoice.speak(readText);
                 };
                 BoilerplateApplication.prototype.adjustScaleSettings = function () {
                     this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
@@ -6571,7 +6753,7 @@ $__System.register("32", ["e", "c", "3", "d", "2", "5", "8", "b", "11", "f"], fu
         }
     };
 });
-$__System.register("1", ["32"], function (exports_1, context_1) {
+$__System.register("1", ["33"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;

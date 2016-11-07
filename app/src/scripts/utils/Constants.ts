@@ -15,5 +15,6 @@ export default class Constants {
     static BUTTON_NORMAL: number = 0xe6e6e6;
     static BUTTON_HOVER: number = 0xff941a;
     static BUTTON_DOWN: number = 0x00aaff;
-    
+
+    static SFX_ENABLED: boolean = true;
 }

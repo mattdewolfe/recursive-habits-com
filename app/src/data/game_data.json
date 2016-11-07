@@ -242,6 +242,113 @@
             "pusher"
         ]
     },
+    "names": {
+        "first": [
+            "mike",
+            "max",
+            "olm",
+            "kato",
+            "elia",
+            "tormas",
+            "bob",
+            "liam",
+            "phil",
+            "ash",
+            "rutger",
+            "arnold",
+            "manuel",
+            "mehdi",
+            "mariam",
+            "matias",
+            "santino",
+            "lukas",
+            "nathan",
+            "georgi",
+            "andreas",
+            "victor",
+            "niilo",
+            "anton",
+            "henri",
+            "malik",
+            "richter",
+            "lorenzo",
+            "lazar",
+            "filip",
+            "finn",
+            "pavle",
+            "aleska",
+            "hugo",
+            "eric"
+        ],
+        "last": [
+            "smith",
+            "sedrinski",
+            "collamb",
+            "tudor",
+            "the first",
+            "the seventh",
+            "the second",
+            "harris",
+            "walker",
+            "perez",
+            "gruber",
+            "steiner",
+            "leitner",
+            "jacobs",
+            "claes",
+            "willems",
+            "horvat",
+            "juric",
+            "novotny",
+            "vesely",
+            "saar",
+            "rebane",
+            "kuznetsov",
+            "adrejev",
+            "nieme",
+            "laine"
+        ],
+        "adjective": [
+            "the bear",
+            "the wolf",
+            "the liar",
+            "the traitor",
+            "the destroy",
+            "the deceiver",
+            "the barbarian",
+            "the creator",
+            "the wise",
+            "the silent",
+            "the spider",
+            "the lion",
+            "the bull",
+            "the shark",
+            "the blade",
+            "the cleanser",
+            "the redeemer",
+            "the kingless",
+            "the rogue",
+            "the warrior",
+            "the navigator",
+            "the lost"
+        ],
+        "prefix": [
+            "doctor",
+            "captain",
+            "commander",
+            "lieutenant",
+            "commander",
+            "sergeant",
+            "admiral",
+            "lord",
+            "duke",
+            "baron",
+            "prince",
+            "champion",
+            "master",
+            "commander"
+        ]
+    },
     "ships": {
         "solo": [
             "Shadow",
@@ -256,20 +363,33 @@
             "Death's Hand",
             "Widow",
             "Distant Shores",
-            "The Seas Oasis",
+            "The Seas' Oasis",
+            "Morning Star",
             "Greed",
             "The Ocean's Ward",
             "Your Finale",
             "Temptation",
             "One Fatal Mistake",
             "Mortal Coil",
+            "Jupiter's Mark",
             "Whisp",
             "Finger of God",
             "Anguish",
             "Poseidon's Rage",
             "The 9th Circle",
             "Absolution",
-            "Death or Taxes"
+            "Death or Taxes",
+            "Death and Taxes",
+            "Taxes, then Death",
+            "Inevitability",
+            "Failing Light",
+            "No Surrender",
+            "Lucky Jack",
+            "Longsword",
+            "Oryn's Glaive",
+            "Solitary Pennent",
+            "Act of Man",
+            "Theor's Bane"
         ],
         "noun": [
             {
@@ -282,7 +402,7 @@
             },
             {
                 "single": "fire",
-                "plural": "fires"
+                "plural": "fire"
             },
             {
                 "single": "flame",
@@ -447,6 +567,24 @@
                 "noun": "anguish"
             }
         ],
+        "shipclass": [
+            "Caravel",
+            "Carrack",
+            "Cog",
+            "Galleon",
+            "Galley",
+            "Longship",
+            "Skiff",
+            "Frigate",
+            "Destroyer",
+            "Marauder",
+            "Privateer",
+            "Corvette",
+            "Cutter",
+            "Cruiser",
+            "Gaffer",
+            "Schooner"
+        ],
         "colour": [
             "slate",
             "black",
@@ -465,7 +603,8 @@
             "salmon",
             "rose",
             "solar",
-            "lunar"
+            "lunar",
+            "ash"
         ],
         "event": [
             "destruction",
@@ -487,7 +626,8 @@
             "rise",
             "conquest",
             "dawn",
-            "dusk"
+            "dusk",
+            "twilight"
         ],
         "title": [
             {
@@ -565,6 +705,10 @@
             {
                 "single": "angel",
                 "plural": "angels"
+            },
+            {
+                "single": "shadow",
+                "plural": "shadows"
             }
         ]
     }

@@ -2,8 +2,8 @@
     "required": {
         "assets": [
             {
-                "type": "image", 
-                "url": "up.png"
+                "type": "atlas", 
+                "url": "ui"
             }
         ]
     },
