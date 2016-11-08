@@ -3,7 +3,8 @@
         "assets": [
             {
                 "type": "atlas", 
-                "url": "ui"
+                "url": "ui",
+                "resolution": 1
             }
         ]
     },

@@ -1,5 +1,21 @@
 {"frames": {
 
+"button_hover":
+{
+	"frame": {"x":353,"y":1,"w":300,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":300,"h":65},
+	"sourceSize": {"w":300,"h":65}
+},
+"button_normal":
+{
+	"frame": {"x":655,"y":1,"w":300,"h":65},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":300,"h":65},
+	"sourceSize": {"w":300,"h":65}
+},
 "sfx_hover":
 {
 	"frame": {"x":1,"y":1,"w":86,"h":70},
@@ -37,8 +53,8 @@
 	"version": "1.0",
 	"image": "ui.png",
 	"format": "RGBA8888",
-	"size": {"w":352,"h":72},
+	"size": {"w":956,"h":72},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9d2c20f173ab0b10e337ef094a5930b2:429db32842fe1025f96d440d747e356c:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a3470a58e80bb9b21d8933c2bb0f2119:cb3d31a8f3cf3419afc1cece54c39e81:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

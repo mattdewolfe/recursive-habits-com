@@ -316,36 +316,6 @@ $__System.register("9", ["c"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('5', [], function (exports_1, context_1) {
-    "use strict";
-
-    var __moduleName = context_1 && context_1.id;
-    var Constants;
-    return {
-        setters: [],
-        execute: function () {
-            Constants = function () {
-                function Constants() {}
-                Constants.STATE_BOOT = 'boot';
-                Constants.STATE_PRELOAD = 'preload';
-                Constants.STATE_MENU = 'menu';
-                // fonts
-                Constants.FONT_KOMIKAX = 'komikax';
-                Constants.FONT_RALEWAY = 'Raleway';
-                Constants.STR_BLUE = '#0099e6';
-                Constants.STR_NEW_TITLE = '#ffffff';
-                Constants.NUM_ORANGE_BORDER = 0xffb866;
-                Constants.NUM_ORANGE_BOX = 0xe67a00;
-                Constants.BUTTON_NORMAL = 0xe6e6e6;
-                Constants.BUTTON_HOVER = 0xff941a;
-                Constants.BUTTON_DOWN = 0x00aaff;
-                Constants.SFX_ENABLED = true;
-                return Constants;
-            }();
-            exports_1("default", Constants);
-        }
-    };
-});
 $__System.register("4", ["d", "e", "f"], function (exports_1, context_1) {
     "use strict";
 
@@ -489,7 +459,39 @@ $__System.register('10', ['4', '6'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('11', ['e'], function (exports_1, context_1) {
+$__System.register('5', [], function (exports_1, context_1) {
+    "use strict";
+
+    var __moduleName = context_1 && context_1.id;
+    var Constants;
+    return {
+        setters: [],
+        execute: function () {
+            Constants = function () {
+                function Constants() {}
+                Constants.STATE_BOOT = 'boot';
+                Constants.STATE_PRELOAD = 'preload';
+                Constants.STATE_MENU = 'menu';
+                // fonts
+                Constants.FONT_KOMIKAX = 'komikax';
+                Constants.FONT_RALEWAY = 'Raleway';
+                Constants.STR_BLUE = '#0099e6';
+                Constants.STR_NEW_TITLE = '#ffffff';
+                Constants.STR_BTN_HOVER = '#ccffcc';
+                Constants.STR_BTN_NORMAL = '#666699';
+                Constants.NUM_ORANGE_BORDER = 0xffb866;
+                Constants.NUM_ORANGE_BOX = 0xe67a00;
+                Constants.BUTTON_NORMAL = 0xe6e6e6;
+                Constants.BUTTON_HOVER = 0xff941a;
+                Constants.BUTTON_DOWN = 0x00aaff;
+                Constants.SFX_ENABLED = true;
+                return Constants;
+            }();
+            exports_1("default", Constants);
+        }
+    };
+});
+$__System.register('11', ['e', '12', '5'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -500,11 +502,15 @@ $__System.register('11', ['e'], function (exports_1, context_1) {
         }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var application_1;
+    var application_1, display_1, Constants_1;
     var RHButton;
     return {
         setters: [function (application_1_1) {
             application_1 = application_1_1;
+        }, function (display_1_1) {
+            display_1 = display_1_1;
+        }, function (Constants_1_1) {
+            Constants_1 = Constants_1_1;
         }],
         execute: function () {
             RHButton = function (_super) {
@@ -517,11 +523,19 @@ $__System.register('11', ['e'], function (exports_1, context_1) {
                         forceOut = false;
                     }
                     _super.call(this, application_1.Application.getInstance().game, x, y, assetKey, callback, context, baseFrameName + '_hover', baseFrameName + '_normal', baseFrameName + '_hover', baseFrameName + '_normal');
+                    this._label = null;
                     this._enabledFrame = baseFrameName;
                     this._disabledFrame = disabledFrame !== null ? disabledFrame : baseFrameName;
                     this.forceOut = forceOut;
                     this.input.useHandCursor = true;
                 }
+                RHButton.prototype.addLabel = function (copy, normalColor, hoverColor) {
+                    this._normalCopyColour = normalColor;
+                    this._hoverCopyColour = hoverColor;
+                    this._label = new display_1.Text(this.realWidth * 0.5, this.realHeight * 0.525, copy, Constants_1.default.FONT_RALEWAY, this.realHeight * 0.35, normalColor, 'center');
+                    this._label.centerPivot();
+                    this.addChild(this._label);
+                };
                 RHButton.prototype.toggleEnabledFrame = function (isEnabled) {
                     if (isEnabled) {
                         this.updateBaseFrame(this._enabledFrame);
@@ -531,9 +545,27 @@ $__System.register('11', ['e'], function (exports_1, context_1) {
                 };
                 RHButton.prototype.onInputDownHandler = function (sprite, pointer) {
                     _super.prototype.onInputDownHandler.call(this, sprite, pointer);
+                    if (this._label !== null) {
+                        this._label.setColor(this._hoverCopyColour);
+                    }
                 };
                 RHButton.prototype.onInputOverHandler = function (sprite, pointer) {
                     _super.prototype.onInputOverHandler.call(this, sprite, pointer);
+                    if (this._label !== null) {
+                        this._label.setColor(this._hoverCopyColour);
+                    }
+                };
+                RHButton.prototype.onInputOutHandler = function (sprite, pointer) {
+                    _super.prototype.onInputOutHandler.call(this, sprite, pointer);
+                    if (this._label !== null) {
+                        this._label.setColor(this._normalCopyColour);
+                    }
+                };
+                RHButton.prototype.onInputUpHandler = function (sprite, pointer, isOver) {
+                    _super.prototype.onInputUpHandler.call(this, sprite, pointer, isOver);
+                    if (this._label !== null) {
+                        this._label.setColor(this._normalCopyColour);
+                    }
                 };
                 RHButton.prototype.updateBaseFrame = function (base) {
                     this.setFrames(base + '_hover', base + '_normal', base + '_hover', base + '_normal');
@@ -551,7 +583,7 @@ $__System.register('11', ['e'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1, context_1) {
+$__System.register('13', ['9', '5', '12', '10', '11'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -562,7 +594,7 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
         }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
-    var BaseState_1, Constants_1, display_1, utils_1, MenuMediator_1, RHButton_1;
+    var BaseState_1, Constants_1, display_1, MenuMediator_1, RHButton_1;
     var Menu;
     return {
         setters: [function (BaseState_1_1) {
@@ -571,8 +603,6 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
             Constants_1 = Constants_1_1;
         }, function (display_1_1) {
             display_1 = display_1_1;
-        }, function (utils_1_1) {
-            utils_1 = utils_1_1;
         }, function (MenuMediator_1_1) {
             MenuMediator_1 = MenuMediator_1_1;
         }, function (RHButton_1_1) {
@@ -584,13 +614,14 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
                 function Menu() {
                     _super.apply(this, arguments);
                     this._isGenerating = false;
+                    this._buildComplete = false;
                 }
                 // Phaser.State overrides
                 Menu.prototype.init = function () {
                     this._mediator = new MenuMediator_1.default();
                     this._oldTitle = null;
                     this._newTitle = null;
-                    this._fontSize = (this.game.width + this.game.height) * 0.5 * 0.045;
+                    this._fontSize = (this.realWidth + this.realHeight) * 0.5 * 0.045;
                     this._presetNames = this.mediator.getPresetShipNames();
                     this._currentPresetName = Math.floor(Math.random() * this._presetNames.length);
                 };
@@ -599,64 +630,61 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
                 };
                 // dijon.core.State overrides
                 Menu.prototype.listBuildSequence = function () {
-                    return [this._addSFXBtn, this._buildBorders, this._addVisuals];
+                    return [this._buildBorders, this._addVisuals, this._addButtons];
                 };
                 Menu.prototype.afterBuild = function () {
                     _super.prototype.afterBuild.call(this);
-                };
-                Menu.prototype.resize = function (width, height) {
-                    this.clearVisuals();
-                    this._fontSize = (this.game.width + this.game.height) * 0.5 * 0.045;
-                    this._sfxButton.x = this.game.width - 100;
-                    this._sfxButton.y = this.game.height - 90;
-                    this._buildBorders();
-                    this._addVisuals();
-                    this._sfxButton.bringToTop();
+                    this._buildComplete = true;
                 };
                 Menu.prototype.clearVisuals = function () {
                     this._title.destroy();
-                    this._button.destroy();
-                    this._button2.destroy();
-                    this._button3.destroy();
-                    this._button4.destroy();
                     this._bg.destroy();
-                };
-                Menu.prototype._addSFXBtn = function () {
-                    this._sfxButton = new RHButton_1.default(this.game.width - 100, this.game.height - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
-                    this.add.existing(this._sfxButton);
                 };
                 Menu.prototype._buildBorders = function () {
                     var gfx = this.game.add.graphics();
                     gfx.beginFill(Constants_1.default.NUM_ORANGE_BORDER, 0.8);
-                    gfx.drawRoundedRect(5, 5, this.game.width - 10, this.game.height - 10, 10);
+                    gfx.drawRoundedRect(5, 5, this.realWidth - 10, this.realHeight - 10, 10);
                     gfx.endFill();
                     gfx.beginFill(0x000000, 1.0);
-                    gfx.drawRoundedRect(10, 10, this.game.width - 20, this.game.height - 20, 10);
+                    gfx.drawRoundedRect(10, 10, this.realWidth - 20, this.realHeight - 20, 10);
                     gfx.endFill();
                     this._bg = this.add.image(5, 5, gfx.generateTexture());
                     this.game.world.remove(gfx);
                 };
                 // private methods
                 Menu.prototype._addVisuals = function () {
-                    var buttonWidth = 400;
-                    if (buttonWidth > this.game.width * 0.9) {
-                        buttonWidth = this.game.width * 0.85;
-                    }
-                    this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'GENERATOR', Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_BLUE);
+                    this._title = this.game.add.dText(this.realWidth * 0.5, this.realHeight * 0.1, 'GENERATOR', Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_BLUE);
                     this._title.centerPivot();
-                    this._button = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.25, buttonWidth, buttonWidth * 0.15, false, 'RANDOM SHIP NAME', this._generateShipName, this);
-                    this._button.centerPivot();
-                    this.add.existing(this._button);
-                    this._button2 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.4, buttonWidth, buttonWidth * 0.15, false, 'PRESET SHIP NAME', this._getPresetName, this);
-                    this._button2.centerPivot();
-                    this.add.existing(this._button2);
-                    this._button3 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.55, buttonWidth, buttonWidth * 0.15, false, 'RANDOM NAME', this._generatePlayerName, this);
-                    this._button3.centerPivot();
-                    this.add.existing(this._button3);
-                    this._button4 = utils_1.Placeholders.button(this.game.width * 0.5, this.game.height * 0.7, buttonWidth, buttonWidth * 0.15, false, 'RANDOM INSULT', this._generateNewInsult, this);
-                    this._button4.centerPivot();
-                    this.add.existing(this._button4);
+                };
+                Menu.prototype._addButtons = function () {
+                    this._buttons = [];
+                    var xPos = this.realWidth * 0.5;
+                    var button = new RHButton_1.default(this.realWidth * 0.5, this.realHeight * 0.2, this._generateShipName, this, 'ui', 'button');
+                    button.addLabel('RANDOM SHIP NAME', Constants_1.default.STR_BTN_NORMAL, Constants_1.default.STR_BTN_HOVER);
+                    xPos -= button.realWidth * 0.5;
+                    button.x = xPos;
+                    this.add.existing(button);
+                    this._buttons.push(button);
+                    var button2 = new RHButton_1.default(xPos, this.realHeight * 0.35, this._getPresetName, this, 'ui', 'button');
+                    button2.addLabel('PRESET SHIP NAME', Constants_1.default.STR_BTN_NORMAL, Constants_1.default.STR_BTN_HOVER);
+                    this.add.existing(button2);
+                    this._buttons.push(button2);
+                    var button3 = new RHButton_1.default(xPos, this.realHeight * 0.5, this._generatePlayerName, this, 'ui', 'button');
+                    button3.addLabel('RANDOM NAME', Constants_1.default.STR_BTN_NORMAL, Constants_1.default.STR_BTN_HOVER);
+                    this.add.existing(button3);
+                    this._buttons.push(button3);
+                    var button4 = new RHButton_1.default(xPos, this.realHeight * 0.65, this._generateNewInsult, this, 'ui', 'button');
+                    button4.addLabel('RANDOM INSULT', Constants_1.default.STR_BTN_NORMAL, Constants_1.default.STR_BTN_HOVER);
+                    this.add.existing(button4);
+                    this._buttons.push(button4);
+                    this._sfxButton = new RHButton_1.default(this.realWidth - 100, this.realHeight - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
+                    this.add.existing(this._sfxButton);
                     this._sfxButton.bringToTop();
+                };
+                Menu.prototype._repositionButtons = function () {
+                    this._sfxButton.x = this.realWidth - 100;
+                    this._sfxButton.y = this.realHeight - 90;
+                    for (var i = 0; i < this._buttons.length; i++) {}
                 };
                 Menu.prototype._toggleSFX = function () {
                     Constants_1.default.SFX_ENABLED = !Constants_1.default.SFX_ENABLED;
@@ -699,15 +727,15 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
                     this.updateAndShowNewName(this.mediator.getRandomInsult());
                 };
                 Menu.prototype.updateAndShowNewName = function (newName) {
-                    var newText = new display_1.Text(0, 0, newName.toUpperCase(), Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_NEW_TITLE, 'center', true, this.game.width);
+                    var newText = new display_1.Text(0, 0, newName.toUpperCase(), Constants_1.default.FONT_RALEWAY, this._fontSize, Constants_1.default.STR_NEW_TITLE, 'center', true, this.realWidth);
                     newText.fontSize = this._fontSize * 0.8;
                     var gfx = this.game.add.graphics(-500, 0);
                     gfx.beginFill(Constants_1.default.NUM_ORANGE_BOX, 0.8);
-                    gfx.drawRoundedRect(0, 0, newText.width * 20, newText.height + 20, 10);
+                    gfx.drawRoundedRect(0, 0, newText.realWidth * 20, newText.realHeight + 20, 10);
                     gfx.endFill();
-                    this._newTitle = this.add.image(this.game.width * 0.5, -500, gfx.generateTexture());
+                    this._newTitle = this.add.image(this.realWidth * 0.5, -500, gfx.generateTexture());
                     this._newTitle.alpha = 0;
-                    this._newTitle.y = this.game.height * 0.8;
+                    this._newTitle.y = this.realHeight * 0.85;
                     this.game.world.remove(gfx);
                     this._newTitle.setPivot('center');
                     newText.setPivot('center');
@@ -727,7 +755,7 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
                 };
                 Menu.prototype._removeOldTitle = function () {
                     if (this._oldTitle !== null) {
-                        this.game.add.tween(this._oldTitle).to({ y: this.game.height * 1.25 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._clearOldTitle, this);
+                        this.game.add.tween(this._oldTitle).to({ y: this.realHeight * 1.25 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._clearOldTitle, this);
                         ;
                     }
                 };
@@ -738,6 +766,20 @@ $__System.register('12', ['9', '5', '13', '3', '10', '11'], function (exports_1,
                     this._oldTitle = this._newTitle;
                     this._isGenerating = false;
                 };
+                Object.defineProperty(Menu.prototype, "realWidth", {
+                    get: function () {
+                        return this.game.width;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
+                Object.defineProperty(Menu.prototype, "realHeight", {
+                    get: function () {
+                        return this.game.height;
+                    },
+                    enumerable: true,
+                    configurable: true
+                });
                 Object.defineProperty(Menu.prototype, "mediator", {
                     get: function () {
                         return this._mediator;
@@ -1012,7 +1054,7 @@ $__System.register('17', ['3'], function (exports_1, context_1) {
 /**
  * Wraps Phaser.Loader
 */
-$__System.register('18', ['e', '3', '13'], function (exports_1, context_1) {
+$__System.register('18', ['e', '3', '12'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -2366,7 +2408,7 @@ $__System.register('1a', ['e', 'c', '3'], function (exports_1, context_1) {
 /**
  * GameObjectFactory
  */
-$__System.register('1b', ['13'], function (exports_1, context_1) {
+$__System.register('1b', ['12'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -3513,7 +3555,7 @@ $__System.register('22', [], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('23', ['e', '24', '13'], function (exports_1, context_1) {
+$__System.register('23', ['e', '24', '12'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5714,7 +5756,7 @@ $__System.register('2f', ['e', '3'], function (exports_1, context_1) {
         }
     };
 });
-$__System.register('13', ['27', '28', '2b', '29', '2c', '2d', '2e', '2a', '2f'], function (exports_1, context_1) {
+$__System.register('12', ['27', '28', '2b', '29', '2c', '2d', '2e', '2a', '2f'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -5759,7 +5801,7 @@ $__System.register('13', ['27', '28', '2b', '29', '2c', '2d', '2e', '2a', '2f'],
         execute: function () {}
     };
 });
-$__System.register('30', ['e', '13', '3'], function (exports_1, context_1) {
+$__System.register('30', ['e', '12', '3'], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6616,7 +6658,7 @@ $__System.register("f", ["d"], function (exports_1, context_1) {
         }
     };
 });
-$__System.register("33", ["e", "c", "3", "d", "2", "5", "8", "b", "12", "f"], function (exports_1, context_1) {
+$__System.register("33", ["e", "c", "3", "d", "2", "5", "8", "b", "13", "f"], function (exports_1, context_1) {
     "use strict";
 
     var __moduleName = context_1 && context_1.id;
@@ -6687,8 +6729,15 @@ $__System.register("33", ["e", "c", "3", "d", "2", "5", "8", "b", "12", "f"], fu
                     this.responsiveVoice.speak(readText);
                 };
                 BoilerplateApplication.prototype.adjustScaleSettings = function () {
-                    this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-                    this.game.scale.refresh();
+                    if (utils_1.Device.cocoon) {
+                        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+                        this.game.scale.pageAlignHorizontally = true;
+                        this.game.scale.pageAlignVertically = true;
+                    } else {
+                        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+                        this.game.scale.setMinMax(256, 192, 1024, 768);
+                        this.game.scale.pageAlignHorizontally = true;
+                    }
                 };
                 BoilerplateApplication.prototype.adjustRendererSettings = function () {
                     this.game.stage.disableVisibilityChange = true;
@@ -6720,7 +6769,11 @@ $__System.register("33", ["e", "c", "3", "d", "2", "5", "8", "b", "12", "f"], fu
                     if (application_1.Application.queryVar('resolution') && !isNaN(application_1.Application.queryVar('resolution'))) {
                         return application_1.Application.queryVar('resolution');
                     }
-                    return utils_1.Device.mobile ? 1 : window.devicePixelRatio > 1 ? 2 : 1;
+                    if (utils_1.Device.mobile) {
+                        return Math.round(utils_1.Device.pixelRatio);
+                    } else {
+                        return Math.round(window.devicePixelRatio);
+                    }
                 };
                 BoilerplateApplication.prototype._getRendererByDevice = function () {
                     return utils_1.Device.mobile && window.devicePixelRatio < 2 ? Phaser.CANVAS : Phaser.AUTO;

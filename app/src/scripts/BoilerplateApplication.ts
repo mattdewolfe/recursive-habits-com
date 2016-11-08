@@ -53,8 +53,16 @@ export default class BoilerplateApplication extends Application {
     }
 
     public adjustScaleSettings(): void {
-        this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
-        this.game.scale.refresh();
+        if (Device.cocoon) {
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.game.scale.pageAlignHorizontally = true;
+            this.game.scale.pageAlignVertically = true;
+        }
+        else {
+            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.game.scale.setMinMax(256, 192, 1024, 768);
+            this.game.scale.pageAlignHorizontally = true;
+        }
     }
 
     public adjustRendererSettings(): void {
@@ -92,7 +100,12 @@ export default class BoilerplateApplication extends Application {
         if (Application.queryVar('resolution') && !isNaN(Application.queryVar('resolution'))) {
             return Application.queryVar('resolution');
         }
-        return Device.mobile ? 1 : (window.devicePixelRatio > 1 ? 2 : 1);
+        if (Device.mobile) {
+            return Math.round(Device.pixelRatio);
+        }
+        else {
+            return Math.round(window.devicePixelRatio);
+        }
     }
 
     private _getRendererByDevice(): number {

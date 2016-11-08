@@ -8,6 +8,8 @@ export default class Constants {
 
     static STR_BLUE: string = '#0099e6';
     static STR_NEW_TITLE: string = '#ffffff';
+    static STR_BTN_HOVER: string = '#ccffcc';
+    static STR_BTN_NORMAL: string = '#666699';
 
     static NUM_ORANGE_BORDER: number = 0xffb866;
     static NUM_ORANGE_BOX: number = 0xe67a00;

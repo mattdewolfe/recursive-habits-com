@@ -188,6 +188,8 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">ui/button_hover.png</key>
+            <key type="filename">ui/button_normal.png</key>
             <key type="filename">ui/sfx_hover.png</key>
             <key type="filename">ui/sfx_normal.png</key>
             <key type="filename">ui/sfx_off_hover.png</key>

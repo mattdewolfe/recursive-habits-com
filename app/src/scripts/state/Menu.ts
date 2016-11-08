@@ -8,6 +8,8 @@ import RHButton from '../display/RHButton';
 export default class Menu extends BaseState {
 
     protected _isGenerating: boolean = false;
+    protected _buildComplete: boolean = false;
+
     protected _oldTitle: Phaser.Image;
     protected _newTitle: Phaser.Image;
     protected _fontSize: number;
@@ -15,10 +17,7 @@ export default class Menu extends BaseState {
 
     protected _presetNames: string[];
 
-    protected _button: Phaser.Image;
-    protected _button2: Phaser.Image;
-    protected _button3: Phaser.Image;
-    protected _button4: Phaser.Image;
+    protected _buttons: RHButton[];
     protected _sfxButton: RHButton;
 
     protected _title: Phaser.Text;
@@ -29,7 +28,7 @@ export default class Menu extends BaseState {
         this._mediator = new MenuMediator();
         this._oldTitle = null;
         this._newTitle = null;
-        this._fontSize = ((this.game.width + this.game.height) * 0.5) * 0.045;
+        this._fontSize = ((this.realWidth + this.realHeight) * 0.5) * 0.045;
         this._presetNames = this.mediator.getPresetShipNames();
         this._currentPresetName = Math.floor(Math.random() * this._presetNames.length);
     }
@@ -41,47 +40,29 @@ export default class Menu extends BaseState {
     // dijon.core.State overrides
     public listBuildSequence() {
         return [
-            this._addSFXBtn,
             this._buildBorders,
-            this._addVisuals
+            this._addVisuals,
+            this._addButtons
         ]
     }
 
     public afterBuild() {
         super.afterBuild();
-    }
-
-    public resize(width: number, height: number) {
-        this.clearVisuals();
-        this._fontSize = ((this.game.width + this.game.height) * 0.5) * 0.045;
-        this._sfxButton.x = this.game.width - 100;
-        this._sfxButton.y = this.game.height - 90;
-        this._buildBorders();
-        this._addVisuals();
-        this._sfxButton.bringToTop();
-    }   
+        this._buildComplete = true;
+    } 
     
     public clearVisuals(): void {
         this._title.destroy();
-        this._button.destroy();
-        this._button2.destroy();
-        this._button3.destroy();
-        this._button4.destroy();
         this._bg.destroy();
     }
 
-    private _addSFXBtn(): void {
-        this._sfxButton = new RHButton(this.game.width - 100, this.game.height - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
-        this.add.existing(this._sfxButton);
-    }   
-    
     private _buildBorders(): void {
         let gfx = this.game.add.graphics();
         gfx.beginFill(Constants.NUM_ORANGE_BORDER, 0.8);
-        gfx.drawRoundedRect(5, 5, this.game.width - 10, this.game.height - 10, 10);
+        gfx.drawRoundedRect(5, 5, this.realWidth - 10, this.realHeight - 10, 10);
         gfx.endFill();
         gfx.beginFill(0x000000, 1.0);
-        gfx.drawRoundedRect(10, 10, this.game.width - 20, this.game.height - 20, 10);
+        gfx.drawRoundedRect(10, 10, this.realWidth - 20, this.realHeight - 20, 10);
         gfx.endFill();
 
         this._bg = this.add.image(5, 5, gfx.generateTexture());
@@ -90,29 +71,46 @@ export default class Menu extends BaseState {
 
     // private methods
     private _addVisuals(): void {
-        let buttonWidth: number = 400;
-        if (buttonWidth > this.game.width * 0.9) { 
-            buttonWidth = this.game.width * 0.85;
-        }
-        this._title = this.game.add.dText(this.game.width * 0.5, this.game.height * 0.1, 'GENERATOR', Constants.FONT_RALEWAY, this._fontSize, Constants.STR_BLUE);
+        this._title = this.game.add.dText(this.realWidth * 0.5, this.realHeight * 0.1, 'GENERATOR', Constants.FONT_RALEWAY, this._fontSize, Constants.STR_BLUE);
         this._title.centerPivot();
+    }
 
-        this._button = Placeholders.button(this.game.width * 0.5, this.game.height * 0.25, buttonWidth, buttonWidth * 0.15, false, 'RANDOM SHIP NAME', this._generateShipName, this);
-        this._button.centerPivot();
-        this.add.existing(this._button);
+    private _addButtons(): void {
+        this._buttons = [];
+        let xPos = this.realWidth * 0.5;
+        let button = new RHButton(this.realWidth * 0.5, this.realHeight * 0.2, this._generateShipName, this, 'ui', 'button');
+        button.addLabel('RANDOM SHIP NAME', Constants.STR_BTN_NORMAL, Constants.STR_BTN_HOVER);
+        xPos -= button.realWidth * 0.5;
+        button.x = xPos;
+        this.add.existing(button);
+        this._buttons.push(button);
 
-        this._button2 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.4, buttonWidth, buttonWidth * 0.15, false, 'PRESET SHIP NAME', this._getPresetName, this);
-        this._button2.centerPivot();
-        this.add.existing(this._button2);
+        let button2 = new RHButton(xPos, this.realHeight * 0.35, this._getPresetName, this, 'ui', 'button');
+        button2.addLabel('PRESET SHIP NAME', Constants.STR_BTN_NORMAL, Constants.STR_BTN_HOVER);
+        this.add.existing(button2);
+        this._buttons.push(button2);
+        
+        let button3 = new RHButton(xPos, this.realHeight * 0.5, this._generatePlayerName, this, 'ui', 'button');
+        button3.addLabel('RANDOM NAME', Constants.STR_BTN_NORMAL, Constants.STR_BTN_HOVER);
+        this.add.existing(button3);
+        this._buttons.push(button3);
 
-        this._button3 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.55, buttonWidth, buttonWidth * 0.15, false, 'RANDOM NAME', this._generatePlayerName, this);
-        this._button3.centerPivot();
-        this.add.existing(this._button3);
+        let button4 = new RHButton(xPos, this.realHeight * 0.65, this._generateNewInsult, this, 'ui', 'button');
+        button4.addLabel('RANDOM INSULT', Constants.STR_BTN_NORMAL, Constants.STR_BTN_HOVER);
+        this.add.existing(button4);
+        this._buttons.push(button4);
 
-        this._button4 = Placeholders.button(this.game.width * 0.5, this.game.height * 0.7, buttonWidth, buttonWidth * 0.15, false, 'RANDOM INSULT', this._generateNewInsult, this);
-        this._button4.centerPivot();
-        this.add.existing(this._button4);
+        this._sfxButton = new RHButton(this.realWidth - 100, this.realHeight - 90, this._toggleSFX, this, 'ui', 'sfx', 'sfx_off', true);
+        this.add.existing(this._sfxButton);        
         this._sfxButton.bringToTop();
+    }   
+    
+    private _repositionButtons(): void {
+        this._sfxButton.x = this.realWidth - 100;
+        this._sfxButton.y = this.realHeight - 90;
+        for (let i = 0; i < this._buttons.length; i++) {
+            
+        }
     }
 
     private _toggleSFX(): void {
@@ -161,16 +159,16 @@ export default class Menu extends BaseState {
     }
 
     private updateAndShowNewName(newName: string): void {
-        let newText = new Text(0, 0, newName.toUpperCase(), Constants.FONT_RALEWAY, this._fontSize, Constants.STR_NEW_TITLE, 'center', true, this.game.width);
+        let newText = new Text(0, 0, newName.toUpperCase(), Constants.FONT_RALEWAY, this._fontSize, Constants.STR_NEW_TITLE, 'center', true, this.realWidth);
         newText.fontSize = this._fontSize * 0.8;
         let gfx = this.game.add.graphics(-500, 0);
         gfx.beginFill(Constants.NUM_ORANGE_BOX, 0.8);
-        gfx.drawRoundedRect(0, 0, newText.width * 20, newText.height + 20, 10);
+        gfx.drawRoundedRect(0, 0, newText.realWidth * 20, newText.realHeight + 20, 10);
         gfx.endFill();
 
-        this._newTitle = this.add.image(this.game.width * 0.5, -500, gfx.generateTexture());
+        this._newTitle = this.add.image(this.realWidth * 0.5, -500, gfx.generateTexture());
         this._newTitle.alpha = 0;
-        this._newTitle.y = this.game.height * 0.8;
+        this._newTitle.y = this.realHeight * 0.85;
         this.game.world.remove(gfx);
 
         this._newTitle.setPivot('center');
@@ -194,7 +192,7 @@ export default class Menu extends BaseState {
 
     private _removeOldTitle(): void {
         if (this._oldTitle !== null) {
-            this.game.add.tween(this._oldTitle).to({ y: this.game.height * 1.25 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._clearOldTitle, this);;
+            this.game.add.tween(this._oldTitle).to({ y: this.realHeight * 1.25 }, 350, Phaser.Easing.Cubic.Out, true).onComplete.addOnce(this._clearOldTitle, this);;
         }
     }
 
@@ -206,6 +204,14 @@ export default class Menu extends BaseState {
         this._oldTitle = this._newTitle;
         this._isGenerating = false;
     }    
+
+    public get realWidth(): number {
+        return this.game.width;
+    }
+
+    public get realHeight(): number {
+        return this.game.height;
+    }
 
     private get mediator(): MenuMediator {
         return <MenuMediator>this._mediator;
