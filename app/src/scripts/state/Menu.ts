@@ -104,14 +104,6 @@ export default class Menu extends BaseState {
         this.add.existing(this._sfxButton);        
         this._sfxButton.bringToTop();
     }   
-    
-    private _repositionButtons(): void {
-        this._sfxButton.x = this.realWidth - 100;
-        this._sfxButton.y = this.realHeight - 90;
-        for (let i = 0; i < this._buttons.length; i++) {
-            
-        }
-    }
 
     private _toggleSFX(): void {
         Constants.SFX_ENABLED = !Constants.SFX_ENABLED;
