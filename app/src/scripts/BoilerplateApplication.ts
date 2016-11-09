@@ -13,7 +13,6 @@ import {GameModel} from "./model/GameModel";
 
 export default class BoilerplateApplication extends Application {
     public gameId: string = null;
-    public responsiveVoice: any;
     
     constructor() {
         super();
@@ -39,17 +38,6 @@ export default class BoilerplateApplication extends Application {
     // public methods
     public startGame(): void {
         this.game.state.start(Constants.STATE_BOOT);
-    }
-
-    public preloadComplete(): void {
-        this.responsiveVoice = window['responsiveVoice'];
-    }
-
-    public ttsText(readText: string): void {
-        if (readText === null || Constants.SFX_ENABLED === false) {
-            return;
-        }
-        this.responsiveVoice.speak(readText);
     }
 
     public adjustScaleSettings(): void {
@@ -80,6 +68,10 @@ export default class BoilerplateApplication extends Application {
         const copyModel = new CopyModel('copy');
     }
 
+    public preloadComplete(): void {
+
+    }   
+    
     // private methods
     // adds states
     private _addStates() {

@@ -14,8 +14,7 @@ export default class ApplicationMediator extends BaseMediator {
         return [
             Notifications.BOOT_INIT,
             Notifications.BOOT_COMPLETE,
-            Notifications.PRELOAD_COMPLETE,
-            Notifications.REQUEST_TTS_AUDIO
+            Notifications.PRELOAD_COMPLETE
         ]
     }
 
@@ -37,13 +36,6 @@ export default class ApplicationMediator extends BaseMediator {
                 this.game.asset.setData(this.game.cache.getJSON('assets'));
                 this.viewComponent.registerModels();
                 this.game.transition.to(Constants.STATE_PRELOAD);
-                break;
-
-            case Notifications.REQUEST_TTS_AUDIO:
-                if (this.game.sound.mute === false) {
-                    let copy: string = <string>notification.getBody();
-                    this.viewComponent.ttsText(copy);
-                }
                 break;
         }
     }

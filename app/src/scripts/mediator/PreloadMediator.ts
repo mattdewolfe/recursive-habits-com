@@ -14,7 +14,7 @@ export default class PreloadMediator extends BaseMediator {
     }   
     
     public next(): void{
-        this.game.transition.to(Constants.STATE_MENU);
+        this.requestStateChange(Constants.STATE_MENU);
     }
 		
     // getter / setter

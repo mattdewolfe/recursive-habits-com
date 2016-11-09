@@ -1,0 +1,72 @@
+{
+    "assetEntry": "menu",
+    "groups": [
+        "background",
+        "hud",
+        "menu_items"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "prefab",
+            "position": {"x": 0, "y": 0},
+            "group": "background",
+            "prop": {
+                "key": "ui",
+                "frame": "background"
+            }
+        },
+        "title": {
+            "type": "text",
+            "position": {"x": 0.5, "y": 0.15},
+            "group": "hud",
+            "prop": {
+                "copy": "Fruit Ninja",
+                "fontName": "railway", 
+                "fontColour": "#ff00f0",
+                "fontSize": 50,
+                "anchor": {"x": 0.5, "y": 0.5},
+                "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+            }
+        },
+        "game_button": {
+            "type": "button",
+            "position": {"x": 0.5, "y": 0.6},
+            "group": "menu_items",
+            "prop": {
+                "key": "ui",
+                "frame": "button",
+                "pivot": "center",
+                "text": {
+                    "position": {"x": 0.5, "y": 0.5},
+                    "copy": "Play",
+                    "fontName": "railway", 
+                    "fontColour": "#00ff00",
+                    "altColour": "#ff0000",
+                    "fontSize": 40,
+                    "pivot": "center",
+                    "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+                }
+            }
+        },
+        "store_button": {
+            "type": "button",
+            "position": {"x": 0.5, "y": 0.7},
+            "group": "menu_items",
+            "prop": {
+                "key": "ui",
+                "frame": "button",
+                "pivot": "center",
+                "text": {
+                    "position": {"x": 0.5, "y": 0.5},
+                    "copy": "Store",
+                    "fontName": "railway", 
+                    "fontColour": "#00ff00",
+                    "altColour": "#ff0000",
+                    "fontSize": 40,
+                    "pivot": "center",
+                    "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+                }
+            }
+        }
+    }
+}

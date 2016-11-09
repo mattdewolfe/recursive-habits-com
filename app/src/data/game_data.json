@@ -1,773 +1,519 @@
 {
-    "insults": {
-        "adjectives": [
-            "lazy",
-            "stupid",
-            "insecure",
-            "idiotic",
-            "slimy",
-            "smutty",
-            "smelly",
-            "pompous",
-            "communist",
-            "dicknosed",
-            "pie-eating",
-            "racist",
-            "elitist",
-            "white trash",
-            "millenial",
-            "drug-loving",
-            "tone deaf",
-            "mouth breather",
-            "indignant",
-            "self-righteous",
-            "self-loathing",
-            "inglorious",
-            "over compensating",
-            "brutal",
-            "careless",
-            "tasteless",
-            "classless",
-            "homeless",
-            "helpless",
-            "loveless",
-            "retarded",
-            "mental",
-            "butter-faced"
+    "level1": {
+        "world": {
+            "origin_x": 0,
+            "origin_y": 0,
+            "width": 1200,
+            "height": 600
+        },
+        "assetEntry": "level1",
+        "groups": [
+            "background",
+            "spawners",
+            "cuts",
+            "fruits",
+            "special_fruits",
+            "bombs",
+            "hud"
         ],
-        "nouns": [
-            {
-                "single": "douche",
-                "plural": "douches"
+        "prefabs": {
+            "background": {
+                "type": "background",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "background_image",
+                    "group": "background"
+                }
             },
-            {
-                "single": "ass",
-                "plural": "asses"
+            "score": {
+                "type": "score",
+                "position": {
+                    "x": 0.05,
+                    "y": 0.05
+                },
+                "prop": {
+                    "text": "Fruits: ",
+                    "style": {
+                        "font": "48px Arial",
+                        "fill": "#fff"
+                    },
+                    "group": "hud"
+                }
             },
-            {
-                "single": "turd",
-                "plural": "turds"
+            "lives": {
+                "type": "lives",
+                "position": {
+                    "x": 0.8,
+                    "y": 0.05
+                },
+                "prop": {
+                    "texture": "sword_image",
+                    "group": "hud",
+                    "lives": 3,
+                    "lives_spacing": 50
+                }
             },
-            {
-                "single": "rectum",
-                "plural": "rectums"
+            "fruit_spawner": {
+                "type": "fruit_spawner",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "",
+                    "group": "spawners",
+                    "pool": "fruits",
+                    "spawn_time": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "velocity_x": {
+                        "min": -100,
+                        "max": 100
+                    },
+                    "velocity_y": {
+                        "min": 850,
+                        "max": 1000
+                    },
+                    "frames": [
+                        20,
+                        21,
+                        23,
+                        35,
+                        38
+                    ]
+                }
             },
-            {
-                "single": "butt",
-                "plural": "butts"
+            "bomb_spawner": {
+                "type": "bomb_spawner",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "",
+                    "group": "spawners",
+                    "pool": "bombs",
+                    "spawn_time": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "velocity_x": {
+                        "min": -100,
+                        "max": 100
+                    },
+                    "velocity_y": {
+                        "min": 850,
+                        "max": 1000
+                    }
+                }
             },
-            {
-                "single": "cock",
-                "plural": "cocks"
+            "special_fruit_spawner": {
+                "type": "special_fruit_spawner",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "",
+                    "group": "spawners",
+                    "pool": "special_fruits",
+                    "spawn_time": {
+                        "min": 5,
+                        "max": 10
+                    },
+                    "velocity_x": {
+                        "min": -100,
+                        "max": 100
+                    },
+                    "velocity_y": {
+                        "min": 850,
+                        "max": 1000
+                    }
+                }
             },
-            {
-                "single": "shit",
-                "plural": "shit"
-            },
-            {
-                "single": "crotch",
-                "plural": "crotches"
-            },
-            {
-                "single": "turd",
-                "plural": "turds"
-            },
-            {
-                "single": "horse",
-                "plural": "horses"
-            },
-            {
-                "single": "slut",
-                "plural": "sluts"
-            },
-            {
-                "single": "chum",
-                "plural": "chum"
-            },
-            {
-                "single": "dick",
-                "plural": "dicks"
-            },
-            {
-                "single": "boner",
-                "plural": "boners"
-            },
-            {
-                "single": "shart",
-                "plural": "sharts"
-            },
-            {
-                "single": "nut",
-                "plural": "nuts"
-            },
-            {
-                "single": "sphincter",
-                "plural": "sphincters"
-            },
-            {
-                "single": "trash",
-                "plural": "trash"
-            },
-            {
-                "single": "fly",
-                "plural": "flies"
-            },
-            {
-                "single": "insect",
-                "plural": "insects"
-            },
-            {
-                "single": "sewage",
-                "plural": "sewage"
-            },
-            {
-                "single": "urine",
-                "plural": "urine"
-            },
-            {
-                "single": "urinal cake",
-                "plural": "urinal cakes"
-            },
-            {
-                "single": "condom",
-                "plural": "condoms"
-            },
-            {
-                "single": "tampon",
-                "plural": "tampons"
-            },
-            {
-                "single": "feces",
-                "plural": "feces"
-            },
-            {
-                "single": "turkey",
-                "plural": "turkeys"
-            },
-            {
-                "single": "mistake",
-                "plural": "mistakes"
+            "leaderboard": {
+                "type": "leaderboard",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.5
+                },
+                "prop": {
+                    "texture": "",
+                    "group": "hud",
+                    "number_of_scores": 5,
+                    "text_prop": {
+                        "text": "",
+                        "group": "hud",
+                        "style": {
+                            "font": "32px Arial",
+                            "fill": "#fff"
+                        },
+                        "anchor": {
+                            "x": 0.5,
+                            "y": 0.5
+                        }
+                    },
+                    "scores_spacing": 50
+                }
             }
-        ],
-        "pronouns": [
-            "pilot",
-            "canoe",
-            "captain",
-            "pirate",
-            "knob",
-            "box",
-            "jockey",
-            "nazi",
-            "roach",
-            "waffle",
-            "goblin",
-            "blossum",
-            "biscuit",
-            "clown",
-            "socket",
-            "monster",
-            "hound",
-            "dragon",
-            "balloon",
-            "hooker",
-            "admiral",
-            "astronaut",
-            "skater",
-            "wanna-be",
-            "recepticle",
-            "plumber",
-            "therapist",
-            "orphan",
-            "president",
-            "king",
-            "queen",
-            "prince",
-            "duke",
-            "baron",
-            "baroness",
-            "princess",
-            "pleb",
-            "hipster",
-            "peasant"
-        ],
-        "adverbsHow": [
-            "angrily",
-            "anxiously",
-            "barely",
-            "brutally",
-            "briefly",
-            "constantly",
-            "crossly",
-            "elegantly",
-            "easily",
-            "fondly",
-            "foolishly",
-            "gingerly",
-            "hardly",
-            "lazily",
-            "loudly",
-            "merrily",
-            "noisily",
-            "painfully",
-            "poorly",
-            "selfishly",
-            "silently",
-            "softly",
-            "swiftly",
-            "thoroughly"
-        ],
-        "actionVerbs": [
-            "scraping",
-            "dipping",
-            "licking",
-            "fucking",
-            "banging",
-            "tasting",
-            "scratching",
-            "tasting"
-        ],
-        "actionNouns": [
-            "fucker",
-            "licker",
-            "scraper",
-            "banger",
-            "tickler",
-            "washer",
-            "diddler",
-            "sniffer",
-            "wiper",
-            "receiver",
-            "masher",
-            "smasher",
-            "pusher"
-        ]
+        }
     },
-    "names": {
-        "first": [
-            "mike",
-            "max",
-            "olm",
-            "kato",
-            "elia",
-            "tormas",
-            "bob",
-            "liam",
-            "phil",
-            "ash",
-            "rutger",
-            "arnold",
-            "manuel",
-            "mehdi",
-            "mariam",
-            "matias",
-            "santino",
-            "lukas",
-            "nathan",
-            "georgi",
-            "andreas",
-            "victor",
-            "niilo",
-            "anton",
-            "henri",
-            "malik",
-            "richter",
-            "lorenzo",
-            "lazar",
-            "filip",
-            "finn",
-            "pavle",
-            "aleska",
-            "hugo",
-            "eric",
-            "katrin",
-            "viktoria",
-            "emma",
-            "urte",
-            "ugo",
-            "yagmur",
-            "amelia",
-            "hiro",
-            "tiare",
-            "ren",
-            "hiroto",
-            "yuuto",
-            "takumi",
-            "kosei",
-            "taiga"
+    "login_screen": {
+        "assetEntry": "login_screen",
+        "groups": [
+            "background",
+            "player_inputs",
+            "hud"
         ],
-        "last": [
-            "smith",
-            "sedrinski",
-            "collamb",
-            "tudor",
-            "the first",
-            "the seventh",
-            "the second",
-            "harris",
-            "walker",
-            "perez",
-            "gruber",
-            "steiner",
-            "leitner",
-            "jacobs",
-            "claes",
-            "willems",
-            "horvat",
-            "juric",
-            "novotny",
-            "vesely",
-            "saar",
-            "rebane",
-            "kuznetsov",
-            "adrejev",
-            "nieme",
-            "laine",
-            "dubois",
-            "moreau",
-            "richard",
-            "lomidze",
-            "meyer",
-            "schmidt",
-            "vlahos",
-            "dimitridas",
-            "kovacs",
-            "lakatos",
-            "O'Bryne",
-            "McRyger",
-            "Rosso",
-            "Costa",
-            "krumins",
-            "galea",
-            "penov",
-            "van boer",
-            "saito",
-            "watanabe",
-            "eto",
-            "kido",
-            "osumi"
-        ],
-        "adjective": [
-            "the bear",
-            "the wolf",
-            "the liar",
-            "the traitor",
-            "the destroyer",
-            "the deceiver",
-            "the barbarian",
-            "the creator",
-            "the wise",
-            "the silent",
-            "the spider",
-            "the lion",
-            "the bull",
-            "the shark",
-            "the blade",
-            "the cleanser",
-            "the redeemer",
-            "the kingless",
-            "the rogue",
-            "the warrior",
-            "the navigator",
-            "the lost",
-            "the smith",
-            "the builder",
-            "the breaker",
-            "the teacher",
-            "the great",
-            "the corrupt"
-        ],
-        "prefix": [
-            "doctor",
-            "captain",
-            "commander",
-            "lieutenant",
-            "commander",
-            "sergeant",
-            "admiral",
-            "lord",
-            "duke",
-            "baron",
-            "prince",
-            "champion",
-            "master",
-            "commander",
-            "sensei",
-            "abbot",
-            "bishop",
-            "chief",
-            "councilor",
-            "earl",
-            "emperor",
-            "elder",
-            "inquisitor",
-            "king",
-            "shogun",
-            "tenzo",
-            "general",
-            "armsman"
-        ]
+        "prefabs": {
+            "background": {
+                "type": "background",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "background_image",
+                    "group": "background"
+                }
+            },
+            "title": {
+                "type": "title",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.3
+                },
+                "prop": {
+                    "text": "Fruit Ninja",
+                    "style": {
+                        "font": "72px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
+            },
+            "email_input": {
+                "type": "player_input",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.5
+                },
+                "prop": {
+                    "texture": "input_box_image",
+                    "group": "player_inputs",
+                    "text_prop": {
+                        "text": "",
+                        "style": {
+                            "font": "32px Arial",
+                            "fill": "#000"
+                        },
+                        "group": "hud",
+                        "anchor": {
+                            "x": 0.5,
+                            "y": 0.5
+                        }
+                    },
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
+            },
+            "password_input": {
+                "type": "player_input",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.7
+                },
+                "prop": {
+                    "texture": "input_box_image",
+                    "group": "player_inputs",
+                    "text_prop": {
+                        "text": "",
+                        "style": {
+                            "font": "32px Arial",
+                            "fill": "#000"
+                        },
+                        "group": "hud",
+                        "anchor": {
+                            "x": 0.5,
+                            "y": 0.5
+                        }
+                    },
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
+            },
+            "login_button": {
+                "type": "button",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.9
+                },
+                "prop": {
+                    "texture": "login_button_image",
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "callback": "attempt_login"
+                }
+            }
+        }
     },
-    "ships": {
-        "solo": [
-            "Shadow",
-            "Broadsword",
-            "Demon",
-            "Revenge",
-            "Last Wish",
-            "Greatness",
-            "Unscathed",
-            "Windward",
-            "Star Seeker",
-            "Death's Hand",
-            "Widow",
-            "Distant Shores",
-            "The Seas' Oasis",
-            "Morning Star",
-            "Greed",
-            "The Ocean's Ward",
-            "Your Finale",
-            "Temptation",
-            "One Fatal Mistake",
-            "Mortal Coil",
-            "Jupiter's Mark",
-            "Whisp",
-            "Finger of God",
-            "Anguish",
-            "Poseidon's Rage",
-            "The 9th Circle",
-            "Absolution",
-            "Death or Taxes",
-            "Death and Taxes",
-            "Taxes, then Death",
-            "Inevitability",
-            "Failing Light",
-            "No Surrender",
-            "Lucky Jack",
-            "Longsword",
-            "Oryn's Glaive",
-            "Solitary Pennent",
-            "Act of Man",
-            "Theor's Bane"
+    "menu": {
+        "assetEntry": "menu",
+        "groups": [
+            "background",
+            "hud",
+            "menu_items"
         ],
-        "noun": [
-            {
-                "single": "pearl",
-                "plural": "pearls"
+        "prefabs": {
+            "background": {
+                "type": "prefab",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "group": "background",
+                "prop": {
+                    "key": "ui",
+                    "frame": "background"
+                }
             },
-            {
-                "single": "silver",
-                "plural": "silver"
+            "title": {
+                "type": "text",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.15
+                },
+                "group": "hud",
+                "prop": {
+                    "copy": "Fruit Ninja",
+                    "fontName": "railway",
+                    "fontColour": "#ff00f0",
+                    "fontSize": 50,
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "shadow": {
+                        "x": 6,
+                        "y": 6,
+                        "colour": "rgba(0, 0, 0, 0.5)"
+                    }
+                }
             },
-            {
-                "single": "fire",
-                "plural": "fire"
+            "game_button": {
+                "type": "button",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.6
+                },
+                "group": "menu_items",
+                "prop": {
+                    "key": "ui",
+                    "frame": "button",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "copy": "Play",
+                        "fontName": "railway",
+                        "fontColour": "#00ff00",
+                        "altColour": "#ff0000",
+                        "fontSize": 40,
+                        "pivot": "center",
+                        "shadow": {
+                            "x": 6,
+                            "y": 6,
+                            "colour": "rgba(0, 0, 0, 0.5)"
+                        }
+                    }
+                }
             },
-            {
-                "single": "flame",
-                "plural": "flames"
-            },
-            {
-                "single": "sea",
-                "plural": "seas"
-            },
-            {
-                "single": "tide",
-                "plural": "tides"
-            },
-            {
-                "single": "storm",
-                "plural": "storms"
-            },
-            {
-                "single": "tear",
-                "plural": "tears"
-            },
-            {
-                "single": "cannon",
-                "plural": "cannons"
-            },
-            {
-                "single": "blade",
-                "plural": "blades"
-            },
-            {
-                "single": "spear",
-                "plural": "spears"
-            },
-            {
-                "single": "gale",
-                "plural": "gales"
-            },
-            {
-                "single": "ocean",
-                "plural": "oceans"
-            },
-            {
-                "single": "god",
-                "plural": "gods"
-            },
-            {
-                "single": "gold",
-                "plural": "gold"
-            },
-            {
-                "single": "shadow",
-                "plural": "shadows"
-            },
-            {
-                "single": "slave",
-                "plural": "slaves"
-            },
-            {
-                "single": "pike",
-                "plural": "pikes"
-            },
-            {
-                "single": "peak",
-                "plural": "peaks"
-            },
-            {
-                "single": "death",
-                "plural": "death"
-            },
-            {
-                "single": "star",
-                "plural": "stars"
-            },
-            {
-                "single": "comet",
-                "plural": "comets"
-            },
-            {
-                "single": "cloud",
-                "plural": "clouds"
+            "store_button": {
+                "type": "button",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.7
+                },
+                "group": "menu_items",
+                "prop": {
+                    "key": "ui",
+                    "frame": "button",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "copy": "Store",
+                        "fontName": "railway",
+                        "fontColour": "#00ff00",
+                        "altColour": "#ff0000",
+                        "fontSize": 40,
+                        "pivot": "center",
+                        "shadow": {
+                            "x": 6,
+                            "y": 6,
+                            "colour": "rgba(0, 0, 0, 0.5)"
+                        }
+                    }
+                }
             }
+        }
+    },
+    "store": {
+        "assetEntry": "store",
+        "groups": [
+            "background",
+            "hud",
+            "menu_items"
         ],
-        "emotion": [
-            {
-                "adjective": "desperate",
-                "noun": "despair"
+        "prefabs": {
+            "background": {
+                "type": "background",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "texture": "background_image",
+                    "group": "background"
+                }
             },
-            {
-                "adjective": "greedy",
-                "noun": "greed"
+            "title": {
+                "type": "title",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.05
+                },
+                "prop": {
+                    "text": "Store",
+                    "style": {
+                        "font": "48px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
             },
-            {
-                "adjective": "hated",
-                "noun": "hate"
+            "money": {
+                "type": "money",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.95
+                },
+                "prop": {
+                    "text": "",
+                    "style": {
+                        "font": "32px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
             },
-            {
-                "adjective": "envious",
-                "noun": "envy"
+            "super_blade": {
+                "type": "upgrade_item",
+                "position": {
+                    "x": 0.3,
+                    "y": 0.3
+                },
+                "prop": {
+                    "text": "Super blade",
+                    "style": {
+                        "font": "32px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "menu_items",
+                    "description": "A super blade that gives one\n extra point for each fruit",
+                    "price": 100,
+                    "upgrade_type": "super_blade",
+                    "upgrade_prop": {
+                        "cut_multiplier": 2
+                    }
+                }
             },
-            {
-                "adjective": "proud",
-                "noun": "pride"
+            "extra_blade": {
+                "type": "upgrade_item",
+                "position": {
+                    "x": 0.3,
+                    "y": 0.5
+                },
+                "prop": {
+                    "text": "Extra blade",
+                    "style": {
+                        "font": "32px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "menu_items",
+                    "description": "Gets an extra blade, which\n gives one extra life",
+                    "price": 50,
+                    "upgrade_type": "extra_blade",
+                    "upgrade_prop": {
+                        "number_of_blades": 1
+                    }
+                }
             },
-            {
-                "adjective": "joyous",
-                "noun": "joy"
+            "upgrade_description": {
+                "type": "text",
+                "position": {
+                    "x": 0.75,
+                    "y": 0.3
+                },
+                "prop": {
+                    "text": "Description",
+                    "style": {
+                        "font": "32px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
             },
-            {
-                "adjective": "zealous",
-                "noun": "zeal"
-            },
-            {
-                "adjective": "innocent",
-                "noun": "innocence"
-            },
-            {
-                "adjective": "fearocious",
-                "noun": "fear"
-            },
-            {
-                "adjective": "contemptious",
-                "noun": "contempt"
-            },
-            {
-                "adjective": "beloved",
-                "noun": "love"
-            },
-            {
-                "adjective": "griefing",
-                "noun": "grief"
-            },
-            {
-                "adjective": "adored",
-                "noun": "adoration"
-            },
-            {
-                "adjective": "spiteful",
-                "noun": "spite"
-            },
-            {
-                "adjective": "sad",
-                "noun": "sorrow"
-            },
-            {
-                "adjective": "guilty",
-                "noun": "guilt"
-            },
-            {
-                "adjective": "raging",
-                "noun": "ire"
-            },
-            {
-                "adjective": "sympathetic",
-                "noun": "sympathy"
-            },
-            {
-                "adjective": "pitiful",
-                "noun": "pity"
-            },
-            {
-                "adjective": "agonizing",
-                "noun": "anguish"
+            "upgrade_price": {
+                "type": "text",
+                "position": {
+                    "x": 0.75,
+                    "y": 0.6
+                },
+                "prop": {
+                    "text": "Price",
+                    "style": {
+                        "font": "32px Arial",
+                        "fill": "#FFF"
+                    },
+                    "group": "hud",
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    }
+                }
             }
-        ],
-        "shipclass": [
-            "Caravel",
-            "Carrack",
-            "Cog",
-            "Galleon",
-            "Galley",
-            "Longship",
-            "Skiff",
-            "Frigate",
-            "Destroyer",
-            "Marauder",
-            "Privateer",
-            "Corvette",
-            "Cutter",
-            "Cruiser",
-            "Gaffer",
-            "Schooner"
-        ],
-        "colour": [
-            "slate",
-            "black",
-            "red",
-            "onyx",
-            "emerald",
-            "sapphire",
-            "golden",
-            "crimson",
-            "cobalt",
-            "ivory",
-            "ebony",
-            "midnight",
-            "slate",
-            "olive",
-            "salmon",
-            "rose",
-            "solar",
-            "lunar",
-            "ash"
-        ],
-        "event": [
-            "destruction",
-            "rebirth",
-            "creation",
-            "defeat",
-            "victory",
-            "return",
-            "descent",
-            "ascent",
-            "decree",
-            "arrival",
-            "embrace",
-            "betrayal",
-            "revenge",
-            "redemption",
-            "deception",
-            "fall",
-            "rise",
-            "conquest",
-            "dawn",
-            "dusk",
-            "twilight"
-        ],
-        "title": [
-            {
-                "single": "master",
-                "plural": "masters"
-            },
-            {
-                "single": "queen",
-                "plural": "queens"
-            },
-            {
-                "single": "lord",
-                "plural": "lords"
-            },
-            {
-                "single": "night",
-                "plural": "nights"
-            },
-            {
-                "single": "trader",
-                "plural": "traders"
-            },
-            {
-                "single": "traitor",
-                "plural": "traitors"
-            },
-            {
-                "single": "raider",
-                "plural": "raiders"
-            },
-            {
-                "single": "scoundrel",
-                "plural": "scoundrels"
-            },
-            {
-                "single": "duke",
-                "plural": "dukes"
-            },
-            {
-                "single": "lady",
-                "plural": "ladies"
-            },
-            {
-                "single": "hunter",
-                "plural": "hunters"
-            },
-            {
-                "single": "god",
-                "plural": "gods"
-            },
-            {
-                "single": "champion",
-                "plural": "champions"
-            },
-            {
-                "single": "pirate",
-                "plural": "pirates"
-            },
-            {
-                "single": "hound",
-                "plural": "hounds"
-            },
-            {
-                "single": "duchess",
-                "plural": "duchess"
-            },
-            {
-                "single": "baron",
-                "plural": "barons"
-            },
-            {
-                "single": "demon",
-                "plural": "demons"
-            },
-            {
-                "single": "angel",
-                "plural": "angels"
-            },
-            {
-                "single": "shadow",
-                "plural": "shadows"
-            }
-        ]
+        }
     }
 }

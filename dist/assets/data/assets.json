@@ -8,8 +8,36 @@
             }
         ]
     },
+    "store": {
+        "assets": [
+            {
+                "type": "assetList",
+                "id": "required"
+            }
+        ]
+    },
     "menu": {
         "assets": [
+            {
+                "type": "assetList",
+                "id": "required"
+            }
+        ]
+    },
+    "login_screen": {
+        "assets": [
+            {
+                "type": "assetList",
+                "id": "required"
+            }
+        ]
+    },
+    "level1": {
+        "assets": [
+            {
+                "type": "assetList",
+                "id": "required"
+            }
         ]
     }
 }

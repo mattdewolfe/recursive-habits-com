@@ -1,6 +1,6 @@
 {
   "name": "recursive-habits",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "private": true,
   "description": "RHcom",
   "devDependencies": {

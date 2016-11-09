@@ -4,7 +4,7 @@ export default class Constants {
     static STATE_MENU: string = 'menu';
     // fonts
     static FONT_KOMIKAX: string = 'komikax';
-    static FONT_RALEWAY: string = 'Raleway';
+    static FONT_RALEWAY: string = 'raleway';
 
     static STR_BLUE: string = '#0099e6';
     static STR_NEW_TITLE: string = '#ffffff';

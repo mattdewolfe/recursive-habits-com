@@ -20,6 +20,10 @@ export default class BaseMediator extends Mediator {
         return <CopyModel>Application.getInstance().retrieveModel(CopyModel.MODEL_NAME);
     }
 
+    public requestStateChange(newState: string): void {
+        this.game.transition.to(newState, this.gameModel.getLevelData(newState));
+    }   
+    
     public get name(): string { 
         return "baseMediator_" + this.game.rnd.uuid();
     }

@@ -188,12 +188,19 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">ui/background.png</key>
+            <key type="filename">ui/bomb.png</key>
             <key type="filename">ui/button_hover.png</key>
             <key type="filename">ui/button_normal.png</key>
+            <key type="filename">ui/fruits.png</key>
+            <key type="filename">ui/input_box.png</key>
+            <key type="filename">ui/login_button.png</key>
+            <key type="filename">ui/particle.png</key>
             <key type="filename">ui/sfx_hover.png</key>
             <key type="filename">ui/sfx_normal.png</key>
             <key type="filename">ui/sfx_off_hover.png</key>
             <key type="filename">ui/sfx_off_normal.png</key>
+            <key type="filename">ui/sword.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
