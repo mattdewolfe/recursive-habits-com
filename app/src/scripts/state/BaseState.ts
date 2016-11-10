@@ -1,18 +1,15 @@
 import {State} from "dijon/core";
 import BaseMediator from "../mediator/BaseMediator";
 import { ISceneData } from '../utils/Interfaces';
-import RHPrefab from '../display/RHPrefab';
-import RHText from '../display/RHText';
-import RHButton from '../display/RHButton';
+import PrefabBuilder from '../utils/PrefabBuilder';
 
 export default class BaseState extends State {
-    public prefabClasses: {} = {
-        prefab: RHPrefab,
-        text: RHText,
-        button: RHButton
-    };
-    public prefabs: {};
-    public groups: {};
+    private _updateAllowed: boolean  = false;
+
+    // This will be an array containing a reference to every Prefab built for this scene.    
+    public prefabs: { [name: string]: any } = {};
+    // This will be an object containing each group, added through the prefab builder, as a property on the object.
+    public groups: any;
     public _levelData: ISceneData = null;
 
     public init(levelData: any = null) {
@@ -28,61 +25,39 @@ export default class BaseState extends State {
     }
 
     public create(): void {
-        let group_name, prefab_name;
-        
-        this.groups = {};
-        this.prefabs = {};
-
         if (this._levelData !== null) {
-            // Iterate over group data.
-            this._levelData.groups.forEach(function (group_name) {
-                this.groups[group_name] = this.game.add.dGroup();
-            }, this);
-
-            // Iterate over prefab data.
-            for (let prefabName in this._levelData.prefabs) {
-                if (this._levelData.prefabs.hasOwnProperty(prefabName)) {
-                    // create prefab
-                    this._createPrefab(prefabName, this._levelData.prefabs[prefabName]);
-                }
-            }
+            PrefabBuilder.createSceneFrom(this._levelData, this);
         }
         super.create();
     }
 
-    protected _createPrefab(prefabName: string, data: any): void {
-        let prefabPosition: { x: number, y: number } = { x: 0, y: 0 };
-        let prefab: any;
-        // create object according to its type
-        if (this.prefabClasses.hasOwnProperty(data.type)) {
-            // If position is greater than 0 and less than 1, we assume this is a floating
-            // point value to be interpreted as a % based position.
-            if (data.position.x > 0 && data.position.x <= 1) {
-                // position as percentage
-                prefabPosition.x = data.position.x * this.game.world.width;
-                prefabPosition.y = data.position.y * this.game.world.height;
-            }
-            else {
-                prefabPosition = data.position;
-            }
-            prefab = new this.prefabClasses[data.type](prefabName, prefabPosition, data);
-
-            if (data.group && this.groups.hasOwnProperty(data.group)) {
-                this.groups[data.group].addChild(prefab);
-            }
-            else {
-                this.game.add.existing(prefab);
-            }
-            this.prefabs[prefabName] = prefab;
-        }
-    }
+    public afterBuild(): void {
+        super.afterBuild();
+        this._updateAllowed = true;
+    }    
 
     protected _findPrefab(name: string): any {
         if (this.prefabs.hasOwnProperty(name)) {
             return this.prefabs[name];
         }
-        else {
-            return null;
+        console.warn("Prefab " + name + " not found on State.");
+        return null;
+    }
+
+    public update(): void {
+        if (this._updateAllowed) {
+            this.updateState();
         }
+    }
+
+    // Use me for update loops - I will only be called when updateAllowed is true.    
+    public updateState(): void { }
+
+    public get updateAllowed(): boolean {
+        return this._updateAllowed;
+    }
+
+    public set updateAllowed(value: boolean) {
+        this._updateAllowed = value; 
     }
 }

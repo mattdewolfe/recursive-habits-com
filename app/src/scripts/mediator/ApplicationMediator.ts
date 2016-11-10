@@ -1,6 +1,5 @@
 import {Logger} from "dijon/utils";
 import {INotification} from "dijon/interfaces";
-
 import BaseMediator from './BaseMediator';
 import Constants from '../utils/Constants';
 import Notifications from '../utils/Notifications';
@@ -22,9 +21,7 @@ export default class ApplicationMediator extends BaseMediator {
         switch (notification.getName()) {
             case Notifications.BOOT_INIT:
                 Logger.log(this, 'Notifications.BOOT_INIT');
-                this.viewComponent.adjustScaleSettings();
-                this.viewComponent.adjustRendererSettings();
-                this.viewComponent.addPlugins();
+                this.viewComponent.bootComplete();
                 break;
             
             case Notifications.PRELOAD_COMPLETE:

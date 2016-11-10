@@ -17,10 +17,6 @@ export default class Menu extends BaseState {
         super.init(levelData);
         this._mediator = new MenuMediator();
     }
-
-    public preload(): void {
-        this.game.asset.loadAssets('required');
-    }
 		
     // dijon.core.State overrides
     public listBuildSequence() {
@@ -45,7 +41,6 @@ export default class Menu extends BaseState {
             playBtn.onInputDown.add(this._onPlayPressed, this);
         }
         
-
         let storeBtn: RHButton = <RHButton>this._findPrefab("store_button");
         if (storeBtn !== null) {
             storeBtn.onInputDown.add(this._onStorePressed, this);
@@ -59,11 +54,11 @@ export default class Menu extends BaseState {
     }  
 
     private _onPlayPressed(): void {
-        console.log("Play Pressed");
+        this.mediator.requestStateChange(Constants.STATE_GAME);
     }   
     
     private _onStorePressed(): void {
-        console.log("Store Pressed");
+        this.mediator.requestStateChange(Constants.STATE_STORE);
     }
 
     private _toggleSFX(): void {

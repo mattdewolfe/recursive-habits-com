@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{F999D6C7-F302-0AF8-B3C3-972D76D08B02}") = "Phaser-Scene-Builder", "Assembly-CSharp.csproj", "{59835823-751F-9794-FC95-6DA91DA972E5}"
+EndProject
+Project("{F999D6C7-F302-0AF8-B3C3-972D76D08B02}") = "Phaser-Scene-Builder", "Assembly-CSharp-Editor.csproj", "{DCAA9031-68C9-B968-5BBC-9670F69434C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{59835823-751F-9794-FC95-6DA91DA972E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59835823-751F-9794-FC95-6DA91DA972E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59835823-751F-9794-FC95-6DA91DA972E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59835823-751F-9794-FC95-6DA91DA972E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCAA9031-68C9-B968-5BBC-9670F69434C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCAA9031-68C9-B968-5BBC-9670F69434C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCAA9031-68C9-B968-5BBC-9670F69434C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCAA9031-68C9-B968-5BBC-9670F69434C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

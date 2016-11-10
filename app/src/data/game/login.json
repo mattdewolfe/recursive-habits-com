@@ -1,0 +1,77 @@
+{
+    "assetEntry": "login_screen",
+    "groups": [
+        "background",
+        "player_inputs",
+        "hud"
+    ],
+    "prefabs": {
+        "background": {
+            "type": "background",
+            "position": {"x": 0, "y": 0},
+            "prop": {
+                "texture": "background_image",
+                "group": "background"
+            }
+        },
+        "title": {
+            "type": "title",
+            "position": {"x": 0.5, "y": 0.3},
+            "prop": {
+                "text": "Fruit Ninja",
+                "style": {
+                    "font": "72px Arial", 
+                    "fill": "#FFF"
+                },
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "email_input": {
+            "type": "player_input",
+            "position": {"x": 0.5, "y": 0.5},
+            "prop": {
+                "texture": "input_box_image",
+                "group": "player_inputs",
+                "text_prop": {
+                    "text": "",
+                    "style": {
+                        "font": "32px Arial", 
+                        "fill": "#000"
+                    },
+                    "group": "hud",
+                    "anchor": {"x": 0.5, "y": 0.5}
+                },
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "password_input": {
+            "type": "player_input",
+            "position": {"x": 0.5, "y": 0.7},
+            "prop": {
+                "texture": "input_box_image",
+                "group": "player_inputs",
+                "text_prop": {
+                    "text": "",
+                    "style": {
+                        "font": "32px Arial", 
+                        "fill": "#000"
+                    },
+                    "group": "hud",
+                    "anchor": {"x": 0.5, "y": 0.5}
+                },
+                "anchor": {"x": 0.5, "y": 0.5}
+            }
+        },
+        "login_button": {
+            "type": "button",
+            "position": {"x": 0.5, "y": 0.9},
+            "prop": {
+                "texture": "login_button_image",
+                "group": "hud",
+                "anchor": {"x": 0.5, "y": 0.5},
+                "callback": "attempt_login"
+            }
+        }
+    }
+}

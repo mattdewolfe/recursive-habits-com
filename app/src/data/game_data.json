@@ -1,63 +1,104 @@
 {
-    "level1": {
-        "world": {
-            "origin_x": 0,
-            "origin_y": 0,
-            "width": 1200,
-            "height": 600
-        },
-        "assetEntry": "level1",
+    "gameplay": {
+        "assetEntry": "gameplay",
         "groups": [
             "background",
             "spawners",
             "cuts",
-            "fruits",
-            "special_fruits",
-            "bombs",
+            "cuttables",
             "hud"
         ],
-        "prefabs": {
-            "background": {
-                "type": "background",
+        "prefabs": [
+            {
+                "name": "background",
+                "type": "prefab",
                 "position": {
                     "x": 0,
                     "y": 0
                 },
+                "group": "background",
                 "prop": {
-                    "texture": "background_image",
-                    "group": "background"
+                    "key": "ui",
+                    "frame": "background"
                 }
             },
-            "score": {
+            {
+                "name": "fruitScore",
                 "type": "score",
                 "position": {
-                    "x": 0.05,
-                    "y": 0.05
+                    "x": 0.035,
+                    "y": 0.035
                 },
+                "group": "hud",
                 "prop": {
-                    "text": "Fruits: ",
-                    "style": {
-                        "font": "48px Arial",
-                        "fill": "#fff"
-                    },
-                    "group": "hud"
+                    "copy": "Fruits: 0",
+                    "fontName": "railway",
+                    "fontColour": "#ffffff",
+                    "fontSize": 50,
+                    "shadow": {
+                        "x": 6,
+                        "y": 6,
+                        "colour": "rgba(0, 0, 0, 0.5)"
+                    }
                 }
             },
-            "lives": {
+            {
+                "name": "fruitLives",
                 "type": "lives",
                 "position": {
-                    "x": 0.8,
-                    "y": 0.05
+                    "x": 0.85,
+                    "y": 0.045
                 },
+                "group": "hud",
                 "prop": {
-                    "texture": "sword_image",
-                    "group": "hud",
+                    "key": "ui",
+                    "frame": "sword",
                     "lives": 3,
-                    "lives_spacing": 50
+                    "spacing": 40
                 }
             },
-            "fruit_spawner": {
-                "type": "fruit_spawner",
+            {
+                "name": "fruitSpawner",
+                "type": "spawner",
+                "position": {
+                    "x": 0.5,
+                    "y": 0.95
+                },
+                "group": "spawners",
+                "cuttable": {
+                    "prop": {
+                        "key": "ui",
+                        "frame": "apple",
+                        "frames": [
+                            "apple",
+                            "cherry"
+                        ],
+                        "cuttableType": "fruit",
+                        "scale": {
+                            "x": 3,
+                            "y": 3
+                        }
+                    }
+                },
+                "spawn": {
+                    "poolSize": 20,
+                    "timeRange": {
+                        "min": 500,
+                        "max": 1000
+                    },
+                    "velX": {
+                        "min": -100,
+                        "max": 100
+                    },
+                    "velY": {
+                        "min": 850,
+                        "max": 1000
+                    }
+                }
+            },
+            {
+                "name": "bombSpawner",
+                "type": "spawnerAAA",
                 "position": {
                     "x": 0,
                     "y": 0
@@ -65,7 +106,40 @@
                 "prop": {
                     "texture": "",
                     "group": "spawners",
-                    "pool": "fruits",
+                    "key": "ui",
+                    "sprites": [
+                        "bomb"
+                    ],
+                    "sType": 1,
+                    "spawn_time": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "velocity_x": {
+                        "min": -100,
+                        "max": 100
+                    },
+                    "velocity_y": {
+                        "min": 850,
+                        "max": 1000
+                    }
+                }
+            },
+            {
+                "name": "specialSpawner",
+                "type": "spawnerAAA",
+                "position": {
+                    "x": 0,
+                    "y": 0
+                },
+                "prop": {
+                    "group": "spawners",
+                    "key": "ui",
+                    "sprites": [
+                        "apple",
+                        "cherry"
+                    ],
+                    "sType": 2,
                     "spawn_time": {
                         "min": 1,
                         "max": 3
@@ -87,82 +161,29 @@
                     ]
                 }
             },
-            "bomb_spawner": {
-                "type": "bomb_spawner",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "prop": {
-                    "texture": "",
-                    "group": "spawners",
-                    "pool": "bombs",
-                    "spawn_time": {
-                        "min": 1,
-                        "max": 3
-                    },
-                    "velocity_x": {
-                        "min": -100,
-                        "max": 100
-                    },
-                    "velocity_y": {
-                        "min": 850,
-                        "max": 1000
-                    }
-                }
-            },
-            "special_fruit_spawner": {
-                "type": "special_fruit_spawner",
-                "position": {
-                    "x": 0,
-                    "y": 0
-                },
-                "prop": {
-                    "texture": "",
-                    "group": "spawners",
-                    "pool": "special_fruits",
-                    "spawn_time": {
-                        "min": 5,
-                        "max": 10
-                    },
-                    "velocity_x": {
-                        "min": -100,
-                        "max": 100
-                    },
-                    "velocity_y": {
-                        "min": 850,
-                        "max": 1000
-                    }
-                }
-            },
-            "leaderboard": {
+            {
+                "name": "leaderboard",
                 "type": "leaderboard",
                 "position": {
                     "x": 0.5,
                     "y": 0.5
                 },
+                "group": "hud",
                 "prop": {
-                    "texture": "",
-                    "group": "hud",
-                    "number_of_scores": 5,
-                    "text_prop": {
-                        "text": "",
-                        "group": "hud",
-                        "style": {
-                            "font": "32px Arial",
-                            "fill": "#fff"
-                        },
-                        "anchor": {
-                            "x": 0.5,
-                            "y": 0.5
-                        }
+                    "numberOfScores": 5,
+                    "fontName": "Fredoka",
+                    "fontColour": "#00ff00",
+                    "fontSize": 32,
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
                     },
-                    "scores_spacing": 50
+                    "scoresSpacing": 50
                 }
             }
-        }
+        ]
     },
-    "login_screen": {
+    "login": {
         "assetEntry": "login_screen",
         "groups": [
             "background",
@@ -279,8 +300,9 @@
             "hud",
             "menu_items"
         ],
-        "prefabs": {
-            "background": {
+        "prefabs": [
+            {
+                "name": "background",
                 "type": "prefab",
                 "position": {
                     "x": 0,
@@ -292,7 +314,8 @@
                     "frame": "background"
                 }
             },
-            "title": {
+            {
+                "name": "title",
                 "type": "text",
                 "position": {
                     "x": 0.5,
@@ -315,7 +338,8 @@
                     }
                 }
             },
-            "game_button": {
+            {
+                "name": "game_button",
                 "type": "button",
                 "position": {
                     "x": 0.5,
@@ -345,7 +369,8 @@
                     }
                 }
             },
-            "store_button": {
+            {
+                "name": "store_button",
                 "type": "button",
                 "position": {
                     "x": 0.5,
@@ -375,7 +400,7 @@
                     }
                 }
             }
-        }
+        ]
     },
     "store": {
         "assetEntry": "store",
@@ -386,7 +411,7 @@
         ],
         "prefabs": {
             "background": {
-                "type": "background",
+                "type": "prefab",
                 "position": {
                     "x": 0,
                     "y": 0
@@ -397,7 +422,7 @@
                 }
             },
             "title": {
-                "type": "title",
+                "type": "text",
                 "position": {
                     "x": 0.5,
                     "y": 0.05
@@ -416,7 +441,7 @@
                 }
             },
             "money": {
-                "type": "money",
+                "type": "text",
                 "position": {
                     "x": 0.5,
                     "y": 0.95

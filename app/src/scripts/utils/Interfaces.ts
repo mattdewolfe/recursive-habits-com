@@ -5,10 +5,12 @@ export interface ISceneData {
 }
 
 export interface IPrefabData {
+    name: string;
     type: string;
     position: { x: number, y: number };
     prop: any;
     group?: string;
+    comps?: IPrefabData[];
 }
 
 export interface ISpriteData extends IPrefabData {
@@ -20,10 +22,6 @@ export interface ISpriteData extends IPrefabData {
         scale?: { x: number, y: number };
         angle?: number;
     }
-}
-
-export interface ITextData extends IPrefabData {
-    prop: ITextComponentData;
 }
 
 export interface IButtonData extends IPrefabData {
@@ -41,6 +39,7 @@ export interface IButtonData extends IPrefabData {
 }
 
 export interface ITextComponentData {
+    name: string;
     copy: string;
     fontName: string;
     fontSize: number;
@@ -52,4 +51,27 @@ export interface ITextComponentData {
     shadow?: { x: number, y: number, colour: string };
     anchor?: { x: number, y: number };
     pivot?: string;
+}
+
+export interface ITextData extends IPrefabData {
+    prop: ITextComponentData;
+}
+
+export interface ISpawnerData extends IPrefabData {
+    cuttable:  ICuttableData,
+    spawn: {
+        poolSize: number;
+        timeRange: { min: number, max: number };
+        velX: { min: number, max: number };
+        velY: { min: number, max: number };
+    }
+}
+
+export interface ICuttableData extends IPrefabData {
+    prop: {
+        key: string;
+        frames: string[];
+        cuttableType: string;
+        anims: string[];
+    }
 }

@@ -1,6 +1,5 @@
 import {Mediator, CopyModel} from "dijon/mvc";
 import {Application} from "dijon/application";
-
 import {GameModel} from "../model/GameModel";
 
 export default class BaseMediator extends Mediator {
@@ -24,7 +23,19 @@ export default class BaseMediator extends Mediator {
         this.game.transition.to(newState, this.gameModel.getLevelData(newState));
     }   
     
+    public get levelData(): any {
+        return null;
+    }
+    
     public get name(): string { 
         return "baseMediator_" + this.game.rnd.uuid();
+    }
+
+    public static retrieveMediator(name: string, viewComp: any): Mediator {
+        let mediator: Mediator = Application.getInstance().retrieveMediator(name);
+        if (mediator !== null) {
+            mediator.viewComponent = viewComp;
+        }
+        return mediator;
     }
 }

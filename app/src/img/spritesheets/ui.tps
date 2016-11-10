@@ -188,13 +188,15 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
+            <key type="filename">ui/apple.png</key>
             <key type="filename">ui/background.png</key>
             <key type="filename">ui/bomb.png</key>
             <key type="filename">ui/button_hover.png</key>
             <key type="filename">ui/button_normal.png</key>
-            <key type="filename">ui/fruits.png</key>
+            <key type="filename">ui/cherry.png</key>
             <key type="filename">ui/input_box.png</key>
             <key type="filename">ui/login_button.png</key>
+            <key type="filename">ui/melon.png</key>
             <key type="filename">ui/particle.png</key>
             <key type="filename">ui/sfx_hover.png</key>
             <key type="filename">ui/sfx_normal.png</key>

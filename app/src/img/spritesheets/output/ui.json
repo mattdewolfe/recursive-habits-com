@@ -1,5 +1,13 @@
 {"frames": {
 
+"apple":
+{
+	"frame": {"x":810,"y":993,"w":19,"h":19},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":19,"h":19},
+	"sourceSize": {"w":19,"h":19}
+},
 "background":
 {
 	"frame": {"x":1,"y":1,"w":1480,"h":923},
@@ -10,7 +18,7 @@
 },
 "bomb":
 {
-	"frame": {"x":1414,"y":966,"w":30,"h":32},
+	"frame": {"x":1414,"y":979,"w":30,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":32},
@@ -32,13 +40,13 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":300,"h":65},
 	"sourceSize": {"w":300,"h":65}
 },
-"fruits":
+"cherry":
 {
-	"frame": {"x":1483,"y":113,"w":186,"h":168},
+	"frame": {"x":831,"y":993,"w":16,"h":18},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":0,"w":186,"h":168},
-	"sourceSize": {"w":196,"h":168}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":16,"h":18},
+	"sourceSize": {"w":16,"h":18}
 },
 "input_box":
 {
@@ -55,6 +63,14 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":230,"h":110},
 	"sourceSize": {"w":230,"h":110}
+},
+"melon":
+{
+	"frame": {"x":1446,"y":979,"w":20,"h":20},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":20,"h":20},
+	"sourceSize": {"w":20,"h":20}
 },
 "particle":
 {
@@ -98,11 +114,11 @@
 },
 "sword":
 {
-	"frame": {"x":1414,"y":926,"w":32,"h":38},
+	"frame": {"x":1414,"y":926,"w":51,"h":51},
 	"rotated": false,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":38},
-	"sourceSize": {"w":32,"h":38}
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":51},
+	"sourceSize": {"w":51,"h":51}
 }},
 "meta": {
 	"app": "http://www.codeandweb.com/texturepacker",
@@ -111,6 +127,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1714,"h":1013},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:195a813320b5d683acf17ba30700f1fe:4f22ca0545b21feada89ac7cff6f3726:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:0c28c6c276a2a9210c0a6616206820ca:14ae8aa0fc5c32208eac0c2f2d5fb2ae:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

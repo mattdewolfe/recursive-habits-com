@@ -19,5 +19,8 @@ export default class Prefab extends Text {
         if (data.prop.shadow) {
             this.setShadow(data.prop.shadow.x, data.prop.shadow.y, data.prop.shadow.colour);
         }
+
+        this.x = Math.round(this.x);
+        this.y = Math.round(this.y);
     }
 }

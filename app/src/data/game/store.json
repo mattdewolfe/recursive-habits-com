@@ -7,7 +7,7 @@
     ],
     "prefabs": {
         "background": {
-            "type": "background",
+            "type": "prefab",
             "position": {"x": 0, "y": 0},
             "prop": {
                 "texture": "background_image",
@@ -15,7 +15,7 @@
             }
         },
         "title": {
-            "type": "title",
+            "type": "text",
             "position": {"x": 0.5, "y": 0.05},
             "prop": {
                 "text": "Store",
@@ -28,7 +28,7 @@
             }
         },
         "money": {
-            "type": "money",
+            "type": "text",
             "position": {"x": 0.5, "y": 0.95},
             "prop": {
                 "text": "",

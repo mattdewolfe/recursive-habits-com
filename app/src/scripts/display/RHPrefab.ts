@@ -1,7 +1,7 @@
 import { Sprite } from 'dijon/display';
 import { IPrefabData } from '../utils/Interfaces';
 
-export default class Prefab extends Sprite {
+export default class RHPrefab extends Sprite {
     constructor(name: string, position: { x: number, y: number }, data: IPrefabData) {
         super(position.x, position.y, data.prop.key, data.prop.frame);
         this.name = name;

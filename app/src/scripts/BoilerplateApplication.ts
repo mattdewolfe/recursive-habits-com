@@ -9,7 +9,10 @@ import Notifications from "./utils/Notifications";
 import Boot from "./state/Boot";
 import Preload from "./state/Preload";
 import Menu from "./state/Menu";
-import {GameModel} from "./model/GameModel";
+import Gameplay from './state/Gameplay';
+import Store from './state/Store';
+import { GameModel } from "./model/GameModel";
+import PrefabBuilder from './utils/PrefabBuilder';
 
 export default class BoilerplateApplication extends Application {
     public gameId: string = null;
@@ -40,17 +43,17 @@ export default class BoilerplateApplication extends Application {
         this.game.state.start(Constants.STATE_BOOT);
     }
 
+    public bootComplete(): void {
+        this.adjustScaleSettings();
+        this.adjustRendererSettings();
+        this.addPlugins();
+        PrefabBuilder.game = this.game;
+    }    
+
     public adjustScaleSettings(): void {
-        if (Device.cocoon) {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.pageAlignHorizontally = true;
-            this.game.scale.pageAlignVertically = true;
-        }
-        else {
-            this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-            this.game.scale.setMinMax(256, 192, 1024, 768);
-            this.game.scale.pageAlignHorizontally = true;
-        }
+        this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+        this.game.scale.setMinMax(256, 192, 1024, 768);
+        this.game.scale.pageAlignHorizontally = true;
     }
 
     public adjustRendererSettings(): void {
@@ -59,7 +62,7 @@ export default class BoilerplateApplication extends Application {
         this.game.camera.roundPx = false;
         this.game.renderer.renderSession.roundPixels = false;
         this.game.antialias = true;
-        this.game.renderer.clearBeforeRender = this.game.renderType === Phaser.CANVAS;
+    //    this.game.renderer.clearBeforeRender = this.game.renderType === Phaser.CANVAS;
     }
 
     // called from the boot state as we can't initialize plugins until the game is booted
@@ -78,6 +81,8 @@ export default class BoilerplateApplication extends Application {
         this.game.state.add(Constants.STATE_BOOT, Boot);
         this.game.state.add(Constants.STATE_PRELOAD, Preload);
         this.game.state.add(Constants.STATE_MENU, Menu);
+        this.game.state.add(Constants.STATE_GAME, Gameplay);
+        this.game.state.add(Constants.STATE_STORE, Store);
     }
 
     private _getGameWidth(): number {

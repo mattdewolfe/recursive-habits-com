@@ -32,7 +32,7 @@
             }
         ]
     },
-    "level1": {
+    "gameplay": {
         "assets": [
             {
                 "type": "assetList",

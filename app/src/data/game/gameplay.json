@@ -1,0 +1,113 @@
+{
+    "assetEntry": "gameplay",
+    "groups": [
+        "background",
+        "spawners",
+        "cuts",
+        "cuttables",
+        "hud"
+    ],
+    "prefabs": [
+        {
+           "name": "background",
+            "type": "prefab",
+            "position": {"x": 0, "y": 0},
+            "group": "background",
+            "prop": {
+                "key": "ui",
+                "frame": "background"
+            }
+        },
+        {
+            "name": "fruitScore",
+            "type": "score",
+            "position": {"x": 0.035, "y": 0.035},
+            "group": "hud",
+            "prop": {
+                "copy": "Fruits: 0",
+                "fontName": "railway", 
+                "fontColour": "#ffffff",
+                "fontSize": 50,
+                "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+            }
+        },
+        {
+            "name": "fruitLives",
+            "type": "lives",
+            "position": {"x": 0.85, "y": 0.045},
+            "group": "hud",
+            "prop": {
+                "key": "ui",
+                "frame": "sword", 
+                "lives": 3,
+                "spacing": 40
+            }
+        },
+        {
+            "name": "fruitSpawner",
+            "type": "spawner",
+            "position": {"x": 0.5, "y": 0.95},
+            "group": "spawners",
+            "cuttable": {
+                "prop": {
+                    "key": "ui",
+                    "frame": "apple",
+                    "frames": ["apple", "cherry"],
+                    "cuttableType": "fruit",
+                    "scale": {"x": 3, "y": 3}
+                }
+            },
+            "spawn": {
+                "poolSize": 20, 
+                "timeRange": {"min": 500, "max": 1000},
+                "velX": {"min": -100, "max": 100},
+                "velY": {"min": 850, "max": 1000}
+            }
+            
+        },
+        {
+            "name": "bombSpawner",
+            "type": "spawnerAAA",
+            "position": {"x": 0, "y": 0},
+            "prop": {
+                "texture": "",
+                "group": "spawners",
+                "key": "ui",
+                "sprites": ["bomb"],
+                "sType": 1,
+                "spawn_time": {"min": 1, "max": 3},
+                "velocity_x": {"min": -100, "max": 100},
+                "velocity_y": {"min": 850, "max": 1000}
+            }
+        },
+        {
+            "name": "specialSpawner",
+            "type": "spawnerAAA",
+            "position": {"x": 0, "y": 0},
+            "prop": {
+                "group": "spawners",
+                "key": "ui",
+                "sprites": ["apple", "cherry"],
+                "sType": 2,
+                "spawn_time": {"min": 1, "max": 3},
+                "velocity_x": {"min": -100, "max": 100},
+                "velocity_y": {"min": 850, "max": 1000},
+                "frames": [20, 21, 23, 35, 38]
+            }
+        },
+        {
+            "name": "leaderboard",
+            "type": "leaderboard",
+            "position": {"x": 0.5, "y": 0.5},
+            "group": "hud",
+            "prop": {
+                "numberOfScores": 5,
+                "fontName": "Fredoka", 
+                "fontColour": "#00ff00",
+                "fontSize": 32, 
+                "anchor": {"x": 0.5, "y": 0.5},
+                "scoresSpacing": 50
+            }
+        }
+    ]
+}

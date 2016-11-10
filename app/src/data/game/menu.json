@@ -5,8 +5,9 @@
         "hud",
         "menu_items"
     ],
-    "prefabs": {
-        "background": {
+    "prefabs": [
+        {
+            "name": "background",
             "type": "prefab",
             "position": {"x": 0, "y": 0},
             "group": "background",
@@ -15,7 +16,8 @@
                 "frame": "background"
             }
         },
-        "title": {
+        {
+            "name": "title",
             "type": "text",
             "position": {"x": 0.5, "y": 0.15},
             "group": "hud",
@@ -28,7 +30,7 @@
                 "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
             }
         },
-        "game_button": {
+        {   "name": "game_button",
             "type": "button",
             "position": {"x": 0.5, "y": 0.6},
             "group": "menu_items",
@@ -48,7 +50,8 @@
                 }
             }
         },
-        "store_button": {
+        {
+            "name": "store_button",
             "type": "button",
             "position": {"x": 0.5, "y": 0.7},
             "group": "menu_items",
@@ -68,5 +71,5 @@
                 }
             }
         }
-    }
+    ]
 }

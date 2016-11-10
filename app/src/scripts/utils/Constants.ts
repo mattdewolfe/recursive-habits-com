@@ -1,7 +1,11 @@
 export default class Constants {
+    // NOTE: These string values should match 
+    // exaclty to the name of the data file for that states creation.
     static STATE_BOOT: string = 'boot';
     static STATE_PRELOAD: string = 'preload';
     static STATE_MENU: string = 'menu';
+    static STATE_GAME: string = 'gameplay';
+    static STATE_STORE: string = 'store';
     // fonts
     static FONT_KOMIKAX: string = 'komikax';
     static FONT_RALEWAY: string = 'raleway';
