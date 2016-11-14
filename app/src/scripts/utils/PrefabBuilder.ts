@@ -7,6 +7,8 @@ import BaseState from '../state/BaseState';
 import FruitLife from '../gameplay/FruitLife';
 import FruitScore from '../gameplay/FruitScore';
 import Spawner from '../gameplay/Spawner';
+import RHUpgradeItem from '../display/RHUpgradeItem';
+import PlayerTextInput from '../input/PlayerTextInput';
 
 export default class PrefabBuilder {
 
@@ -19,7 +21,9 @@ export default class PrefabBuilder {
         button: RHButton,
         lives: FruitLife, 
         score: FruitScore,
-        spawner: Spawner
+        spawner: Spawner,
+        upgrade: RHUpgradeItem,
+        inputfield: PlayerTextInput
     }; 
     
     public static game: Phaser.Game = null;

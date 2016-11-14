@@ -16,6 +16,7 @@ export default class FruitScore extends RHText {
     }
 
     public increaseBy(amount: number): void {
+        this._score += amount;
         this.text = 'Fruits: ' + this._score.toString();
     }
 }

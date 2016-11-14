@@ -39,7 +39,18 @@
     </div>
     <div id="game-container"></div>
     <!-- build:js assets/js/app.min.js?v=@@version-->
-    <script src='firebase.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+    <script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyCF-Q5LUkt1Wtqe1xbl4GPi1AXh1WsVhoQ",
+        authDomain: "zenvaclasses.firebaseapp.com",
+        databaseURL: "https://zenvaclasses.firebaseio.com",
+        storageBucket: "zenvaclasses.appspot.com",
+        messagingSenderId: "1051577880048"
+    };
+    firebase.initializeApp(config);
+    </script>
     <!-- SYSTEM JS MODULE LOADER -->
     <script src="bower_components/systemjs/dist/system.js"></script>
     <!-- PHASER BUILD -->

@@ -5,7 +5,6 @@
             "background",
             "spawners",
             "cuts",
-            "cuttables",
             "hud"
         ],
         "prefabs": [
@@ -87,78 +86,90 @@
                         "max": 1000
                     },
                     "velX": {
-                        "min": -100,
-                        "max": 100
+                        "min": -300,
+                        "max": 300
                     },
                     "velY": {
                         "min": 850,
-                        "max": 1000
+                        "max": 1250
                     }
                 }
             },
             {
                 "name": "bombSpawner",
-                "type": "spawnerAAA",
+                "type": "spawner",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 0.5,
+                    "y": 0.95
                 },
-                "prop": {
-                    "texture": "",
-                    "group": "spawners",
-                    "key": "ui",
-                    "sprites": [
-                        "bomb"
-                    ],
-                    "sType": 1,
-                    "spawn_time": {
-                        "min": 1,
-                        "max": 3
+                "group": "spawners",
+                "cuttable": {
+                    "prop": {
+                        "texture": "ui",
+                        "key": "ui",
+                        "frame": "bomb",
+                        "frames": [
+                            "bomb"
+                        ],
+                        "cuttableType": "bomb",
+                        "scale": {
+                            "x": 3,
+                            "y": 3
+                        }
+                    }
+                },
+                "spawn": {
+                    "poolSize": 5,
+                    "timeRange": {
+                        "min": 750,
+                        "max": 1500
                     },
-                    "velocity_x": {
-                        "min": -100,
-                        "max": 100
+                    "velX": {
+                        "min": -300,
+                        "max": 300
                     },
-                    "velocity_y": {
+                    "velY": {
                         "min": 850,
-                        "max": 1000
+                        "max": 1250
                     }
                 }
             },
             {
                 "name": "specialSpawner",
-                "type": "spawnerAAA",
+                "type": "spawner",
                 "position": {
-                    "x": 0,
-                    "y": 0
+                    "x": 0.5,
+                    "y": 0.95
                 },
-                "prop": {
-                    "group": "spawners",
-                    "key": "ui",
-                    "sprites": [
-                        "apple",
-                        "cherry"
-                    ],
-                    "sType": 2,
-                    "spawn_time": {
-                        "min": 1,
-                        "max": 3
+                "group": "spawners",
+                "cuttable": {
+                    "prop": {
+                        "key": "ui",
+                        "frame": "melon",
+                        "frames": [
+                            "melon"
+                        ],
+                        "cuttableType": "special",
+                        "scale": {
+                            "x": 3,
+                            "y": 3
+                        }
+                    }
+                },
+                "spawn": {
+                    "poolSize": 5,
+                    "timeRange": {
+                        "min": 1000,
+                        "max": 2000
                     },
-                    "velocity_x": {
-                        "min": -100,
-                        "max": 100
+                    "velX": {
+                        "min": -300,
+                        "max": 300
                     },
-                    "velocity_y": {
+                    "velY": {
                         "min": 850,
-                        "max": 1000
-                    },
-                    "frames": [
-                        20,
-                        21,
-                        23,
-                        35,
-                        38
-                    ]
+                        "max": 1250
+                    }
                 }
             },
             {
@@ -184,114 +195,117 @@
         ]
     },
     "login": {
-        "assetEntry": "login_screen",
+        "assetEntry": "login",
         "groups": [
             "background",
-            "player_inputs",
-            "hud"
+            "hud",
+            "login_options"
         ],
-        "prefabs": {
-            "background": {
-                "type": "background",
+        "prefabs": [
+            {
+                "name": "background",
+                "type": "prefab",
                 "position": {
                     "x": 0,
                     "y": 0
                 },
+                "group": "background",
                 "prop": {
-                    "texture": "background_image",
-                    "group": "background"
+                    "key": "ui",
+                    "frame": "background"
                 }
             },
-            "title": {
-                "type": "title",
+            {
+                "name": "title",
+                "type": "text",
                 "position": {
                     "x": 0.5,
-                    "y": 0.3
+                    "y": 0.25
                 },
+                "group": "hud",
                 "prop": {
-                    "text": "Fruit Ninja",
-                    "style": {
-                        "font": "72px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "hud",
+                    "copy": "Enter User Information",
+                    "fontName": "railway",
+                    "fontColour": "#ff00f0",
+                    "fontSize": 100,
                     "anchor": {
                         "x": 0.5,
                         "y": 0.5
+                    },
+                    "shadow": {
+                        "x": 6,
+                        "y": 6,
+                        "colour": "rgba(0, 0, 0, 0.5)"
                     }
                 }
             },
-            "email_input": {
-                "type": "player_input",
+            {
+                "name": "emailInput",
+                "type": "inputfield",
                 "position": {
                     "x": 0.5,
-                    "y": 0.5
+                    "y": 0.4
                 },
+                "group": "login_options",
                 "prop": {
-                    "texture": "input_box_image",
-                    "group": "player_inputs",
-                    "text_prop": {
-                        "text": "",
-                        "style": {
-                            "font": "32px Arial",
-                            "fill": "#000"
-                        },
-                        "group": "hud",
-                        "anchor": {
+                    "key": "ui",
+                    "frame": "input_box",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
                             "x": 0.5,
                             "y": 0.5
-                        }
-                    },
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
+                        },
+                        "copy": "email",
+                        "fontName": "railway",
+                        "fontColour": "#000000",
+                        "altColour": "#00bf00",
+                        "fontSize": 30,
+                        "pivot": "center"
                     }
                 }
             },
-            "password_input": {
-                "type": "player_input",
+            {
+                "name": "passwordInput",
+                "type": "inputfield",
                 "position": {
                     "x": 0.5,
-                    "y": 0.7
+                    "y": 0.6
                 },
+                "group": "login_options",
                 "prop": {
-                    "texture": "input_box_image",
-                    "group": "player_inputs",
-                    "text_prop": {
-                        "text": "",
-                        "style": {
-                            "font": "32px Arial",
-                            "fill": "#000"
-                        },
-                        "group": "hud",
-                        "anchor": {
+                    "key": "ui",
+                    "frame": "input_box",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
                             "x": 0.5,
                             "y": 0.5
-                        }
-                    },
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
+                        },
+                        "copy": "password",
+                        "fontName": "railway",
+                        "fontColour": "#000000",
+                        "altColour": "#00bf00",
+                        "fontSize": 30,
+                        "pivot": "center"
                     }
                 }
             },
-            "login_button": {
+            {
+                "name": "loginButton",
                 "type": "button",
                 "position": {
                     "x": 0.5,
-                    "y": 0.9
+                    "y": 0.8
                 },
+                "group": "login_options",
                 "prop": {
-                    "texture": "login_button_image",
-                    "group": "hud",
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
-                    },
-                    "callback": "attempt_login"
+                    "key": "ui",
+                    "frame": "login",
+                    "pivot": "center"
                 }
             }
-        }
+        ]
     },
     "menu": {
         "assetEntry": "menu",
@@ -319,14 +333,14 @@
                 "type": "text",
                 "position": {
                     "x": 0.5,
-                    "y": 0.15
+                    "y": 0.25
                 },
                 "group": "hud",
                 "prop": {
                     "copy": "Fruit Ninja",
                     "fontName": "railway",
                     "fontColour": "#ff00f0",
-                    "fontSize": 50,
+                    "fontSize": 100,
                     "anchor": {
                         "x": 0.5,
                         "y": 0.5
@@ -407,138 +421,151 @@
         "groups": [
             "background",
             "hud",
-            "menu_items"
+            "store_items"
         ],
-        "prefabs": {
-            "background": {
+        "prefabs": [
+            {
+                "name": "background",
                 "type": "prefab",
                 "position": {
                     "x": 0,
                     "y": 0
                 },
+                "group": "background",
                 "prop": {
-                    "texture": "background_image",
-                    "group": "background"
+                    "key": "ui",
+                    "frame": "background"
                 }
             },
-            "title": {
+            {
+                "name": "title",
                 "type": "text",
                 "position": {
                     "x": 0.5,
+                    "y": 0.25
+                },
+                "group": "hud",
+                "prop": {
+                    "copy": "Store",
+                    "fontName": "railway",
+                    "fontColour": "#ff00f0",
+                    "fontSize": 100,
+                    "anchor": {
+                        "x": 0.5,
+                        "y": 0.5
+                    },
+                    "shadow": {
+                        "x": 6,
+                        "y": 6,
+                        "colour": "rgba(0, 0, 0, 0.5)"
+                    }
+                }
+            },
+            {
+                "name": "quitButton",
+                "type": "button",
+                "position": {
+                    "x": 0.85,
                     "y": 0.05
                 },
+                "group": "hud",
                 "prop": {
-                    "text": "Store",
-                    "style": {
-                        "font": "48px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "hud",
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
+                    "key": "ui",
+                    "frame": "button",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "copy": "Back",
+                        "fontName": "railway",
+                        "fontColour": "#0000ff",
+                        "altColour": "#ffff00",
+                        "fontSize": 34,
+                        "pivot": "center",
+                        "shadow": {
+                            "x": 6,
+                            "y": 6,
+                            "colour": "rgba(0, 0, 0, 0.5)"
+                        }
                     }
                 }
             },
-            "money": {
-                "type": "text",
+            {
+                "name": "superBlade",
+                "type": "upgrade",
                 "position": {
-                    "x": 0.5,
-                    "y": 0.95
-                },
-                "prop": {
-                    "text": "",
-                    "style": {
-                        "font": "32px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "hud",
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
-                    }
-                }
-            },
-            "super_blade": {
-                "type": "upgrade_item",
-                "position": {
-                    "x": 0.3,
-                    "y": 0.3
-                },
-                "prop": {
-                    "text": "Super blade",
-                    "style": {
-                        "font": "32px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "menu_items",
-                    "description": "A super blade that gives one\n extra point for each fruit",
-                    "price": 100,
-                    "upgrade_type": "super_blade",
-                    "upgrade_prop": {
-                        "cut_multiplier": 2
-                    }
-                }
-            },
-            "extra_blade": {
-                "type": "upgrade_item",
-                "position": {
-                    "x": 0.3,
-                    "y": 0.5
-                },
-                "prop": {
-                    "text": "Extra blade",
-                    "style": {
-                        "font": "32px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "menu_items",
-                    "description": "Gets an extra blade, which\n gives one extra life",
-                    "price": 50,
-                    "upgrade_type": "extra_blade",
-                    "upgrade_prop": {
-                        "number_of_blades": 1
-                    }
-                }
-            },
-            "upgrade_description": {
-                "type": "text",
-                "position": {
-                    "x": 0.75,
-                    "y": 0.3
-                },
-                "prop": {
-                    "text": "Description",
-                    "style": {
-                        "font": "32px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "hud",
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
-                    }
-                }
-            },
-            "upgrade_price": {
-                "type": "text",
-                "position": {
-                    "x": 0.75,
+                    "x": 0.25,
                     "y": 0.6
                 },
+                "group": "store_items",
                 "prop": {
-                    "text": "Price",
-                    "style": {
-                        "font": "32px Arial",
-                        "fill": "#FFF"
-                    },
-                    "group": "hud",
-                    "anchor": {
-                        "x": 0.5,
-                        "y": 0.5
+                    "key": "ui",
+                    "frame": "button",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "copy": "Super Blade",
+                        "fontName": "railway",
+                        "fontColour": "#00ff00",
+                        "altColour": "#ff0000",
+                        "fontSize": 40,
+                        "pivot": "center",
+                        "shadow": {
+                            "x": 6,
+                            "y": 6,
+                            "colour": "rgba(0, 0, 0, 0.5)"
+                        }
                     }
+                },
+                "upgrade": {
+                    "price": 100,
+                    "description": "Increase the width of your blade!",
+                    "upgradeType": "bladeWidth",
+                    "effect": 3
+                }
+            },
+            {
+                "name": "bombBlade",
+                "type": "upgrade",
+                "position": {
+                    "x": 0.25,
+                    "y": 0.7
+                },
+                "group": "store_items",
+                "prop": {
+                    "key": "ui",
+                    "frame": "button",
+                    "pivot": "center",
+                    "text": {
+                        "position": {
+                            "x": 0.5,
+                            "y": 0.5
+                        },
+                        "copy": "Extra Life",
+                        "fontName": "railway",
+                        "fontColour": "#00ff00",
+                        "altColour": "#ff0000",
+                        "fontSize": 40,
+                        "pivot": "center",
+                        "shadow": {
+                            "x": 6,
+                            "y": 6,
+                            "colour": "rgba(0, 0, 0, 0.5)"
+                        }
+                    }
+                },
+                "upgrade": {
+                    "price": 200,
+                    "description": "Start each round with 1 extra life!",
+                    "upgradeType": "extraLife",
+                    "effect": 1
                 }
             }
-        }
+        ]
     }
 }

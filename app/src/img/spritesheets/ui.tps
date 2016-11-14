@@ -195,7 +195,8 @@
             <key type="filename">ui/button_normal.png</key>
             <key type="filename">ui/cherry.png</key>
             <key type="filename">ui/input_box.png</key>
-            <key type="filename">ui/login_button.png</key>
+            <key type="filename">ui/login_hover.png</key>
+            <key type="filename">ui/login_normal.png</key>
             <key type="filename">ui/melon.png</key>
             <key type="filename">ui/particle.png</key>
             <key type="filename">ui/sfx_hover.png</key>

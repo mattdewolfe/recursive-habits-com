@@ -1,4 +1,4 @@
-/// <reference path="../../submodules/dijon/build/dijon.d.ts"/>  
+/// <reference path="../../submodules/dijon/build/dijon.d.ts"/> 
 import BoilerPlateApplication from './BoilerPlateApplication';
 
 // bootstrap the app

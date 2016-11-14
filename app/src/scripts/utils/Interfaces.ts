@@ -1,3 +1,10 @@
+export interface IPlayerSaveData {
+    wealth: number;
+    bestScore: number;
+    lastScore: number;
+    upgrades: IUpgradeData[];
+}
+
 export interface ISceneData {
     assetEntry: string;
     groups: string[];
@@ -74,4 +81,15 @@ export interface ICuttableData extends IPrefabData {
         cuttableType: string;
         anims: string[];
     }
+}
+
+export interface IUpgradeButtonData extends IButtonData {
+    upgrade: IUpgradeData;
+}
+
+export interface IUpgradeData {
+    price: number;
+    description: string;
+    upgradeType: string;
+    effect: number;
 }

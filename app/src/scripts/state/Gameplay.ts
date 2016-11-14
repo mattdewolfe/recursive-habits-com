@@ -16,6 +16,7 @@ export default class Gameplay extends BaseState {
 
     protected _buildComplete: boolean = false;
     protected _startSwipePt: Phaser.Point;
+    protected _cutLine: Phaser.Line;
 
     // Phaser.State overrides
     public init(levelData: any) {
@@ -27,7 +28,7 @@ export default class Gameplay extends BaseState {
     // dijon.core.State overrides
     public listBuildSequence() {
         return [
-            this._initCutStatics,
+            this._initStatsAndUpgrades,
             this._addInputEvents
         ]
     }
@@ -42,9 +43,9 @@ export default class Gameplay extends BaseState {
         console.log('game over man');
     }   
     
-    protected _initCutStatics(): void {
-        FruitCut.COLOR = 0xff0000;
-        FruitCut.WIDTH = 5;
+    protected _initStatsAndUpgrades(): void {
+        FruitCut.COLOR = 0xbfbfbf;
+        FruitCut.WIDTH = 3 + this.mediator.bladeWidthUpgrade;
         FruitCut.LIFE_TIME = 0.25;
     }   
     
@@ -65,34 +66,59 @@ export default class Gameplay extends BaseState {
         this._swipeStarted = false;
         let distance = Phaser.Point.distance(this._startSwipePt, new Phaser.Point(pointer.x, pointer.y));
         if (distance >= Gameplay.MIN_SWIPE_DISTANCE) {
-            let cut: FruitCut = this._drawCut(this._startSwipePt.x, this._startSwipePt.y, pointer.x, pointer.y);
-            let cuttables: Phaser.Group = this.groups["cuttables"];
-            if (cuttables === null) {
+            this._cutLine = new Phaser.Line(this._startSwipePt.x, this._startSwipePt.y, pointer.x, pointer.y);
+            let cut: FruitCut = this._drawCut();
+            let spawners: Phaser.Group = this.groups["spawners"];
+            if (spawners === null) {
                 return;
             }
-            cuttables.forEachAlive(this._checkCollisions, this, cut);
+            for (let i = 0; i < spawners.children.length; i++){
+                let nextGroup = <Phaser.Group>spawners.getChildAt(i);
+                nextGroup.forEachAlive(this._checkCollisions, this, cut);
+            }
         }
     }
 
-    protected _drawCut(x: number, y: number, endX: number, endY: number): FruitCut {
+    protected _drawCut(): FruitCut {
         let cut = new FruitCut(this.game);
         this.groups["cuts"].addChild(cut);
-        cut.drawCut(x, y, endX, endY);
+        cut.drawCut(this._cutLine.start.x, this._cutLine.start.y, this._cutLine.end.x, this._cutLine.end.y);
         return cut;
     }   
 
     protected _checkCollisions(cuttable: Phaser.Sprite, cut: FruitCut): void {
-        if (cuttable.body.overlaps(cut)) {
-            (<FruitCuttable>cuttable).cutObject();
+        if (cuttable.body) {
+            let line1 = new Phaser.Line(cuttable.left, cuttable.bottom, cuttable.left, cuttable.top);
+            let line2 = new Phaser.Line(cuttable.left, cuttable.top, cuttable.right, cuttable.top);
+            let line3 = new Phaser.Line(cuttable.right, cuttable.top, cuttable.right, cuttable.bottom);
+            let line4 = new Phaser.Line(cuttable.right, cuttable.bottom, cuttable.left, cuttable.bottom);
+            
+            let intersection = this._cutLine.intersects(line1) || this._cutLine.intersects(line2) || this._cutLine.intersects(line3) || this._cutLine.intersects(line4);
+            if (intersection) {
+                this._onObjectCut((<FruitCuttable>cuttable).cutObject());
+            }
         }
     }
 
-    protected _startSpawners(): void {
-        let normal: Spawner = this._findPrefab("fruitSpawner");
-        if (normal === null) {
-            return;
+    protected _onObjectCut(type: string): void {
+        switch (type) {
+            case FruitCuttable.TYPES.fruit:
+                this.mediator.increaseScore(1);
+                break;
+
+            case FruitCuttable.TYPES.bomb:
+                this.mediator.decreaseLives();
+                break;
+
+            case FruitCuttable.TYPES.special:
+                this.mediator.increaseScore(1);
+                break;
         }
-        normal.queueNextSpawn();
+    }   
+    
+    protected _startSpawners(): void {
+        let spawners: Phaser.Group = this.groups['spawners'];
+        spawners.callAll("queueNextSpawn", null);
     }
     
     private _toggleSFX(): void {

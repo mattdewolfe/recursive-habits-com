@@ -1,5 +1,5 @@
 import {Application} from "dijon/application";
-import {Game} from "dijon/core";
+import RHGame from "./RHGame";
 import {Device} from "dijon/utils";
 import {CopyModel} from "dijon/mvc";
 
@@ -11,6 +11,7 @@ import Preload from "./state/Preload";
 import Menu from "./state/Menu";
 import Gameplay from './state/Gameplay';
 import Store from './state/Store';
+import Login from './state/Login';
 import { GameModel } from "./model/GameModel";
 import PrefabBuilder from './utils/PrefabBuilder';
 
@@ -23,7 +24,7 @@ export default class BoilerplateApplication extends Application {
 
     // overrides
     public createGame() {
-        this.game = new Game({
+        this.game = new RHGame({
             width: this._getGameWidth(),
             height: this._getGameHeight(),
             parent: 'game-container',
@@ -69,11 +70,8 @@ export default class BoilerplateApplication extends Application {
     public registerModels(): void {
         const gameModel = new GameModel('game_data');
         const copyModel = new CopyModel('copy');
+        this.gameModel.postBootLoad();
     }
-
-    public preloadComplete(): void {
-
-    }   
     
     // private methods
     // adds states
@@ -83,6 +81,7 @@ export default class BoilerplateApplication extends Application {
         this.game.state.add(Constants.STATE_MENU, Menu);
         this.game.state.add(Constants.STATE_GAME, Gameplay);
         this.game.state.add(Constants.STATE_STORE, Store);
+        this.game.state.add(Constants.STATE_LOGIN, Login);
     }
 
     private _getGameWidth(): number {

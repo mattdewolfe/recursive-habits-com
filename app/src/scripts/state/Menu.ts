@@ -15,7 +15,7 @@ export default class Menu extends BaseState {
     // Phaser.State overrides
     public init(levelData: any) {
         super.init(levelData);
-        this._mediator = new MenuMediator();
+        this._mediator = new MenuMediator(this);
     }
 		
     // dijon.core.State overrides
@@ -46,12 +46,6 @@ export default class Menu extends BaseState {
             storeBtn.onInputDown.add(this._onStorePressed, this);
         }
     }
-
-    // private methods
-    private _addVisuals(): void {
-        this._title = this.game.add.dText(this.realWidth * 0.5, this.realHeight * 0.1, 'FRUIT NINJA', Constants.FONT_RALEWAY, 30, Constants.STR_BLUE);
-        this._title.centerPivot();
-    }  
 
     private _onPlayPressed(): void {
         this.mediator.requestStateChange(Constants.STATE_GAME);

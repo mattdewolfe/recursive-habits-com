@@ -10,7 +10,8 @@ export default class Spawner extends Group {
         super(0, 0, data.name);
         this._data = data;
         this._spawnPoint = position;
-
+        FruitCuttable.DEFAULT_GRAVITY = 900;
+        
         for (let i = 0; i < data.spawn.poolSize; i++) {
             let cuttable = new FruitCuttable("cuttable" + this._data.cuttable.prop.cuttableType, this._spawnPoint, data.cuttable);
             cuttable.kill();

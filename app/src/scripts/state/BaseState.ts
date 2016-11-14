@@ -60,4 +60,8 @@ export default class BaseState extends State {
     public set updateAllowed(value: boolean) {
         this._updateAllowed = value; 
     }
+
+    public get firebase(): any {
+        return this.game['firebase'];
+    }
 }

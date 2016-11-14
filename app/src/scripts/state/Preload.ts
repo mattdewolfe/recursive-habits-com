@@ -14,7 +14,7 @@ export default class Preload extends BaseState {
 		
     public buildInterface(): void {
         this.mediator.notifyPreloadComplete();
-        this.mediator.next();
+        this.mediator.requestStateChange(Constants.STATE_LOGIN);
     }
 		
     // getter / setter

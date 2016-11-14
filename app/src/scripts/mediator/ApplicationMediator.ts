@@ -24,10 +24,6 @@ export default class ApplicationMediator extends BaseMediator {
                 this.viewComponent.bootComplete();
                 break;
             
-            case Notifications.PRELOAD_COMPLETE:
-                this.viewComponent.preloadComplete();
-                break;
-
             case Notifications.BOOT_COMPLETE:
                 Logger.log(this, 'Notifications.BOOT_COMPLETE');
                 this.game.asset.setData(this.game.cache.getJSON('assets'));

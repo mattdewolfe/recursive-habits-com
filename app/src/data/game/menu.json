@@ -19,13 +19,13 @@
         {
             "name": "title",
             "type": "text",
-            "position": {"x": 0.5, "y": 0.15},
+            "position": {"x": 0.5, "y": 0.25},
             "group": "hud",
             "prop": {
                 "copy": "Fruit Ninja",
                 "fontName": "railway", 
                 "fontColour": "#ff00f0",
-                "fontSize": 50,
+                "fontSize": 100,
                 "anchor": {"x": 0.5, "y": 0.5},
                 "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
             }

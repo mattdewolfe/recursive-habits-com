@@ -48,5 +48,8 @@
       "ts-runtime": "npm:babel-runtime@^5.8.24",
       "typescript": "npm:typescript@^1.6.2"
     }
+  },
+  "dependencies": {
+    "firebase-admin": "^4.0.1"
   }
 }

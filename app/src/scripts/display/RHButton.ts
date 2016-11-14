@@ -5,13 +5,13 @@ import Constants from '../utils/Constants';
 import { IButtonData, ITextComponentData } from '../utils/Interfaces';
 
 export default class RHButton extends Phaser.Button {
-    private _disabledFrame: string;
-    private _enabledFrame: string;
+    protected _disabledFrame: string;
+    protected _enabledFrame: string;
 
-    private _normalCopyColour: string;
-    private _hoverCopyColour: string;
+    protected _normalCopyColour: string;
+    protected _hoverCopyColour: string;
 
-    private _label: Text;
+    protected _label: Text;
     
     constructor(name: string, position: { x: number, y: number }, data: IButtonData) {
         super(Application.getInstance().game,

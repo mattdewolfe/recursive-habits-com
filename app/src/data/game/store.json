@@ -3,94 +3,104 @@
     "groups": [
         "background",
         "hud",
-        "menu_items"
+        "store_items"
     ],
-    "prefabs": {
-        "background": {
+    "prefabs": [
+        {
+            "name": "background",
             "type": "prefab",
             "position": {"x": 0, "y": 0},
+            "group": "background",
             "prop": {
-                "texture": "background_image",
-                "group": "background"
+                "key": "ui",
+                "frame": "background"
             }
         },
-        "title": {
+        {
+            "name": "title",
             "type": "text",
-            "position": {"x": 0.5, "y": 0.05},
+            "position": {"x": 0.5, "y": 0.25},
+            "group": "hud",
             "prop": {
-                "text": "Store",
-                "style": {
-                    "font": "48px Arial", 
-                    "fill": "#FFF"
-                },
-                "group": "hud",
-                "anchor": {"x": 0.5, "y": 0.5}
+                "copy": "Store",
+                "fontName": "railway", 
+                "fontColour": "#ff00f0",
+                "fontSize": 100,
+                "anchor": {"x": 0.5, "y": 0.5},
+                "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
             }
         },
-        "money": {
-            "type": "text",
-            "position": {"x": 0.5, "y": 0.95},
+        {   "name": "quitButton",
+            "type": "button",
+            "position": {"x": 0.85, "y": 0.05},
+            "group": "hud",
             "prop": {
-                "text": "",
-                "style": {
-                    "font": "32px Arial", 
-                    "fill": "#FFF"
-                },
-                "group": "hud",
-                "anchor": {"x": 0.5, "y": 0.5}
+                "key": "ui",
+                "frame": "button",
+                "pivot": "center",
+                "text": {
+                    "position": {"x": 0.5, "y": 0.5},
+                    "copy": "Back",
+                    "fontName": "railway", 
+                    "fontColour": "#0000ff",
+                    "altColour": "#ffff00",
+                    "fontSize": 34,
+                    "pivot": "center",
+                    "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+                }
             }
         },
-        "super_blade": {
-            "type": "upgrade_item",
-            "position": {"x": 0.3, "y": 0.3},
+        {   "name": "superBlade",
+            "type": "upgrade",
+            "position": {"x": 0.25, "y": 0.6},
+            "group": "store_items",
             "prop": {
-                "text": "Super blade",
-                "style": {"font": "32px Arial", "fill": "#FFF"},
-                "group": "menu_items",
-                "description": "A super blade that gives one\n extra point for each fruit",
+                "key": "ui",
+                "frame": "button",
+                "pivot": "center",
+                "text": {
+                    "position": {"x": 0.5, "y": 0.5},
+                    "copy": "Super Blade",
+                    "fontName": "railway", 
+                    "fontColour": "#00ff00",
+                    "altColour": "#ff0000",
+                    "fontSize": 40,
+                    "pivot": "center",
+                    "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+                }
+            },
+            "upgrade": {
                 "price": 100,
-                "upgrade_type": "super_blade",
-                "upgrade_prop": {"cut_multiplier": 2}
+                "description": "Increase the width of your blade!",
+                "upgradeType": "bladeWidth",
+                "effect": 3
             }
         },
-        "extra_blade": {
-            "type": "upgrade_item",
-            "position": {"x": 0.3, "y": 0.5},
+        {   "name": "bombBlade",
+            "type": "upgrade",
+            "position": {"x": 0.25, "y": 0.7},
+            "group": "store_items",
             "prop": {
-                "text": "Extra blade",
-                "style": {"font": "32px Arial", "fill": "#FFF"},
-                "group": "menu_items",
-                "description": "Gets an extra blade, which\n gives one extra life",
-                "price": 50,
-                "upgrade_type": "extra_blade",
-                "upgrade_prop": {"number_of_blades": 1}
-            }
-        },
-        "upgrade_description": {
-            "type": "text",
-            "position": {"x": 0.75, "y": 0.3},
-            "prop": {
-                "text": "Description",
-                "style": {
-                    "font": "32px Arial", 
-                    "fill": "#FFF"
-                },
-                "group": "hud",
-                "anchor": {"x": 0.5, "y": 0.5}
-            }
-        },
-        "upgrade_price": {
-            "type": "text",
-            "position": {"x": 0.75, "y": 0.6},
-            "prop": {
-                "text": "Price",
-                "style": {
-                    "font": "32px Arial", 
-                    "fill": "#FFF"
-                },
-                "group": "hud",
-                "anchor": {"x": 0.5, "y": 0.5}
+                "key": "ui",
+                "frame": "button",
+                "pivot": "center",
+                "text": {
+                    "position": {"x": 0.5, "y": 0.5},
+                    "copy": "Extra Life",
+                    "fontName": "railway", 
+                    "fontColour": "#00ff00",
+                    "altColour": "#ff0000",
+                    "fontSize": 40,
+                    "pivot": "center",
+                    "shadow": {"x": 6, "y": 6, "colour": "rgba(0, 0, 0, 0.5)"}
+                }
+            },
+            "upgrade": {
+                "price": 200,
+                "description": "Start each round with 1 extra life!",
+                "upgradeType": "extraLife",
+                "effect": 1
             }
         }
-    }
+    ]
 }

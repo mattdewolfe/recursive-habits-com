@@ -9,7 +9,8 @@ export default class FruitLifeMediator extends BaseMediator {
     // dijon.mvc.Mediator overrides
     public listNotificationInterests(): string[] {
         return [
-            Notifications.LIFE_LOST
+            Notifications.LIFE_LOST,
+            Notifications.LIFE_EARNED
         ]
     }
 
@@ -17,7 +18,10 @@ export default class FruitLifeMediator extends BaseMediator {
         switch (notification.getName()) {
             case Notifications.LIFE_LOST:
                 this.lives.decreaseLives();
-                break;    
+                break;
+            case Notifications.LIFE_EARNED:
+                this.lives.increaseLives();
+                break;
         }
     }
     

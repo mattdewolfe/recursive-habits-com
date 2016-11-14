@@ -5,7 +5,7 @@ import { IPrefabData } from '../utils/Interfaces';
 
 export default class FruitLife extends Group {
 
-    protected _lifeCount: number;
+    protected _maxLives: number;
     protected _livesRemaining: number;
     protected _lifeVisuals: RHPrefab[];
 
@@ -16,14 +16,17 @@ export default class FruitLife extends Group {
             this._mediator = new FruitLifeMediator(this);
         }
 
-        this._lifeCount = data.prop['lives'];
-        this._livesRemaining = this._lifeCount;
+        this._livesRemaining = data.prop['lives'];
+        this._maxLives = this._livesRemaining * 2;
         this._lifeVisuals = [];
 
-        for (let i = 0; i < this._lifeCount; i++) {
+        for (let i = 0; i < this._maxLives; i++) {
             let nextLife = new RHPrefab(name + '_life_' + i, { x: position.x + (data.prop['spacing'] * i), y: position.y }, data);
             this.addChild(nextLife);
             this._lifeVisuals.push(nextLife);
+            if (i >= this._livesRemaining) {
+                nextLife.alpha = 0;
+            }
         }
     }
 
@@ -31,6 +34,20 @@ export default class FruitLife extends Group {
         this._livesRemaining--;
         if (this._livesRemaining === 0) {
             this.mediator.notifyGameOver();
+        }
+        this._updateLivesDisplay();
+    }
+
+    public increaseLives(): void {
+        if (this._livesRemaining < 3) {
+            this._livesRemaining++;
+        }
+        this._updateLivesDisplay();
+    }
+
+    protected _updateLivesDisplay(): void {
+        for (let i = 0; i < this._maxLives; i++) {
+            this._lifeVisuals[i].alpha = i < this._livesRemaining ? 1 : 0;
         }
     }
 

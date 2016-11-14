@@ -12,10 +12,6 @@ export default class PreloadMediator extends BaseMediator {
     public notifyPreloadComplete(): void {
         this.sendNotification(Notifications.PRELOAD_COMPLETE);
     }   
-    
-    public next(): void{
-        this.requestStateChange(Constants.STATE_MENU);
-    }
 		
     // getter / setter
     public get name() {

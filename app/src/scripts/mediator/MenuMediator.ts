@@ -8,7 +8,7 @@ export default class MenuMediator extends BaseMediator {
     public get audioSpriteData(): any {
         return this.gameModel.getData()['audiosprite'];
     }  
-    
+
     // getter / setter
     public get name():string {
         return MenuMediator.MEDIATOR_NAME;
