@@ -42,7 +42,6 @@ export enum EShipType {
 }
 
 export enum ENameType {
-    Adjective,
     FirstAdjective,
     Standard, 
     TitleStandard,
@@ -220,10 +219,6 @@ export class GameModel extends Model {
         let newName: string = "";
         let type: ENameType = <ENameType>(Math.round(Math.random() * (ENameType.Max - 1)));
         switch (type) {
-            case ENameType.Adjective:
-                newName = this.randomNameAdjective;
-                break;
-
             case ENameType.FirstAdjective:
                 newName = this.randomFirstName + " " + this.randomNameAdjective;
                 break;

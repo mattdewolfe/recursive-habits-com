@@ -5,8 +5,9 @@ export default class Constants {
     // fonts
     static FONT_KOMIKAX: string = 'komikax';
     static FONT_RALEWAY: string = 'Raleway';
-
+    
     static STR_BLUE: string = '#0099e6';
+    static STR_ORANGE: string = '#ffb866';
     static STR_NEW_TITLE: string = '#ffffff';
     static STR_BTN_HOVER: string = '#ccffcc';
     static STR_BTN_NORMAL: string = '#666699';
