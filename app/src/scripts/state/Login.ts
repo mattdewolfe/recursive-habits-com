@@ -91,7 +91,7 @@ export default class Menu extends BaseState {
         }
     }   
 
-    public onLogin(error: any, authData: any): void {
+    public onLoginError(error: any, authData: any): void {
         if (error) {
             console.log(error);
             if (error.code === "auth/user-not-found") {
@@ -133,7 +133,8 @@ export default class Menu extends BaseState {
         if (this.firebase.auth().currentUser) {
             this.firebase.auth().signOut();
         }
-        this.firebase.auth().signInWithEmailAndPassword(this._loginInfo.email, this._loginInfo.password).catch(this.onLogin, this);
+        let loginAttempt: any = this.firebase.auth().signInWithEmailAndPassword(this._loginInfo.email, this._loginInfo.password);
+        loginAttempt.catch(this.onLoginError, this);
     }
 
     private _toggleSFX(): void {
