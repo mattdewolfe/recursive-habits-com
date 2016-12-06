@@ -35,6 +35,7 @@ export interface IButtonData extends IPrefabData {
     prop: {
         key: string;
         frame: string;
+        hideCharacters: boolean;
         altFrame?: string;
         useHand?: boolean;
         forceOut?: boolean;

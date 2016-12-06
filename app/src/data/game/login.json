@@ -38,6 +38,7 @@
                 "key": "ui",
                 "frame": "input_box",
                 "pivot": "center",
+                "hideCharacters": false, 
                 "text": {
                     "position": {"x": 0.5, "y": 0.5},
                     "copy": "email",
@@ -57,6 +58,7 @@
                 "key": "ui",
                 "frame": "input_box",
                 "pivot": "center",
+                "hideCharacters": true, 
                 "text": {
                     "position": {"x": 0.5, "y": 0.5},
                     "copy": "password",

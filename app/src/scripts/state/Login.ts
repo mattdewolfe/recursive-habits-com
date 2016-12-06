@@ -59,6 +59,10 @@ export default class Menu extends BaseState {
             passw.events.onInputDown.add(this._selectedField, this);
         }
 
+        let delkey: Phaser.Key = this.game.input.keyboard.addKey(Phaser.KeyCode.DELETE);
+        delkey.onDown.add(this._deleteLastInput, this);
+        let bckkey: Phaser.Key = this.game.input.keyboard.addKey(Phaser.KeyCode.BACKSPACE);
+        bckkey.onDown.add(this._deleteLastInput, this);    
         this.game.input.keyboard.addCallbacks(this, null, null, this.handleKeyboardInput);
     }
     
@@ -70,13 +74,14 @@ export default class Menu extends BaseState {
         if (!character) {
             this._currentField.removeLastCharacter();
         }
-        // else if (character === Phaser.Key) {
-        //     this._currentField.clearField();
-        // }
         else if (character !== ' ' && character !== '') {
            this._currentField.updateLabel(character);
         }
     }
+
+    private _deleteLastInput(): void {
+        this._currentField.removeLastCharacter();
+    }    
 
     private _selectedField(inputField: PlayerTextInput): void {
         this._currentField = inputField;

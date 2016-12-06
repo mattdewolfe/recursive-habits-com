@@ -251,6 +251,7 @@
                     "key": "ui",
                     "frame": "input_box",
                     "pivot": "center",
+                    "hideCharacters": false,
                     "text": {
                         "position": {
                             "x": 0.5,
@@ -277,6 +278,7 @@
                     "key": "ui",
                     "frame": "input_box",
                     "pivot": "center",
+                    "hideCharacters": true,
                     "text": {
                         "position": {
                             "x": 0.5,
